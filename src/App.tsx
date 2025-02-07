@@ -1,5 +1,4 @@
 
-import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AppLayout } from './layouts/AppLayout';
 import { Overview } from './pages/Overview';
@@ -16,7 +15,7 @@ const router = createBrowserRouter([
         path: "overview",
         element: <Overview />
       },
-  ],
+    ],
   },
   {
     path: "/auth",
@@ -32,7 +31,7 @@ const router = createBrowserRouter([
         element: <Signup />
         // loader: redirectIfUser,
       },
-    ]
+    ],
   },
 ]);
 
