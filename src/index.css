@@ -33,4 +33,18 @@
   --color-army-green: hsl(83, 20%, 47%);
   --color-gold: hsl(47, 50%, 59%);
   --color-orange: hsl(18, 47%, 52%);
+
+  /* Text font sizes */
+  --text-xl: 2rem;
+  --text-lg: 1.25rem;
+  --text-md: 1rem;
+  --text-sm: .875rem;
+  --text-xs: .75rem;
+
+  /* Line height for the font sizes */
+  --text-xl--line-height: 120%;
+  --text-lg--line-height: 120%;
+  --text-md--line-height: 150%;
+  --text-sm--line-height: 150%;
+  --text-xs--line-height: 150%;
 }

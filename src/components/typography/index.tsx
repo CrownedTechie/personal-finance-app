@@ -1,5 +1,5 @@
 import { cva } from "class-variance-authority"
-import { TypographyProps } from "./types";
+import { ITypographyProps, TypographyElements, TypographyFontSizes } from "./types";
 import clsx from "clsx";
 
 const colorClasses = {
@@ -39,14 +39,35 @@ const fontWeightClasses = {
  bold: "font-bold"
 };
 
+const fontSizesClasses = {
+ xl: "text-xl",
+ lg: "text-lg",
+ md: "text-md",
+ sm: "text-sm",
+ xs: "text-xs"
+}
+
+const elementFontSizeMap: Partial<Record<TypographyElements, TypographyFontSizes>> = {
+ h1: "xl",
+ h2: "lg",
+ h3: "md",
+ h4: "md",
+ h5: "sm",
+ h6: "sm",
+ p: "sm",
+ span: "xs"
+};
+
 const textStyles = cva("", {
  variants: {
   color: colorClasses,
   fontWeight: fontWeightClasses,
+  fontSize: fontSizesClasses,
  },
  defaultVariants: {
   color: "grey900",
   fontWeight: "regular",
+  fontSize: "sm",
  },
  compoundVariants: [],
 });
@@ -57,16 +78,23 @@ export const Typography  = ({
  children,
  color,
  fontWeight,
+ fontSize: customFontSize,
  customClass
-} : TypographyProps) => {
- 
+} : ITypographyProps) => {
+
+ const defaultElementSize = elementFontSizeMap[Element as keyof typeof elementFontSizeMap];
+ const fontSize = customFontSize || defaultElementSize;
+
  return ( 
   <Element 
-   className={textStyles({
+   className={clsx(
+    textStyles({
      color, 
      fontWeight,
-     className: clsx(customClass && customClass)
-   })}
+     fontSize
+    }),
+    customClass
+   )}
   >
    {children}
   </Element>
