@@ -1,16 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: "Public Sans", serif;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Beige */
+  --beige-500:  hsl(23, 6%, 57%);
+  --beige-100: hsl(30, 36%, 96%);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Grey */
+  --grey-900: hsl(252, 7%, 13%);
+  --grey-500: hsl(0, 0%, 41%);
+  --grey-300: hsl(0, 0%, 70%);
+  --grey-100: hsl(0, 0%, 95%);
+
+  /* Secondary colours */
+  --green: hsl(177, 52%, 32%);
+  --yellow: hsl(28, 73%, 81%);
+  --cyan: hsl(190, 52%, 68%);
+  --navy: hsl(248, 8%, 41%);
+  --red: hsl(7, 58%, 50%);
+  --purple-100: hsl(259, 30%, 56%);
+
+  /* Other colours */
+  --purple-300: hsl(288, 29%, 62%);
+  --turquoise: hsl(180, 16%, 42%);
+  --brown: hsl(21, 30%, 44%);
+  --magenta: hsl(332, 30%, 44%);
+  --blue: hsl(205, 48%, 47%);
+  --navyGrey: hsl(214, 11%, 63%);
+  --armyGreen: hsl(83, 20%, 47%);
+  --gold: hsl(47, 50%, 59%);
+  --orange: hsl(18, 47%, 52%);
 }
