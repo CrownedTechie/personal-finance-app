@@ -2,33 +2,35 @@
 
 :root {
   font-family: "Public Sans", serif;
+}
 
-  /* Beige */
-  --beige-500:  hsl(23, 6%, 57%);
-  --beige-100: hsl(30, 36%, 96%);
+@theme {
+  /* beige */
+  --color-beige500: hsl(23, 6%, 57%);
+  --color-beige100: hsl(30, 36%, 96%);
 
-  /* Grey */
-  --grey-900: hsl(252, 7%, 13%);
-  --grey-500: hsl(0, 0%, 41%);
-  --grey-300: hsl(0, 0%, 70%);
-  --grey-100: hsl(0, 0%, 95%);
+  /* grey */
+  --color-grey900: hsl(252, 7%, 13%);
+  --color-grey500: hsl(0, 0%, 41%);
+  --color-grey300: hsl(0, 0%, 70%);
+  --color-grey100: hsl(0, 0%, 95%);
 
-  /* Secondary colours */
-  --green: hsl(177, 52%, 32%);
-  --yellow: hsl(28, 73%, 81%);
-  --cyan: hsl(190, 52%, 68%);
-  --navy: hsl(248, 8%, 41%);
-  --red: hsl(7, 58%, 50%);
-  --purple-secondary: hsl(259, 30%, 56%);
+  /* Secondary colors */
+  --color-green: hsl(177, 52%, 32%);
+  --color-yellow: hsl(28, 73%, 81%);
+  --color-cyan: hsl(190, 52%, 68%);
+  --color-navy: hsl(248, 8%, 41%);
+  --color-red: hsl(7, 58%, 50%);
+  --color-purple-secondary: hsl(259, 30%, 56%);
 
-  /* Other colours */
-  --purple-tertiary: hsl(288, 29%, 62%);
-  --turquoise: hsl(180, 16%, 42%);
-  --brown: hsl(21, 30%, 44%);
-  --magenta: hsl(332, 30%, 44%);
-  --blue: hsl(205, 48%, 47%);
-  --navyGrey: hsl(214, 11%, 63%);
-  --armyGreen: hsl(83, 20%, 47%);
-  --gold: hsl(47, 50%, 59%);
-  --orange: hsl(18, 47%, 52%);
+  /* Other colors */
+  --color-purple-tertiary: hsl(288, 29%, 62%);
+  --color-turquoise: hsl(180, 16%, 42%);
+  --color-brown: hsl(21, 30%, 44%);
+  --color-magenta: hsl(332, 30%, 44%);
+  --color-blue: hsl(205, 48%, 47%);
+  --color-navy-grey: hsl(214, 11%, 63%);
+  --color-army-green: hsl(83, 20%, 47%);
+  --color-gold: hsl(47, 50%, 59%);
+  --color-orange: hsl(18, 47%, 52%);
 }
