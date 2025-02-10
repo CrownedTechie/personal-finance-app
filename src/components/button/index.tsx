@@ -5,10 +5,11 @@ import clsx from "clsx";
 import { Typography } from "../typography";
 
 const variantClasses = {
-   primary : "text-white bg-grey900 hover:bg-grey500 font-bold ",
-   secondary: "text-grey900 bg-beige100 hover:bg-white hover:border-beige500 font-bold ",
-   tertiary: "text-grey500 bg-white hover:text-grey900",
-   destroy: "text-white bg-red hover:bg-red hover:opacity-85 font-bold",
+   primary : "text-white bg-grey900 border-transparent hover:bg-grey500 font-bold ",
+   secondary: "text-grey900 bg-beige100 border-transparent hover:bg-white hover:border-beige500 font-bold ",
+   tertiary: "text-grey500 bg-white border-transparent hover:text-grey900",
+   destroy: "text-white bg-red border-transparent hover:bg-red hover:opacity-85 font-bold",
+   pagination: "text-grey900 border-beige500 hover:text-white hover:bg-beige500"
   }
 
 const buttonVariants = cva("", {
@@ -33,7 +34,7 @@ export const Button = ({children, variant, ...props}: IButtonProps) => {
    className={clsx(
     buttonVariants({ variant }),
     icon && "flex items-center gap-150",
-    "cursor-pointer p-200 border border-transparent rounded-100 text-sm"
+    "cursor-pointer p-200 border rounded-100 text-sm"
    )}
    {...props}
   >

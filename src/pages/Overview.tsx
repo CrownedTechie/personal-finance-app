@@ -48,6 +48,7 @@ export const Overview = ({}: Props) => {
       <Button variant="secondary">Secondary Button</Button>
       <Button variant="tertiary">Tertiary Button</Button>
       <Button variant="destroy">Placeholder</Button>
+      <Button variant="pagination">Placeholder</Button>
     </div>
    </div>
   </>
