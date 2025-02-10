@@ -16,4 +16,5 @@ export interface ITypographyProps extends React.HTMLAttributes<HTMLOrSVGElement>
  fontWeight?: TypographyFontWeights;
  fontSize?: TypographyFontSizes;
  customClass?: string;
+ disableDefaultStyles?: boolean,
 }

@@ -57,4 +57,14 @@
   --spacing-300: 1.5rem;
   --spacing-400: 2rem;
   --spacing-500: 2.5rem;
+
+  /* Radius */
+  --radius-50: .25rem;
+  --radius-100: .5rem;
+  --radius-150: .75rem;
+  --radius-200: 1rem;
+  --radius-250: 1.25rem;
+  --radius-300: 1.5rem;
+  --radius-400: 2rem;
+  --radius-500: 2.5rem;
 }

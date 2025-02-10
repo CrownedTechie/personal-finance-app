@@ -79,7 +79,8 @@ export const Typography  = ({
  color,
  fontWeight,
  fontSize: customFontSize,
- customClass
+ customClass,
+ disableDefaultStyles = false,
 } : ITypographyProps) => {
 
  const defaultElementSize = elementFontSizeMap[Element as keyof typeof elementFontSizeMap];
@@ -88,7 +89,7 @@ export const Typography  = ({
  return ( 
   <Element 
    className={clsx(
-    textStyles({
+    !disableDefaultStyles && textStyles({
      color, 
      fontWeight,
      fontSize

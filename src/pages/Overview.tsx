@@ -47,7 +47,7 @@ export const Overview = ({}: Props) => {
       <Button variant="primary">Primary Button</Button>
       <Button variant="secondary">Secondary Button</Button>
       <Button variant="tertiary">Tertiary Button</Button>
-      <Button variant="destroy">Tertiary Button</Button>
+      <Button variant="destroy">Placeholder</Button>
     </div>
    </div>
   </>
