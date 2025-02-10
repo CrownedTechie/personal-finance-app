@@ -1,16 +1,70 @@
 @import "tailwindcss";
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: "Public Sans", serif;
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@theme {
+  /* beige */
+  --color-beige500: hsl(23, 6%, 57%);
+  --color-beige100: hsl(30, 36%, 96%);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* grey */
+  --color-grey900: hsl(252, 7%, 13%);
+  --color-grey500: hsl(0, 0%, 41%);
+  --color-grey300: hsl(0, 0%, 70%);
+  --color-grey100: hsl(0, 0%, 95%);
+
+  /* Secondary colors */
+  --color-green: hsl(177, 52%, 32%);
+  --color-yellow: hsl(28, 73%, 81%);
+  --color-cyan: hsl(190, 52%, 68%);
+  --color-navy: hsl(248, 8%, 41%);
+  --color-red: hsl(7, 58%, 50%);
+  --color-purple-secondary: hsl(259, 30%, 56%);
+
+  /* Other colors */
+  --color-purple-tertiary: hsl(288, 29%, 62%);
+  --color-turquoise: hsl(180, 16%, 42%);
+  --color-brown: hsl(21, 30%, 44%);
+  --color-magenta: hsl(332, 30%, 44%);
+  --color-blue: hsl(205, 48%, 47%);
+  --color-navy-grey: hsl(214, 11%, 63%);
+  --color-army-green: hsl(83, 20%, 47%);
+  --color-gold: hsl(47, 50%, 59%);
+  --color-orange: hsl(18, 47%, 52%);
+
+  /* Text font sizes */
+  --text-xl: 2rem;
+  --text-lg: 1.25rem;
+  --text-md: 1rem;
+  --text-sm: .875rem;
+  --text-xs: .75rem;
+
+  /* Line height for the font sizes */
+  --text-xl--line-height: 120%;
+  --text-lg--line-height: 120%;
+  --text-md--line-height: 150%;
+  --text-sm--line-height: 150%;
+  --text-xs--line-height: 150%;
+
+  /* Spacings */
+  --spacing-50: .25rem;
+  --spacing-100: .5rem;
+  --spacing-150: .75rem;
+  --spacing-200: 1rem;
+  --spacing-250: 1.25rem;
+  --spacing-300: 1.5rem;
+  --spacing-400: 2rem;
+  --spacing-500: 2.5rem;
+
+  /* Radius */
+  --radius-50: .25rem;
+  --radius-100: .5rem;
+  --radius-150: .75rem;
+  --radius-200: 1rem;
+  --radius-250: 1.25rem;
+  --radius-300: 1.5rem;
+  --radius-400: 2rem;
+  --radius-500: 2.5rem;
 }
