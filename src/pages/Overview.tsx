@@ -39,16 +39,21 @@ export const Overview = ({}: Props) => {
      color="armyGreen"
      fontSize="xl"
     >
-      This is a span element that will use custom font size on.
+      This is a span element with custom font size.
     </Typography>
 
 
-    <div className="flex gap-8 ">
+    <div className="flex items-center gap-300 mt-500">
       <Button variant="primary">Primary Button</Button>
       <Button variant="secondary">Secondary Button</Button>
       <Button variant="tertiary">Tertiary Button</Button>
       <Button variant="destroy">Placeholder</Button>
-      <Button variant="pagination">Placeholder</Button>
+      <Button variant="pagination" paginationDirection="prev">Prev</Button>
+      <Button variant="pagination" paginationDirection="next">Next</Button>
+      <Button variant="pagination" customClass="size-500">1</Button>
+      <Button variant="pagination" customClass="size-500 bg-grey900 text-white border-transparent">2</Button>
+      <Button variant="pagination" customClass="size-500">3</Button>
+
     </div>
    </div>
   </>

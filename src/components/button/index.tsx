@@ -1,6 +1,6 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { ReactNode } from "react";
-import { BiSolidRightArrow } from "react-icons/bi";
+import { BiSolidRightArrow,  BiSolidLeftArrow } from "react-icons/bi";
 import clsx from "clsx";
 import { Typography } from "../typography";
 
@@ -9,7 +9,7 @@ const variantClasses = {
    secondary: "text-grey900 bg-beige100 border-transparent hover:bg-white hover:border-beige500 font-bold ",
    tertiary: "text-grey500 bg-white border-transparent hover:text-grey900",
    destroy: "text-white bg-red border-transparent hover:bg-red hover:opacity-85 font-bold",
-   pagination: "text-grey900 border-beige500 hover:text-white hover:bg-beige500"
+   pagination: "text-grey900 border-beige500 hover:text-white hover:bg-beige500 font-regular"
   }
 
 const buttonVariants = cva("", {
@@ -19,30 +19,38 @@ const buttonVariants = cva("", {
 });
 
 const variantIcon: Record<string, ReactNode> = {
- tertiary: <BiSolidRightArrow className="size-150" />
+ tertiary: <BiSolidRightArrow className="size-150" />,
+ paginationPrev: <BiSolidLeftArrow className="size-150" />, 
+ paginationNext: <BiSolidRightArrow className="size-150" />
 };
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
  children: ReactNode,
+ paginationDirection?: "prev" | "next";
+ customClass?: string;
 }
 
 
-export const Button = ({children, variant, ...props}: IButtonProps) => {
- const icon = variant === "tertiary" ? variantIcon[variant] : null;
+export const Button = ({children, variant, paginationDirection, customClass, ...props}: IButtonProps) => {
+ const rightArrow = variant === "tertiary" ? variantIcon[variant] : null;
+ const prevArrow = variant === "pagination" && paginationDirection === "prev" ? variantIcon["paginationPrev"] : null;
+  const nextArrow = variant === "pagination" && paginationDirection === "next" ? variantIcon["paginationNext"] : null;
+
  return ( 
   <button 
    className={clsx(
     buttonVariants({ variant }),
-    icon && "flex items-center gap-150",
-    "cursor-pointer p-200 border rounded-100 text-sm"
+    (rightArrow || prevArrow || nextArrow) && "gap-150",
+    customClass && customClass,
+    "cursor-pointer p-200 border rounded-100 text-sm flex items-center justify-center"
    )}
    {...props}
   >
-   <Typography customClass="!text-[inherit]" disableDefaultStyles>
-    {" "}
+   {prevArrow && <span>{prevArrow}</span>}
+   <Typography customClass="!text-inherit" disableDefaultStyles>
     {children}
    </Typography>
-   {icon && <span className="ml-2">{icon}</span>}
+   {(rightArrow || nextArrow) && <span>{rightArrow || nextArrow}</span>}
   </button>
  );
 }
