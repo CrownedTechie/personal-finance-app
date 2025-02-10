@@ -1,4 +1,4 @@
-import { Typography } from "../components";
+import { Button, Typography } from "../components";
 
 type Props = {
  
@@ -41,6 +41,14 @@ export const Overview = ({}: Props) => {
     >
       This is a span element that will use custom font size on.
     </Typography>
+
+
+    <div className="flex gap-8 ">
+      <Button variant="primary">Primary Button</Button>
+      <Button variant="secondary">Secondary Button</Button>
+      <Button variant="tertiary">Tertiary Button</Button>
+      <Button variant="destroy">Tertiary Button</Button>
+    </div>
    </div>
   </>
  );
