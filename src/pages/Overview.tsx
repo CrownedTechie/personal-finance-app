@@ -9,7 +9,7 @@ export const Overview = ({}: Props) => {
   <>
    <h1>Overview page</h1>
 
-   <div className="mt-9">
+   <div className="mt-9 mx-500">
     <Typography>
      This is me just testing the Typography component 1
      Default Variant
