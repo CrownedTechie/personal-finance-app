@@ -55,22 +55,41 @@ export const Overview = ({}) => {
       <Button variant="pagination" customClass="size-500">3</Button>
     </div>
 
-    <div className="mt-500 flex gap-500 items-center">
+    <div className="mt-500 flex gap-500 flex-wrap items-center">
       <TextField 
+        fieldType="input"
         labelText="Basic Field"
         helperText="Helper text"
       />
       <TextField
+        fieldType="input"
         labelText="Field With Icon" 
         helperText="Helper text"
         icon={<IoSearchOutline className="size-250 text-grey900" />}
       />
       <TextField
+        fieldType="input"
         labelText="Field With Prefix" 
         helperText="Helper text"
         prefix={<LiaDollarSignSolid className="size-250 text-beige500" />}
       />
 
+      <TextField
+        fieldType="select"
+        labelText="Field With Color Tag" 
+        helperText="Helper text"
+        selectOptions={colorOptions}
+        selectDefaultValue={colorOptions[0]}
+      />
+
+      <TextField
+        fieldType="select"
+        labelText="Field Without Color Tag" 
+        helperText="Helper text"
+        selectOptions={fruitOptions}
+        selectPlaceholder="Select a fruit..."
+      />
+{/* 
       <SelectDropdown 
         options={fruitOptions}
         placeholder="Select a fruit..."
@@ -79,7 +98,7 @@ export const Overview = ({}) => {
       <SelectDropdown 
         options={colorOptions}
         defaultValue={colorOptions[0]}
-      />
+      /> */}
     </div>
 
    </div>

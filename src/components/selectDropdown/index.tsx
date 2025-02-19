@@ -32,7 +32,7 @@ const selectStyles: StylesConfig<IOptionType> = {
    ...styles,
    border: '1px solid hsl(23, 6%, 57%)',
    borderRadius: '.5rem',
-   padding: '0rem 1.25rem',
+   padding: '0rem .25rem',
    fontSize: '.875rem',
    outline: 'none',
    boxShadow: 'none',
@@ -102,8 +102,7 @@ const CustomOption = (props: any) => {
       ref={innerRef} 
       {...innerProps} 
       className={clsx(
-       "flex items-center border-b border-b-grey100 justify-between mx-300 py-150 cursor-pointer",
-       // isDisabled && "cursor-not-allowed"
+       "flex items-center border-b border-b-grey100 justify-between mx-200 py-150 cursor-pointer",
       )}
     >
       {/* Colored Dot + Label */}
