@@ -4,34 +4,19 @@ import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { PiCheckCircleFill } from "react-icons/pi";
 import clsx from "clsx";
 import { Typography } from "../typography";
+import { IOptionType } from "./types";
 
-
-export interface ColourOption {
-  readonly value: string;
-  readonly label: string;
-  readonly color: string;
-  readonly isFixed?: boolean;
-  readonly isDisabled?: boolean;
+export interface ISelectDropdownProps {
+ options: IOptionType[];
+ placeholder?: string;
+ defaultValue?: IOptionType;
 }
 
-export const colourOptions: readonly ColourOption[] = [
-  { value: 'ocean', label: 'Ocean', color: '#00B8D9', isFixed: true },
-  { value: 'blue', label: 'Blue', color: '#0052CC', isDisabled: true },
-  { value: 'purple', label: 'Purple', color: '#5243AA' },
-  { value: 'red', label: 'Red', color: '#FF5630', isFixed: true },
-  { value: 'orange', label: 'Orange', color: '#FF8B00' },
-  { value: 'yellow', label: 'Yellow', color: '#FFC400' },
-  { value: 'green', label: 'Green', color: '#36B37E' },
-  { value: 'forest', label: 'Forest', color: '#00875A' },
-  { value: 'slate', label: 'Slate', color: '#253858' },
-  { value: 'silver', label: 'Silver', color: '#666666' },
-];
-
-const dot = (color = 'transparent') => ({
+const dot = (color?: string) => ({
   alignItems: 'center',
   display: 'flex',
-
-  ':before': {
+  ':before': color 
+   ? {
     backgroundColor: color,
     borderRadius: 16,
     content: '" "',
@@ -39,15 +24,15 @@ const dot = (color = 'transparent') => ({
     marginRight: 12,
     height: 16,
     width: 16,
-  },
+   } : {},
 });
 
-const colourStyles: StylesConfig<ColourOption> = {
+const selectStyles: StylesConfig<IOptionType> = {
   control: (styles) => ({ 
    ...styles,
    border: '1px solid hsl(23, 6%, 57%)',
    borderRadius: '.5rem',
-   padding: '0rem .75rem',
+   padding: '0rem 1.25rem',
    fontSize: '.875rem',
    outline: 'none',
    boxShadow: 'none',
@@ -91,9 +76,8 @@ const colourStyles: StylesConfig<ColourOption> = {
    padding: '0.75rem 0rem',
    margin: '0rem',
   }),
-  placeholder: (styles) => ({ ...styles, ...dot('#ccc') }),
+  placeholder: (styles) => ({ ...styles,  ...dot()}),
   singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
-
 };
 
 const CustomDropdownIndicator = (props: any) => {
@@ -110,7 +94,6 @@ const CustomDropdownIndicator = (props: any) => {
   );
 };
 
-
 const CustomOption = (props: any) => {
   const { data, isSelected, isDisabled, innerRef, innerProps } = props;
   
@@ -120,21 +103,25 @@ const CustomOption = (props: any) => {
       {...innerProps} 
       className={clsx(
        "flex items-center border-b border-b-grey100 justify-between mx-300 py-150 cursor-pointer",
+       // isDisabled && "cursor-not-allowed"
       )}
     >
       {/* Colored Dot + Label */}
       <div className={clsx(
-        "flex items-center gap-150",
-       )}>
-        <span
-         className={clsx(
-          "size-200 rounded-full",
-          isDisabled && "opacity-10"
-         )}
-          style={{
-            backgroundColor: data.color,
-          }}
-        />
+        "flex items-center gap-150 text-nowrap",
+       )}
+      >
+        {data.color && (
+         <span
+          className={clsx(
+           "size-200 rounded-full",
+           isDisabled && "opacity-10"
+          )}
+           style={{
+             backgroundColor: data.color,
+           }}
+         />
+        )}
         <Typography 
          color={isDisabled && "grey500"}
         >
@@ -149,12 +136,14 @@ const CustomOption = (props: any) => {
 };
 
 
-export const SelectDropdown = ({}) => {
+
+export const SelectDropdown = ({options, placeholder, defaultValue}: ISelectDropdownProps) => {
  return ( 
   <Select 
-   defaultValue={colourOptions[2]}
-   options={colourOptions}
-   styles={colourStyles}
+   defaultValue={defaultValue}
+   options={options}
+   styles={selectStyles}
+   placeholder={placeholder}
    components={{ 
     DropdownIndicator: CustomDropdownIndicator,
     IndicatorSeparator: () => null,

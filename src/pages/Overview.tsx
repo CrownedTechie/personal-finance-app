@@ -2,6 +2,7 @@ import { Button, TextField, Typography } from "../components";
 import { IoSearchOutline } from "react-icons/io5";
 import { LiaDollarSignSolid } from "react-icons/lia";
 import { SelectDropdown } from "../components/selectDropdown";
+import { colourOptions, fruitOptions } from "../constants/data";
 
 export const Overview = ({}) => {
  return ( 
@@ -70,8 +71,15 @@ export const Overview = ({}) => {
         prefix={<LiaDollarSignSolid className="size-250 text-beige500" />}
       />
 
-    <SelectDropdown />
+      <SelectDropdown 
+        options={colourOptions}
+        defaultValue={colourOptions[0]}
+      />
 
+      <SelectDropdown 
+        options={fruitOptions}
+        placeholder="Select a fruit..."
+      />
     </div>
 
    </div>
