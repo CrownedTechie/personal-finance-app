@@ -137,7 +137,15 @@ const CustomOption = (props: any) => {
 
 
 
-export const SelectDropdown = ({options, placeholder, defaultValue}: ISelectDropdownProps) => {
+export const SelectDropdown = ({
+ options = [
+   { label: "Un-appraised", value: "Un-appraised" },
+   { label: "In-progress", value: "In-progress" },
+   { label: "completed", value: "completed" },
+ ], 
+ placeholder = "Select a value", 
+ defaultValue
+}: ISelectDropdownProps) => {
  return ( 
   <Select 
    defaultValue={defaultValue}
