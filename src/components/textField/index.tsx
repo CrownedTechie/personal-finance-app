@@ -42,7 +42,7 @@ export const TextField = ({
 
    {fieldType === "input" && (
     <div className={clsx(
-     "border border-beige500 px-200 rounded-100",
+     "border border-beige500 px-200 rounded-100 hover:border-grey500 ",
      (icon || prefix) && "flex items-center gap-150"
     )}>
      {prefix && prefix}

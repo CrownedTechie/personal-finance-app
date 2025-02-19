@@ -30,12 +30,15 @@ const dot = (color?: string) => ({
 const selectStyles: StylesConfig<IOptionType> = {
   control: (styles) => ({ 
    ...styles,
-   border: '1px solid hsl(23, 6%, 57%)',
+   border: '1px solid var(--color-beige500)',
    borderRadius: '.5rem',
    padding: '0rem .25rem',
    fontSize: '.875rem',
    outline: 'none',
    boxShadow: 'none',
+   ":hover": {
+    border: '1px solid var(--color-grey500)',
+   }
   }),
   // option: (styles, { data, isDisabled, isFocused, isSelected }) => {
   //  const colorData = data as ColourOption;
@@ -137,11 +140,12 @@ const CustomOption = (props: any) => {
 
 
 export const SelectDropdown = ({
- options = [
-   { label: "Un-appraised", value: "Un-appraised" },
-   { label: "In-progress", value: "In-progress" },
-   { label: "completed", value: "completed" },
- ], 
+ // options = [
+ //   { label: "Un-appraised", value: "Un-appraised" },
+ //   { label: "In-progress", value: "In-progress" },
+ //   { label: "completed", value: "completed" },
+ // ], 
+ options,
  placeholder = "Select a value", 
  defaultValue
 }: ISelectDropdownProps) => {
