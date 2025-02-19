@@ -1,6 +1,10 @@
 import chroma from "chroma-js";
 import Select, { StylesConfig, components } from 'react-select';
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
+import { PiCheckCircleFill } from "react-icons/pi";
+import clsx from "clsx";
+import { Typography } from "../typography";
+
 
 export interface ColourOption {
   readonly value: string;
@@ -43,44 +47,44 @@ const colourStyles: StylesConfig<ColourOption> = {
    ...styles,
    border: '1px solid hsl(23, 6%, 57%)',
    borderRadius: '.5rem',
-   padding: '0rem 1rem',
+   padding: '0rem .75rem',
    fontSize: '.875rem',
    outline: 'none',
    boxShadow: 'none',
   }),
-  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-   const colorData = data as ColourOption;
-    const color = chroma(colorData.color);
-    return {
-      ...styles,
-      backgroundColor: isDisabled
-        ? undefined
-        : isSelected
-        ? colorData.color
-        : isFocused
-        ? color.alpha(0.1).css()
-        : undefined,
-      color: isDisabled
-        ? '#ccc'
-        : isSelected
-        ? chroma.contrast(color, 'white') > 2
-          ? 'white'
-          : 'black'
-        : colorData.color,
-      cursor: isDisabled ? 'not-allowed' : 'default',
-      textWrap: "nowrap",
-      whiteSpace: "wrap",
+  // option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+  //  const colorData = data as ColourOption;
+  //   const color = chroma(colorData.color);
+  //   return {
+  //     ...styles,
+  //     backgroundColor: isDisabled
+  //       ? undefined
+  //       : isSelected
+  //       ? colorData.color
+  //       : isFocused
+  //       ? color.alpha(0.1).css()
+  //       : undefined,
+  //     color: isDisabled
+  //       ? '#ccc'
+  //       : isSelected
+  //       ? chroma.contrast(color, 'white') > 2
+  //         ? 'white'
+  //         : 'black'
+  //       : colorData.color,
+  //     cursor: isDisabled ? 'not-allowed' : 'default',
+  //     textWrap: "nowrap",
+  //     whiteSpace: "wrap",
 
-      ':active': {
-        ...styles[':active'],
-        backgroundColor: !isDisabled
-          ? isSelected
-            ? colorData.color
-            : color.alpha(0.3).css()
-          : undefined,
-      },
-    };
-  },
+  //     // ':active': {
+  //     //   ...styles[':active'],
+  //     //   backgroundColor: !isDisabled
+  //     //     ? isSelected
+  //     //       ? colorData.color
+  //     //       : color.alpha(0.3).css()
+  //     //     : undefined,
+  //     // },
+  //   };
+  // },
   input: (styles) => ({ 
    ...styles, 
    ...dot(),
@@ -106,6 +110,45 @@ const CustomDropdownIndicator = (props: any) => {
   );
 };
 
+
+const CustomOption = (props: any) => {
+  const { data, isSelected, isDisabled, innerRef, innerProps } = props;
+  
+  return (
+    <div 
+      ref={innerRef} 
+      {...innerProps} 
+      className={clsx(
+       "flex items-center border-b border-b-grey100 justify-between mx-300 py-150 cursor-pointer",
+      )}
+    >
+      {/* Colored Dot + Label */}
+      <div className={clsx(
+        "flex items-center gap-150",
+       )}>
+        <span
+         className={clsx(
+          "size-200 rounded-full",
+          isDisabled && "opacity-10"
+         )}
+          style={{
+            backgroundColor: data.color,
+          }}
+        />
+        <Typography 
+         color={isDisabled && "grey500"}
+        >
+         {data.label}
+        </Typography>
+      </div>
+
+      {isSelected && <PiCheckCircleFill className="text-green size-200" />}
+      {isDisabled && <Typography as="span" color="grey500" >Already used</Typography>}
+    </div>
+  );
+};
+
+
 export const SelectDropdown = ({}) => {
  return ( 
   <Select 
@@ -114,9 +157,9 @@ export const SelectDropdown = ({}) => {
    styles={colourStyles}
    components={{ 
     DropdownIndicator: CustomDropdownIndicator,
-    IndicatorSeparator: () => null
+    IndicatorSeparator: () => null,
+    Option: CustomOption,
    }}
-   // unstyled={true}
   />
  );
 };
