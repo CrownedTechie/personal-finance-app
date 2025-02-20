@@ -1,8 +1,8 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { ReactNode } from "react";
-import { BiSolidRightArrow,  BiSolidLeftArrow } from "react-icons/bi";
 import clsx from "clsx";
 import { Typography } from "../typography";
+import { PiCaretLeftFill, PiCaretRightFill } from "react-icons/pi";
 
 const variantClasses = {
    primary : "text-white bg-grey900 border-transparent hover:bg-grey500 font-bold ",
@@ -19,9 +19,9 @@ const buttonVariants = cva("", {
 });
 
 const variantIcon: Record<string, ReactNode> = {
- tertiary: <BiSolidRightArrow className="size-150" />,
- paginationPrev: <BiSolidLeftArrow className="size-150" />, 
- paginationNext: <BiSolidRightArrow className="size-150" />
+ tertiary: <PiCaretRightFill className="size-200" />,
+ paginationPrev: <PiCaretLeftFill className="size-200" />, 
+ paginationNext: <PiCaretRightFill className="size-200" />
 };
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {

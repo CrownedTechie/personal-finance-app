@@ -6,7 +6,7 @@ import { IOptionType } from "../selectDropdown/types";
 
 interface ITextfieldProps {
  icon?: ReactNode;
- prefix?: ReactNode;
+ prefix?: boolean;
  labelText?: string;
  helperText?: string;
  fieldType?: "input" | "select";
@@ -47,7 +47,7 @@ export const TextField = ({
       "border border-beige500 px-200 rounded-100 hover:border-grey500",
       (icon || prefix) && "flex items-center gap-150"
      )}>
-      {prefix && prefix}
+      {prefix && <Typography color="beige500">$</Typography>}
       <input 
        type={inputType} 
        name="" 

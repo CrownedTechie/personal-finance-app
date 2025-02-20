@@ -1,8 +1,6 @@
 import { Button, Sidebar, TextField, Typography } from "../../components";
-import { IoSearchOutline } from "react-icons/io5";
-import { LiaDollarSignSolid } from "react-icons/lia";
 import { colorOptions, fruitOptions } from "../../constants/data";
-import { PiCaretLeftFill, PiCaretRightFill, PiCaretDownFill, PiCaretUpFill, PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiDotsThreeOutlineFill, PiListBulletsBold, PiMagnifyingGlass, PiPottedPlantFill, PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiCheckCircleFill, PiWarningCircleFill, PiWrenchFill, PiNetworkFill, PiVideoFill, PiBarbellFill, PiMusicNoteFill, PiBookOpenTextFill, PiShieldPlusFill, PiWarehouseFill, PiFunnelFill, PiSortAscendingFill, PiSortDescendingFill, PiEyeFill, PiEyeSlashFill, PiXCircleLight, PiTipJarLight, PiTipJarFill, } from "react-icons/pi";
+import { PiCaretLeftFill, PiCaretRightFill, PiCaretDownFill, PiCaretUpFill, PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiDotsThreeOutlineFill, PiListBulletsBold, PiMagnifyingGlass, PiPottedPlantFill, PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiCheckCircleFill, PiWarningCircleFill, PiWrenchFill, PiNetworkFill, PiVideoFill, PiBarbellFill, PiMusicNoteFill, PiBookOpenTextFill, PiShieldPlusFill, PiWarehouseFill, PiFunnelFill, PiSortAscendingFill, PiSortDescendingFill, PiEyeFill, PiEyeSlashFill, PiXCircleLight, PiTipJarLight, PiTipJarFill } from "react-icons/pi";
 
 export const Component = () => {
  return ( 
@@ -118,13 +116,13 @@ export const Component = () => {
         inputType="text"
         labelText="Field With Icon" 
         helperText="Helper text"
-        icon={<IoSearchOutline className="size-250 text-grey900" />}
+        icon={<PiMagnifyingGlass  className="size-200 text-grey900" />}
       />
       <TextField
         inputType="text"
         labelText="Field With Prefix" 
         helperText="Helper text"
-        prefix={<LiaDollarSignSolid className="size-250 text-beige500" />}
+        prefix
       />
 
       <TextField

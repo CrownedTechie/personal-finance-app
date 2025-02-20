@@ -1,7 +1,6 @@
 import chroma from "chroma-js";
 import Select, { StylesConfig, components } from 'react-select';
-import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
-import { PiCheckCircleFill } from "react-icons/pi";
+import { PiCaretDownFill, PiCaretUpFill, PiCheckCircleFill } from "react-icons/pi";
 import clsx from "clsx";
 import { Typography } from "../typography";
 import { IOptionType } from "./types";
@@ -89,9 +88,9 @@ const CustomDropdownIndicator = (props: any) => {
   return (
     <components.DropdownIndicator {...props}>
       {selectProps.menuIsOpen ? (
-        <GoTriangleUp className="size-250 text-grey900" />
+        <PiCaretUpFill className="size-200 text-grey900" />
       ) : (
-        <GoTriangleDown className="size-250 text-grey900" />
+        <PiCaretDownFill className="size-200 text-grey900" />
       )}
     </components.DropdownIndicator>
   );
