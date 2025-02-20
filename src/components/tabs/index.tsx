@@ -32,8 +32,9 @@ export const Tabs = () => {
      to={`?tab=${tab.name}` || tab.location}
      className={({isActive}) => 
       clsx(
-       `flex items-center rounded-tr-150 rounded-br-150 gap-200 px-400 py-200 hover:*:text-beige100`,
-        activeTab === tab.name && "bg-beige100 border-l-4 border-l-green "
+       `flex items-center rounded-tr-150 rounded-br-150 gap-200 px-400 py-200 transition-all duration-300 ease-in-out`,
+        activeTab !== tab.name && "hover:*:text-beige100 hover:scale-105",
+        activeTab === tab.name && "bg-beige100 border-l-4 border-l-green"
       )
      }
     >
