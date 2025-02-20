@@ -56,18 +56,18 @@ export const Overview = ({}) => {
 
     <div className="mt-500 flex gap-500 flex-wrap items-center">
       <TextField 
-        fieldType="input"
+        inputType="text"
         labelText="Basic Field"
         helperText="Helper text"
       />
       <TextField
-        fieldType="input"
+        inputType="text"
         labelText="Field With Icon" 
         helperText="Helper text"
         icon={<IoSearchOutline className="size-250 text-grey900" />}
       />
       <TextField
-        fieldType="input"
+        inputType="text"
         labelText="Field With Prefix" 
         helperText="Helper text"
         prefix={<LiaDollarSignSolid className="size-250 text-beige500" />}

@@ -9,7 +9,8 @@ interface ITextfieldProps {
  prefix?: ReactNode;
  labelText?: string;
  helperText?: string;
- fieldType: "input" | "select";
+ fieldType?: "input" | "select";
+ inputType?: "text" | "password";
  selectOptions?: IOptionType[];
  selectPlaceholder?: string;
  selectDefaultValue?: IOptionType;
@@ -20,7 +21,8 @@ export const TextField = ({
  labelText, 
  helperText, 
  prefix, 
- fieldType,
+ fieldType = "input",
+ inputType = "text",
  selectDefaultValue,
  selectPlaceholder,
  selectOptions = [
@@ -40,29 +42,28 @@ export const TextField = ({
     </Typography>
    </label>
 
-   {fieldType === "input" && (
-    <div className={clsx(
-     "border border-beige500 px-200 rounded-100 hover:border-grey500 ",
-     (icon || prefix) && "flex items-center gap-150"
-    )}>
-     {prefix && prefix}
-     <input 
-      type="text" 
-      name="" 
-      placeholder="Placeholder" 
-      className=" py-150 font-normal text-sm text-grey900 w-full placeholder:text-sm placeholder-beige500 focus:outline-none " 
+   {fieldType === "input" ? (
+     <div className={clsx(
+      "border border-beige500 px-200 rounded-100 hover:border-grey500",
+      (icon || prefix) && "flex items-center gap-150"
+     )}>
+      {prefix && prefix}
+      <input 
+       type={inputType} 
+       name="" 
+       placeholder="Placeholder" 
+       className=" py-150 font-normal text-sm text-grey900 w-full placeholder:text-sm placeholder-beige500 focus:outline-none " 
+      />
+      {icon && icon}
+     </div>
+    ) : (
+     <SelectDropdown 
+      options={selectOptions}
+      placeholder={selectPlaceholder}
+      defaultValue={selectDefaultValue}
      />
-     {icon && icon}
-    </div>
-   )}
-
-   {fieldType === "select" && (
-    <SelectDropdown 
-     options={selectOptions}
-     placeholder={selectPlaceholder}
-     defaultValue={selectDefaultValue}
-    />
-   )}
+    )
+   }
    
    <Typography color="grey500" customClass="place-self-end">{helperText}</Typography>
   </div>
