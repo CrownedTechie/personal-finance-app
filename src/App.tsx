@@ -1,10 +1,7 @@
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AppLayout } from './layouts/AppLayout';
-import { Overview } from './pages/Overview';
 import { AuthLayout } from './layouts/AuthLayout';
-import { Login } from './pages/auth/Login';
-import { Signup } from './pages/auth/Signup';
+import { Component, Login, Overview, Signup } from './pages';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +31,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    
+    path: "/components",
+    element: <Component />
   },
 ]);
 

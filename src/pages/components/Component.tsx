@@ -1,12 +1,17 @@
-import { Button, TextField, Typography } from "../components";
+import { Button, TextField, Typography } from "../../components";
 import { IoSearchOutline } from "react-icons/io5";
 import { LiaDollarSignSolid } from "react-icons/lia";
-import { colorOptions, fruitOptions } from "../constants/data";
+import { colorOptions, fruitOptions } from "../../constants/data";
 
-export const Overview = ({}) => {
+export const Component = () => {
  return ( 
   <>
-   <h1>Overview page</h1>
+   <Typography 
+    as="h1"
+    customClass="text-center mt-300"
+   >
+    Components Page
+   </Typography>
 
    <div className="mt-9 mx-500">
     <Typography>
@@ -40,8 +45,8 @@ export const Overview = ({}) => {
     >
       This is a span element with custom font size.
     </Typography>
-
-
+   
+   
     <div className="flex items-center gap-300 mt-500 ">
       <Button variant="primary">Primary Button</Button>
       <Button variant="secondary">Secondary Button</Button>
@@ -91,6 +96,7 @@ export const Overview = ({}) => {
     </div>
 
    </div>
+   
   </>
  );
 }
