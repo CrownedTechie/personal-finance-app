@@ -1,22 +1,39 @@
+import { useState } from "react";
 import { Button, Sidebar, TextField, Typography } from "../../components";
 import { colorOptions, fruitOptions } from "../../constants/data";
 import { PiCaretLeftFill, PiCaretRightFill, PiCaretDownFill, PiCaretUpFill, PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiDotsThreeOutlineFill, PiListBulletsBold, PiMagnifyingGlass, PiPottedPlantFill, PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiCheckCircleFill, PiWarningCircleFill, PiWrenchFill, PiNetworkFill, PiVideoFill, PiBarbellFill, PiMusicNoteFill, PiBookOpenTextFill, PiShieldPlusFill, PiWarehouseFill, PiFunnelFill, PiSortAscendingFill, PiSortDescendingFill, PiEyeFill, PiEyeSlashFill, PiXCircleLight, PiTipJarLight, PiTipJarFill } from "react-icons/pi";
+import clsx from "clsx";
 
 export const Component = () => {
+
+ //Todo: render the isOpen state here so that main can have it too. Then pass it to the others through the sidebar
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+ 
  return ( 
   <>
-   <Typography 
-    as="h1"
-    customClass="text-center mt-300"
+   <header>
+    <Typography 
+     as="h1"
+     customClass="mt-300 ml-[18.75rem]"
+     fontWeight="bold"
+    >
+     Components Page
+    </Typography>
+   </header>
+   
+
+   <Sidebar 
+    isOpen={isOpen}
+    setIsOpen={setIsOpen}
+   />
+
+   {/* Add border to the main and div when debugging*/}
+   <main className={clsx(
+     " mt-300 pb-32 lg:mx-auto transition-normal duration-200 border border-red flex justify-center items-center",
+     isOpen ? "lg:ml-[18.75rem]" : ""
+    )}
    >
-    Components Page
-   </Typography>
-
-   <Sidebar />
-
-   {/* Add border to the main and div */}
-   <main className=" mt-300 ml-64 mx-auto transition-all duration-300">
-    <div className="mt-9 mx-500 flex flex-col justify-center">
+    <div className="mt-9 mx-500 flex flex-col justify-center border border-green">
 
      {/* PROJECT ICONS */}
      <Typography 
@@ -106,7 +123,7 @@ export const Component = () => {
      </div>
 
      {/* TEXT FIELDS */}
-     <div className="mt-500 flex gap-500 flex-wrap items-center">
+     <div className="mt-500 flex flex-col lg:flex-row flex-wrap gap-300 lg:gap-500 lg:items-center">
       <TextField 
         inputType="text"
         labelText="Basic Field"

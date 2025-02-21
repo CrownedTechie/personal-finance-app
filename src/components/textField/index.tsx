@@ -32,7 +32,7 @@ export const TextField = ({
  ]
 }: ITextfieldProps) => {
  return ( 
-  <div className="flex flex-col gap-50 w-[20%]">
+  <div className="flex flex-col gap-50">
    <label htmlFor="">
     <Typography
      color="grey500"
