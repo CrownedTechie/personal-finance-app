@@ -1,13 +1,20 @@
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import {AuthImage}  from "../assets/svgs";
 
-type Props = {
- 
+interface ILayoutProps {
+  children: ReactNode;
 }
-export const AuthLayout = ({}: Props) => {
+
+export const AuthLayout = ({}) => {
  return ( 
-  <div>
+  <main>
     <h1>This is the Auth Layout Page</h1>
+
+    <aside>
+      <AuthImage />
+    </aside>
     <nav>
      <ul>
       <li>
@@ -23,6 +30,6 @@ export const AuthLayout = ({}: Props) => {
    <main>
      <Outlet />
    </main>
-  </div>
+  </main>
  );
 }
