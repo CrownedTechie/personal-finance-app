@@ -7,6 +7,8 @@ export const AppLayout = () => {
   <>
    <h1>APP Layout</h1>
 
+   {/* Just side bar and container that will be here */}
+
    <main>
     <Outlet />
    </main>

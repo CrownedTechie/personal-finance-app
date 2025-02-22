@@ -1,18 +1,17 @@
-import { Typography } from "../typography";
+import clsx from "clsx";
+import { ReactNode } from "react";
 
-type Props = {
- 
-}
+interface IContainerProps {
+ children: ReactNode;
+};
 
-export const Container = ({}: Props) => {
+export const Container = ({children}: IContainerProps) => {
  return ( 
-  <div>
-   <header>
-    <Typography>Heading</Typography>
-   </header>
-   <main>
-     {/* Content of the body will be here */}
-   </main>
+  <div className={clsx(
+   "py-400 px-500 transition-margin duration-350 w-full overflow-y-scroll"
+  )}
+  > 
+   <div className="max-w-[71.25rem] mx-auto">{children}</div>
   </div>
  );
 };

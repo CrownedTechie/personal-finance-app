@@ -39,8 +39,8 @@ export const Tabs = ({isOpen}: ITabsProps) => {
      to={`?tab=${tab.name}` || tab.location}
      className={({isActive}) => 
       clsx(
-       `flex items-center rounded-tl-150 rounded-tr-150 lg:rounded-tl-none lg:rounded-tr-150 lg:rounded-br-150 lg:gap-200 py-100 px-200 border border-transparent md:px-400 lg:py-200 transition-transform duration-350 ease-out`,
-        activeTab !== tab.name && "hover:*:text-beige100 transform hover:scale-105",
+       `flex items-center rounded-tl-150 rounded-tr-150 lg:rounded-tl-none lg:rounded-tr-150 lg:rounded-br-150 lg:gap-200 py-100 px-200 md:px-400 lg:py-200 transition-transform duration-350 ease-out`,
+        activeTab !== tab.name && "hover:*:text-beige100 transform hover:scale-110",
         activeTab === tab.name && "bg-beige100 border-b-4 border-b-green lg:border-b-0 lg:border-l-4 lg:border-l-green",
         isTabScreen ? "flex-col" : "flex-row",
       )

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Button, Sidebar, TextField, Typography } from "../../components";
+import { Button, Container, Sidebar, TextField, Typography } from "../../components";
 import { colorOptions, fruitOptions } from "../../constants/data";
 import { PiCaretLeftFill, PiCaretRightFill, PiCaretDownFill, PiCaretUpFill, PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiDotsThreeOutlineFill, PiListBulletsBold, PiMagnifyingGlass, PiPottedPlantFill, PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiCheckCircleFill, PiWarningCircleFill, PiWrenchFill, PiNetworkFill, PiVideoFill, PiBarbellFill, PiMusicNoteFill, PiBookOpenTextFill, PiShieldPlusFill, PiWarehouseFill, PiFunnelFill, PiSortAscendingFill, PiSortDescendingFill, PiEyeFill, PiEyeSlashFill, PiXCircleLight, PiTipJarLight, PiTipJarFill } from "react-icons/pi";
-import clsx from "clsx";
 
 export const Component = () => {
 
@@ -10,30 +9,25 @@ export const Component = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
  
  return ( 
-  <>
-   <header>
-    <Typography 
-     as="h1"
-     customClass="mt-300 ml-[18.75rem]"
-     fontWeight="bold"
-    >
-     Components Page
-    </Typography>
-   </header>
-   
-
+  <main className="flex w-screen max-h-screen">
    <Sidebar 
     isOpen={isOpen}
     setIsOpen={setIsOpen}
    />
 
-   {/* Add border to the main and div when debugging*/}
-   <main className={clsx(
-     " mt-300 pb-32 lg:mx-auto transition-normal duration-200 border border-red flex justify-center items-center",
-     isOpen ? "lg:ml-[18.75rem]" : ""
-    )}
-   >
-    <div className="mt-9 mx-500 flex flex-col justify-center border border-green">
+   <Container>
+    <header>
+     <Typography 
+      as="h1"
+      fontWeight="bold"
+      customClass="mb-400"
+     >
+      Components
+     </Typography>
+    </header>
+
+    <main>
+    <div className="flex flex-col justify-center">
 
      {/* PROJECT ICONS */}
      <Typography 
@@ -160,6 +154,7 @@ export const Component = () => {
      </div>
     </div>
    </main>
-  </>
+   </Container>
+  </main>
  );
 }

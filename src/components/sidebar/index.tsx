@@ -19,8 +19,8 @@ export const Sidebar = ({isOpen, setIsOpen}: ISidebarProps) => {
   <>
    <aside 
     className={clsx(
-     "fixed left-0 top-0 h-screen duration-350 z-50 bg-grey900 text-grey300 rounded-br-200 rounded-tr-200 lg:flex flex-col gap-300 hidden",
-     isOpen ? "w-[18.75rem]  transition-transform transform " : "w-[5.5rem] -translate-x-0 "
+     "sticky left-0 top-0 h-screen duration-100 z-50 bg-grey900 text-grey300 rounded-br-200 rounded-tr-200 lg:flex flex-col gap-300 hidden transform ",
+     isOpen ? "w-[18.75rem] transition-transform " : "w-[5.5rem] -translate-x-0 "
     )}
    >
     <header className="px-400 py-500 rounded-tr-200">
@@ -39,8 +39,7 @@ export const Sidebar = ({isOpen, setIsOpen}: ISidebarProps) => {
 
     <footer 
      className={clsx(
-      "fixed bottom-0 left-0 flex items-center py-200 px-400 mb-300",
-      isOpen ? "w-[18.75rem]" : "w-[5.5rem]"
+      "fixed bottom-0 left-0 flex items-center py-200 px-400 mb-300"
      )}
     >
      <button onClick={toggleSidebar}>
