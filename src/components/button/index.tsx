@@ -1,8 +1,8 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { ReactNode } from "react";
 import clsx from "clsx";
-import { Typography } from "../typography";
 import { PiCaretLeftFill, PiCaretRightFill } from "react-icons/pi";
+import { Typography } from "../typography";
 
 const variantClasses = {
    primary : "text-white bg-grey900 border-transparent hover:bg-grey500 font-bold ",

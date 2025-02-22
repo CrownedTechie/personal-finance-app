@@ -1,7 +1,7 @@
+import { AuthImage } from "@/assets/svgs";
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import {AuthImage}  from "../assets/svgs";
 
 interface ILayoutProps {
   children: ReactNode;

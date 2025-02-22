@@ -1,9 +1,8 @@
+import { LogoLarge, LogoSmall } from "@/assets/svgs";
 import clsx from "clsx";
-import logoLarge from "../../assets/logo-large.svg";
-import logoSmall from "../../assets/logo-small.svg";
+import { PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill } from "react-icons/pi";
 import { Tabs } from "../tabs";
 import { Typography } from "../typography";
-import { PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill } from "react-icons/pi";
 
 interface ISidebarProps {
  isOpen: boolean;
@@ -24,7 +23,7 @@ export const Sidebar = ({isOpen, setIsOpen}: ISidebarProps) => {
     )}
    >
     <header className="px-400 py-500 rounded-tr-200">
-     <img src={isOpen ? logoLarge : logoSmall} alt="Finance logo" />
+     {isOpen ? <LogoLarge /> : <LogoSmall />}
     </header>
 
     <nav className={clsx(

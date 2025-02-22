@@ -2,8 +2,8 @@ import chroma from "chroma-js";
 import Select, { StylesConfig, components } from 'react-select';
 import { PiCaretDownFill, PiCaretUpFill, PiCheckCircleFill } from "react-icons/pi";
 import clsx from "clsx";
-import { Typography } from "../typography";
 import { IOptionType } from "./types";
+import { Typography } from "../typography";
 
 export interface ISelectDropdownProps {
  options: IOptionType[];

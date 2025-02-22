@@ -1,9 +1,9 @@
 import { NavLink, useSearchParams } from "react-router-dom";
-import { Typography } from "../typography";
 import { PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiTipJarFill } from "react-icons/pi";
 import clsx from "clsx";
 import { useEffect } from "react";
-import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { Typography } from "../typography";
 
 const tabs = [
  {name: "Overview", location:"", icon: <PiHouseFill />},

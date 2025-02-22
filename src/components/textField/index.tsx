@@ -1,8 +1,8 @@
-import { Typography } from "../typography";
 import { ReactNode } from "react";
 import clsx from "clsx";
-import { SelectDropdown } from "../selectDropdown";
 import { IOptionType } from "../selectDropdown/types";
+import { Typography } from "../typography";
+import { SelectDropdown } from "../selectDropdown";
 
 interface ITextfieldProps {
  icon?: ReactNode;

@@ -3,4 +3,4 @@ export * from "./textField";
 export * from "./typography";
 export * from "./sidebar";
 export * from "./container";
-export * from "./auth/authWrapper";
+export * from "./auth/AuthWrapper";

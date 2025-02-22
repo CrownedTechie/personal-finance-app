@@ -1,4 +1,4 @@
-import { IOptionType } from "../components/selectDropdown/types";
+import { IOptionType } from "@/components/selectDropdown/types";
 
 export const fruitOptions: IOptionType[] = [
   { value: 'apple', label: 'Apple' },
