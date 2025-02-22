@@ -10,7 +10,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     svgr({
-      include: '**/*.svg', // Process all .svg files
+      // include: '**/*.svg', // Process all .svg files
     }),
   ],
   resolve: {

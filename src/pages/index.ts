@@ -1,4 +1,3 @@
-export * from "./auth/Login";
-export * from "./auth/Signup";
 export * from "./app/Overview";
-export * from "./components/Component";
+export * from "./components";
+export * from "./auth";

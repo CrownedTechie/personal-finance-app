@@ -30,7 +30,6 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, Va
  customClass?: string;
 }
 
-
 export const Button = ({children, variant, paginationDirection, customClass, ...props}: IButtonProps) => {
  const rightArrow = variant === "tertiary" ? variantIcon[variant] : null;
  const prevArrow = variant === "pagination" && paginationDirection === "prev" ? variantIcon["paginationPrev"] : null;

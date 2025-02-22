@@ -10,7 +10,8 @@ interface ITextfieldProps {
  labelText?: string;
  helperText?: string;
  fieldType?: "input" | "select";
- inputType?: "text" | "password";
+ inputType?: "text" | "password" | "email";
+ inputPlaceholder?: string;
  selectOptions?: IOptionType[];
  selectPlaceholder?: string;
  selectDefaultValue?: IOptionType;
@@ -23,6 +24,7 @@ export const TextField = ({
  prefix, 
  fieldType = "input",
  inputType = "text",
+ inputPlaceholder = "Placeholder",
  selectDefaultValue,
  selectPlaceholder,
  selectOptions = [
@@ -35,8 +37,9 @@ export const TextField = ({
   <div className="flex flex-col gap-50">
    <label htmlFor="">
     <Typography
-     color="grey500"
-     fontWeight="bold"
+      as="span"
+      color="grey500"
+      fontWeight="bold"
     >
      {labelText}
     </Typography>
@@ -51,7 +54,7 @@ export const TextField = ({
       <input 
        type={inputType} 
        name="" 
-       placeholder="Placeholder" 
+       placeholder={inputPlaceholder} 
        className=" py-150 font-normal text-sm text-grey900 w-full placeholder:text-sm placeholder-beige500 focus:outline-none " 
       />
       {icon && icon}

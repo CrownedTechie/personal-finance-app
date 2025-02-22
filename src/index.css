@@ -68,3 +68,7 @@
   --radius-400: 2rem;
   --radius-500: 2.5rem;
 }
+
+body {
+  background-color: var(--color-grey100);
+}
