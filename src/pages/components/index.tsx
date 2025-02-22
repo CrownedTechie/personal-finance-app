@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Button, Container, Sidebar, TextField, Typography } from "@/components";
+import { Button, Container, OverviewCard, Sidebar, TextField, Typography } from "@/components";
 import { colorOptions, fruitOptions } from "@/constants/data";
 import { PiCaretLeftFill, PiCaretRightFill, PiCaretDownFill, PiCaretUpFill, PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiDotsThreeOutlineFill, PiListBulletsBold, PiMagnifyingGlass, PiPottedPlantFill, PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiCheckCircleFill, PiWarningCircleFill, PiWrenchFill, PiNetworkFill, PiVideoFill, PiBarbellFill, PiMusicNoteFill, PiBookOpenTextFill, PiShieldPlusFill, PiWarehouseFill, PiFunnelFill, PiSortAscendingFill, PiSortDescendingFill, PiEyeFill, PiEyeSlashFill, PiXCircleLight, PiTipJarLight, PiTipJarFill } from "react-icons/pi";
-import { OverviewCard } from "@/components/overviewCard";
 
 export const Component = () => {
 
@@ -10,7 +9,7 @@ export const Component = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
  
  return ( 
-  <main className="flex w-screen max-h-screen">
+  <main className="flex flex-col-reverse lg:flex-row w-screen max-h-screen">
    <Sidebar 
     isOpen={isOpen}
     setIsOpen={setIsOpen}
@@ -155,7 +154,7 @@ export const Component = () => {
      </div>
      
      {/* Overview cards */}
-     <div className="mt-500 flex flex-wrap items-center gap-500">
+     <div className="mt-500 flex flex-wrap flex-col md:flex-row md:items-center gap-150 ">
       <OverviewCard 
         variant="primary"
         title="Current Balance"
@@ -172,6 +171,11 @@ export const Component = () => {
         title="Expenses"
         content="$1,700.50"
       />
+     </div>
+
+     {/* Quote cards */}
+     <div className="flex ">
+
      </div>
     </div>
    </main>

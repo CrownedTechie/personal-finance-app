@@ -60,7 +60,7 @@ export const Sidebar = ({isOpen, setIsOpen}: ISidebarProps) => {
 
    {/* NAV FOR MOBILE AND TABS */}
     <nav
-     className="bg-grey900 fixed z-50 bottom-0 left-0 right-0 justify-between w-full px-200 md:px-500 pt-100 flex items-center lg:hidden"
+     className="bg-grey900 sticky z-50 bottom-0 left-0 justify-between w-full px-200 md:px-500 pt-100 flex items-center lg:hidden"
     >
      <Tabs 
      />
