@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Container, Sidebar, TextField, Typography } from "@/components";
 import { colorOptions, fruitOptions } from "@/constants/data";
 import { PiCaretLeftFill, PiCaretRightFill, PiCaretDownFill, PiCaretUpFill, PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiDotsThreeOutlineFill, PiListBulletsBold, PiMagnifyingGlass, PiPottedPlantFill, PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiCheckCircleFill, PiWarningCircleFill, PiWrenchFill, PiNetworkFill, PiVideoFill, PiBarbellFill, PiMusicNoteFill, PiBookOpenTextFill, PiShieldPlusFill, PiWarehouseFill, PiFunnelFill, PiSortAscendingFill, PiSortDescendingFill, PiEyeFill, PiEyeSlashFill, PiXCircleLight, PiTipJarLight, PiTipJarFill } from "react-icons/pi";
+import { OverviewCard } from "@/components/overviewCard";
 
 export const Component = () => {
 
@@ -150,6 +151,26 @@ export const Component = () => {
         helperText="Helper text"
         selectOptions={fruitOptions}
         selectPlaceholder="Select a fruit..."
+      />
+     </div>
+     
+     {/* Overview cards */}
+     <div className="mt-500 flex flex-wrap items-center gap-500">
+      <OverviewCard 
+        variant="primary"
+        title="Current Balance"
+        content="$4,836.00"
+      />
+      <OverviewCard 
+        variant="secondary"
+        title="Income"
+        content="$3,814.25"
+        icon={<PiTipJarLight className="size-500" />}
+      />
+      <OverviewCard 
+        variant="tertiary"
+        title="Expenses"
+        content="$1,700.50"
       />
      </div>
     </div>

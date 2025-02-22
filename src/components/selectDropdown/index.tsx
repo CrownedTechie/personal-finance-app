@@ -31,6 +31,7 @@ const selectStyles: StylesConfig<IOptionType> = {
    ...styles,
    border: '1px solid var(--color-beige500)',
    borderRadius: '.5rem',
+   backgroundColor: 'transparent',
    padding: '0rem .25rem',
    fontSize: '.875rem',
    outline: 'none',

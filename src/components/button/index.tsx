@@ -7,10 +7,10 @@ import { Typography } from "../typography";
 const variantClasses = {
    primary : "text-white bg-grey900 border-transparent hover:bg-grey500 font-bold ",
    secondary: "text-grey900 bg-beige100 border-transparent hover:bg-white hover:border-beige500 font-bold ",
-   tertiary: "text-grey500 bg-white border-transparent hover:text-grey900",
+   tertiary: "text-grey500 bg-transparent border-transparent hover:text-grey900",
    destroy: "text-white bg-red border-transparent hover:bg-red hover:opacity-85 font-bold",
    pagination: "text-grey900 border-beige500 hover:text-white hover:bg-beige500 font-regular"
-  }
+};
 
 const buttonVariants = cva("", {
  variants: {
@@ -28,7 +28,7 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, Va
  children: ReactNode,
  paginationDirection?: "prev" | "next";
  customClass?: string;
-}
+};
 
 export const Button = ({children, variant, paginationDirection, customClass, ...props}: IButtonProps) => {
  const rightArrow = variant === "tertiary" ? variantIcon[variant] : null;
@@ -52,4 +52,4 @@ export const Button = ({children, variant, paginationDirection, customClass, ...
    {(rightArrow || nextArrow) && <span>{rightArrow || nextArrow}</span>}
   </button>
  );
-}
+};
