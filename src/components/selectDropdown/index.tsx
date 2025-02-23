@@ -137,8 +137,6 @@ const CustomOption = (props: any) => {
   );
 };
 
-
-
 export const SelectDropdown = ({
  // options = [
  //   { label: "Un-appraised", value: "Un-appraised" },

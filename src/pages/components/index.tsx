@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Container, OverviewCard, Quote, Sidebar, TextField, Typography } from "@/components";
+import { Button, Container, ContentHeader, OverviewCard, Quote, Sidebar, TextField, Typography } from "@/components";
 import { colorOptions, fruitOptions, recurringBills, savingsOptions } from "@/constants/data";
 import { PiCaretLeftFill, PiCaretRightFill, PiCaretDownFill, PiCaretUpFill, PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiDotsThreeOutlineFill, PiListBulletsBold, PiMagnifyingGlass, PiPottedPlantFill, PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiCheckCircleFill, PiWarningCircleFill, PiWrenchFill, PiNetworkFill, PiVideoFill, PiBarbellFill, PiMusicNoteFill, PiBookOpenTextFill, PiShieldPlusFill, PiWarehouseFill, PiFunnelFill, PiSortAscendingFill, PiSortDescendingFill, PiEyeFill, PiEyeSlashFill, PiXCircleLight, PiTipJarLight, PiTipJarFill } from "react-icons/pi";
 
@@ -16,16 +16,14 @@ export const Component = () => {
    />
 
    <Container>
-    <header>
-     <Typography 
-      as="h1"
-      fontWeight="bold"
-      customClass="mb-400"
-     >
-      Components
-     </Typography>
+    <header className="mb-300">
+      <ContentHeader
+        title="Overview"
+        as="h1" 
+        fontWeight="bold"
+      />
     </header>
-
+     
     <main>
     <div className="flex flex-col justify-center">
 
@@ -196,6 +194,8 @@ export const Component = () => {
         />
       ))}
      </div>
+
+    
      
     </div>
    </main>

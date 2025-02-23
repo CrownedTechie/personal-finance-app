@@ -33,18 +33,18 @@ export const Quote = ({variant, title, amount}: IQuoteProps) => {
  return ( 
   <article
    className={clsx(
-    variantClasses({variant}),
+    variantClasses({ variant }),
     "relative w-full",
     isSecondary 
      ? `bg-beige100 border-l-4 rounded-100 px-200 py-250 clip-path-[polygon(0%_0%,100%_0%,95%_50%,100%_100%,0%_100%)]` 
      : "bg-transparent rounded-l-50 flex items-center ",
    )}
-   style={isSecondary ? { borderColor } : {}}
+   style={ isSecondary ? { borderColor } : {} }
   >
    {!isSecondary && 
     <div 
      className={`absolute left-0 top-0 h-full w-50 rounded-100`}
-     style={{background: borderColor}}
+     style={{ background: borderColor }}
     ></div>
    }
    <div className={clsx(
@@ -56,7 +56,6 @@ export const Quote = ({variant, title, amount}: IQuoteProps) => {
     <Typography
      as="span"
      color="grey500"
-     
     >
      {title}
     </Typography>
@@ -66,7 +65,6 @@ export const Quote = ({variant, title, amount}: IQuoteProps) => {
      {amount}
     </Typography>
    </div>
-   
   </article>
  );
 }
