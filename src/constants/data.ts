@@ -1,4 +1,9 @@
 import { IOptionType } from "@/components/selectDropdown/types";
+import EmmaPic from "@/assets/avatars/emma-richardson.jpg";
+import SavoryBites from "@/assets/avatars/savory-bites-bistro.jpg";
+import DanielCarter from "@/assets/avatars/daniel-carter.jpg";
+import SunPark from "@/assets/avatars/sun-park.jpg";
+import UrbanServices from "@/assets/avatars/urban-services-hub.jpg";
 
 export const fruitOptions: IOptionType[] = [
   { value: 'apple', label: 'Apple' },
@@ -53,4 +58,12 @@ export const recurringBills = [
   {title: "Paid Bills", amount: "$190.00"},
   {title: "Total Upcoming", amount: "$194.98"},
   {title: "Due Soon", amount: "$59.98"},
+];
+
+export const transactions = [
+  {profilePicture: EmmaPic, name: "Emma Richardson", amount: "+$75.50", date: "19 Aug 2024"},
+  {profilePicture: SavoryBites, name: "Savory Bites Bistro", amount: "-$55.50", date: "19 Aug 2024"},
+  {profilePicture: DanielCarter, name: "Daniel Carter", amount: "-$42.30", date: "18 Aug 2024"},
+  {profilePicture: SunPark, name: "Sun Park", amount: "+$120.00", date: "17 Aug 2024"},
+  {profilePicture: UrbanServices, name: "Urban Services Hub", amount: "-$65.00", date: "17 Aug 2024"},
 ];

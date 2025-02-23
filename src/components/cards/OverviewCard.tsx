@@ -1,9 +1,10 @@
-import { recurringBills } from "@/constants/data";
+import { recurringBills, transactions } from "@/constants/data";
 import { Button } from "../button";
 import { ContentHeader } from "../contentHeader";
 import { CardWrapper } from "./CardWrapper";
 import { Quote } from "./Quote";
 import clsx from "clsx";
+import { ListView } from "../listView";
 
 interface IOverviewCardProps {
  cardTitle: string;
@@ -26,6 +27,18 @@ export const OverviewCard = ({ cardTitle, buttonTitle, customClass }: IOverviewC
      buttonGroup={<Button variant="tertiary">{buttonTitle}</Button>}
     />
 
+    {/* stylings for list items */}
+    <ul className="flex flex-col justify-center">
+     {transactions.map(item => (
+      <ListView
+       profilePicture={item.profilePicture} 
+       name={item.name}
+       amount={item.amount}
+       date={item.date}
+      />
+     ))}
+    </ul>
+
     {/* stylings for recurring bills overview */}
     {/* <div className="flex flex-col items-center gap-150">
      {recurringBills.map(item => (
@@ -36,6 +49,7 @@ export const OverviewCard = ({ cardTitle, buttonTitle, customClass }: IOverviewC
       />
      ))}
     </div> */}
+
    </div>
   </CardWrapper>
  );
