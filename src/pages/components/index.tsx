@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button, Container, OverviewCard, Sidebar, TextField, Typography } from "@/components";
-import { colorOptions, fruitOptions } from "@/constants/data";
+import { Button, Container, OverviewCard, Quote, Sidebar, TextField, Typography } from "@/components";
+import { colorOptions, fruitOptions, recurringBills, savingsOptions } from "@/constants/data";
 import { PiCaretLeftFill, PiCaretRightFill, PiCaretDownFill, PiCaretUpFill, PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiDotsThreeOutlineFill, PiListBulletsBold, PiMagnifyingGlass, PiPottedPlantFill, PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiCheckCircleFill, PiWarningCircleFill, PiWrenchFill, PiNetworkFill, PiVideoFill, PiBarbellFill, PiMusicNoteFill, PiBookOpenTextFill, PiShieldPlusFill, PiWarehouseFill, PiFunnelFill, PiSortAscendingFill, PiSortDescendingFill, PiEyeFill, PiEyeSlashFill, PiXCircleLight, PiTipJarLight, PiTipJarFill } from "react-icons/pi";
 
 export const Component = () => {
@@ -71,38 +71,41 @@ export const Component = () => {
       <PiTipJarFill />
      </div>
 
-     <Typography>
-      This is me just testing the Typography component 1
-      Default Variant
-     </Typography>
+     {/* Typography */}
+     <div>
+      <Typography>
+        This is me just testing the Typography component 1
+        Default Variant
+      </Typography>
 
-     <Typography
-      as="h1"
-      color="magenta"
-     >
-      Heading 1
-      This is me just testing the Typography component 2
-     </Typography>
+      <Typography
+        as="h1"
+        color="magenta"
+      >
+        Heading 1
+        This is me just testing the Typography component 2
+      </Typography>
 
-     <Typography
-      as="del"
-      color="beige500"
-      customClass="text-[20px]"
-      fontWeight="bold"
-     >
-      Heading 2
-      This is me just testing the Typography component 3
-     </Typography>
+      <Typography
+        as="del"
+        color="beige500"
+        customClass="text-[20px]"
+        fontWeight="bold"
+      >
+        Heading 2
+        This is me just testing the Typography component 3
+      </Typography>
 
-     <Typography
-      as="span"
-      customClass="block"
-      color="armyGreen"
-      fontSize="xl"
-     >
-       This is a span element with custom font size.
-     </Typography>
-    
+      <Typography
+        as="span"
+        customClass="block"
+        color="armyGreen"
+        fontSize="xl"
+      >
+        This is a span element with custom font size.
+      </Typography>
+     </div>
+
      {/* BUTTONS */}
      <div className="flex items-center flex-wrap gap-300 mt-500 ">
        <Button variant="primary">Primary Button</Button>
@@ -173,10 +176,27 @@ export const Component = () => {
       />
      </div>
 
-     {/* Quote cards */}
-     <div className="flex ">
-
+     {/* Quote cards secondary*/}
+     <div className="mt-500 bg-white p-100 flex gap-200 items-center flex-col md:flex-row ">
+      {recurringBills.map(item => (
+        <Quote
+          variant="secondary" 
+          title={item.title}
+          amount={item.amount}
+        />
+      ))}
      </div>
+      {/* Quote cards primary */}
+     <div className="mt-500 bg-white p-100 grid grid-cols-2 place-items-center gap-200">
+      {savingsOptions.map(item => (
+        <Quote
+          variant="primary"
+          title={item.title}
+          amount={item.amount}
+        />
+      ))}
+     </div>
+     
     </div>
    </main>
    </Container>

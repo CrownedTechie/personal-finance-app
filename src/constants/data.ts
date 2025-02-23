@@ -23,3 +23,34 @@ export const colorOptions: IOptionType[] = [
   { value: 'gold', label: 'Gold', color: 'var(--color-gold)' },
   { value: 'orange', label: 'Orange', color: 'var(--color-orange)' },
 ];
+
+export const borderColors: string[] = [
+  'var(--color-green)',
+  'var(--color-yellow)',
+  'var(--color-cyan)',
+  'var(--color-navy)',
+  'var(--color-red)',
+  'var(--color-purple-secondary)',
+  'var(--color-purple-tertiary)',
+  'var(--color-turquoise)',
+  'var(--color-brown)',
+  'var(--color-magenta)',
+  'var(--color-blue)',
+  'var(--color-navy-grey)',
+  'var(--color-army-green)',
+  'var(--color-gold)',
+  'var(--color-orange)',
+];
+
+export const savingsOptions = [
+  {title: "Savings", amount: "$159"},
+  {title: "Gift", amount: "$40"},
+  {title: "Concert Ticket", amount: "$110"},
+  {title: "New Laptop", amount: "$10"},
+];
+
+export const recurringBills = [
+  {title: "Paid Bills", amount: "$190.00"},
+  {title: "Total Upcoming", amount: "$194.98"},
+  {title: "Due Soon", amount: "$59.98"},
+];
