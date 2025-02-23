@@ -1,12 +1,13 @@
-type Props = {
- 
-}
+import { ReactNode } from "react";
 
-export const CardWrapper = ({}: Props) => {
+interface ICardWrapperProps {
+ children?: ReactNode;
+};
+
+export const CardWrapper = ({ children }: ICardWrapperProps) => {
  return ( 
-  <article>
-   {/* card heading */}
-   
+  <article className="bg-white rounded-150 h-auto p-400">
+   {children}
   </article>
  );
-}
+};

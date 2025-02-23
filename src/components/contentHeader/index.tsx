@@ -15,9 +15,8 @@ interface IContentHeaderProps {
 export const ContentHeader = ({buttonGroup, coloredDot, as, fontWeight, title, customClass}: IContentHeaderProps) => {
  return ( 
   <div className={clsx(
-    "py-100",
     customClass && customClass,
-    buttonGroup && "border flex items-center justify-between"
+    buttonGroup && "flex items-center justify-between"
    )}
   >
    <div className="flex items-center gap-200">
