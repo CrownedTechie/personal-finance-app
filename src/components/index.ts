@@ -1,6 +1,7 @@
 export * from "./auth/AuthWrapper";
 export * from "./button";
 export * from "./cards";
+export * from "./chart";
 export * from "./container";
 export * from "./contentHeader";
 export * from "./listView"

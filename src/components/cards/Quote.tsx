@@ -36,7 +36,7 @@ export const Quote = ({variant, title, amount}: IQuoteProps) => {
     variantClasses({ variant }),
     "relative w-full",
     isSecondary 
-     ? `bg-beige100 border-l-4 rounded-100 px-200 py-250 clip-path-[polygon(0%_0%,100%_0%,95%_50%,100%_100%,0%_100%)]` 
+     ? `bg-beige100 border-l-4 rounded-100 px-200 py-250` 
      : "bg-transparent rounded-l-50 flex items-center ",
    )}
    style={ isSecondary ? { borderColor } : {} }
@@ -56,6 +56,7 @@ export const Quote = ({variant, title, amount}: IQuoteProps) => {
     <Typography
      as="span"
      color="grey500"
+     customClass="capitalize"
     >
      {title}
     </Typography>

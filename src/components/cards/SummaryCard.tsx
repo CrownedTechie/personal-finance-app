@@ -36,6 +36,7 @@ export const SummaryCard = ({variant, customClass, icon, content, title}: ISumma
    <div className="flex flex-col gap-150">
     <Typography
      color={variant === "primary" ? "white" : "grey500"}
+     customClass="capitalize"
     >
      {title}
     </Typography>

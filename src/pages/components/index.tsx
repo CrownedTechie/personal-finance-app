@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Container, ContentHeader, OverviewCard, Quote, Sidebar, SummaryCard, TextField, Typography } from "@/components";
+import { Button, Container, ContentHeader, DoughnutChart, OverviewCard, Quote, Sidebar, SummaryCard, TextField, Typography } from "@/components";
 import { colorOptions, fruitOptions, recurringBills, savingsOptions } from "@/constants/data";
 import { PiCaretLeftFill, PiCaretRightFill, PiCaretDownFill, PiCaretUpFill, PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiDotsThreeOutlineFill, PiListBulletsBold, PiMagnifyingGlass, PiPottedPlantFill, PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiCheckCircleFill, PiWarningCircleFill, PiWrenchFill, PiNetworkFill, PiVideoFill, PiBarbellFill, PiMusicNoteFill, PiBookOpenTextFill, PiShieldPlusFill, PiWarehouseFill, PiFunnelFill, PiSortAscendingFill, PiSortDescendingFill, PiEyeFill, PiEyeSlashFill, PiXCircleLight, PiTipJarLight, PiTipJarFill } from "react-icons/pi";
 
@@ -158,18 +158,18 @@ export const Component = () => {
      <div className="mt-500 flex flex-wrap flex-col md:flex-row md:items-center gap-150 ">
       <SummaryCard 
         variant="primary"
-        title="Current Balance"
+        title="current balance"
         content="$4,836.00"
       />
       <SummaryCard 
         variant="secondary"
-        title="Income"
+        title="income"
         content="$3,814.25"
         icon={<PiTipJarLight className="size-500" />}
       />
       <SummaryCard 
         variant="tertiary"
-        title="Expenses"
+        title="expenses"
         content="$1,700.50"
       />
      </div>
@@ -202,6 +202,10 @@ export const Component = () => {
         buttonTitle="See Details"
         customClass="gap-400"
       />
+    </div>
+
+    <div className="mt-500 bg-white p-300">
+      <DoughnutChart />
     </div>
      
     </div>

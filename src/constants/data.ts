@@ -48,22 +48,22 @@ export const borderColors: string[] = [
 ];
 
 export const savingsOptions = [
-  {title: "Savings", amount: "$159"},
-  {title: "Gift", amount: "$40"},
-  {title: "Concert Ticket", amount: "$110"},
-  {title: "New Laptop", amount: "$10"},
+  {title: "savings", amount: "$159"},
+  {title: "gift", amount: "$40"},
+  {title: "concert ticket", amount: "$110"},
+  {title: "new laptop", amount: "$10"},
 ];
 
 export const recurringBills = [
-  {title: "Paid Bills", amount: "$190.00"},
-  {title: "Total Upcoming", amount: "$194.98"},
-  {title: "Due Soon", amount: "$59.98"},
+  {title: "paid bills", amount: "$190.00"},
+  {title: "total upcoming", amount: "$194.98"},
+  {title: "due soon", amount: "$59.98"},
 ];
 
 export const transactions = [
-  {profilePicture: EmmaPic, name: "Emma Richardson", amount: "+$75.50", date: "19 Aug 2024"},
-  {profilePicture: SavoryBites, name: "Savory Bites Bistro", amount: "-$55.50", date: "19 Aug 2024"},
-  {profilePicture: DanielCarter, name: "Daniel Carter", amount: "-$42.30", date: "18 Aug 2024"},
-  {profilePicture: SunPark, name: "Sun Park", amount: "+$120.00", date: "17 Aug 2024"},
-  {profilePicture: UrbanServices, name: "Urban Services Hub", amount: "-$65.00", date: "17 Aug 2024"},
+  {profilePicture: EmmaPic, name: "emma richardson", amount: "+$75.50", date: "19 aug 2024"},
+  {profilePicture: SavoryBites, name: "savory bites bistro", amount: "-$55.50", date: "19 aug 2024"},
+  {profilePicture: DanielCarter, name: "daniel carter", amount: "-$42.30", date: "18 aug 2024"},
+  {profilePicture: SunPark, name: "sun park", amount: "+$120.00", date: "17 aug 2024"},
+  {profilePicture: UrbanServices, name: "urban services hub", amount: "-$65.00", date: "17 aug 2024"},
 ];

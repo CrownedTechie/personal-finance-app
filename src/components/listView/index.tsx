@@ -10,10 +10,15 @@ interface IListViewProps {
 export const ListView = ({profilePicture, name, amount, date}: IListViewProps) => {
 
  return ( 
-  <li className="flex items-center justify-between border-b border-b-grey100 ">
-   <div className="flex items-center gap-200 min-w-0 py-300">
+  <li className="flex items-center justify-between border-b border-b-grey100 py-250 capitalize">
+   <div className="flex items-center gap-200 min-w-0">
     <img src={profilePicture} alt={name} className="rounded-full size-400 md:size-500 flex-shrink-0" />
-    <Typography fontWeight="bold" customClass="truncate">{name}</Typography>
+    <Typography 
+     fontWeight="bold" 
+     customClass="truncate"
+    >
+     {name}
+    </Typography>
    </div>
 
    <div className="flex flex-col items-end gap-100 min-w-fit">
