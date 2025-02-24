@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthLayout, AppLayout } from "./layouts";
-import { Component, Login, Overview, Signup } from './pages';
+import { Budgets, Component, Login, Overview, Pots, RecurringBills, Signup, Transactions } from './pages';
 
 const router = createBrowserRouter([
   {
@@ -10,6 +10,22 @@ const router = createBrowserRouter([
       {
         path: "overview",
         element: <Overview />
+      },
+      {
+        path: "transactions",
+        element: <Transactions />
+      },
+      {
+        path: "budgets",
+        element: <Budgets />
+      },
+      {
+        path: "pots",
+        element: <Pots />
+      },
+      {
+        path: "recurring-bills",
+        element: <RecurringBills />
       },
     ],
   },

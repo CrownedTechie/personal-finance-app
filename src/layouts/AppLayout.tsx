@@ -1,19 +1,20 @@
-// import React from "react";
-
+import { Container, Sidebar } from "@/components";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 export const AppLayout = () => {
+ const [isOpen, setIsOpen] = useState<boolean>(true);
+
  return (  
-  <>
-   <h1>APP Layout</h1>
+  <body className="flex flex-col-reverse lg:flex-row w-screen max-h-screen">
+   <Sidebar 
+    isOpen={isOpen}
+    setIsOpen={setIsOpen}
+   />
 
-   {/* Just side bar and container that will be here */}
-
-   <main>
+   <Container>
     <Outlet />
-   </main>
-  </>
+   </Container>
+  </body>
  );
-}
- 
-// export default AppLayout;
+};

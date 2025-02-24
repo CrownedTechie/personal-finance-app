@@ -6,7 +6,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { Typography } from "../typography";
 
 const tabs = [
- {name: "Overview", location:"", icon: <PiHouseFill />},
+ {name: "Overview", location:"overview", icon: <PiHouseFill />},
  {name: "Transactions", location:"", icon: <PiArrowsDownUpFill />},
  {name: "Budgets", location:"", icon: <PiChartDonutFill />},
  {name: "Pots", location:"", icon: <PiTipJarFill />},
