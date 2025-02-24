@@ -200,13 +200,13 @@ export const Component = () => {
       </div>
 
         {/* Overview card */}
-        <div className="mt-400">
+        {/* <div className="mt-400">
           <OverviewCard
             cardTitle="Transactions"
             buttonTitle="See Details"
             customClass="gap-400"
           />
-        </div>
+        </div> */}
 
       
       
