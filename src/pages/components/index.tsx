@@ -27,6 +27,10 @@ export const Component = () => {
     <main>
     <div className="flex flex-col justify-center">
 
+      <div className="mt-500 bg-white p-300">
+      <DoughnutChart />
+    </div>
+
      {/* PROJECT ICONS */}
      <Typography 
       as="h2"
@@ -204,9 +208,7 @@ export const Component = () => {
       />
     </div>
 
-    <div className="mt-500 bg-white p-300">
-      <DoughnutChart />
-    </div>
+    
      
     </div>
    </main>
