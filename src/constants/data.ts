@@ -69,16 +69,14 @@ export const transactions = [
 ];
 
 
-const allColors = ["#277C78", "#F2CDAC", "#82C9D7", "#626070", "#C94736", "#826CB0", "#93674F", "#597C7C", "#AF81BA", "#934F6F", "#3F82B2", "#97A0AC", "#BE6C49", "#CAB361", "#7F9161"];
+export const allColors = ["#277C78", "#F2CDAC", "#82C9D7", "#626070", "#C94736", "#826CB0", "#93674F", "#597C7C", "#AF81BA", "#934F6F", "#3F82B2", "#97A0AC", "#BE6C49", "#CAB361", "#7F9161"];
 
 export const budgets = [
   {title: "bills", amount: 750},
   {title: "dining out", amount: 75},
   {title: "personal care", amount: 100},
   {title: "entertainment", amount: 50},
-].map(item => ({
-  ...item, color: allColors[Math.floor(Math.random() * allColors.length)]
-}));
+];
 
 export const summaryOptions = [
   {name: "current balance", amount: 4836.00},

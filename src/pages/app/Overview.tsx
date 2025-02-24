@@ -1,8 +1,28 @@
 import { ContentHeader, DoughnutChart, ListView, OverviewCard, Quote, SummaryCard } from "@/components";
-import { recurringBills, savingsOptions, transactions } from "@/constants/data";
+import { allColors, budgets, recurringBills, savingsOptions, transactions } from "@/constants/data";
+import { formattedAmount } from "@/utils/formatAmount";
+import { useMemo } from "react";
 import { PiTipJarLight } from "react-icons/pi";
 
 export const Overview = ({}) => {
+
+ // const budgetsWithColors = useMemo(() => 
+ //  budgets.map(item => ({
+ //    ...item, 
+ //    color: allColors[Math.floor(Math.random() * allColors.length)]
+ //  })), []);
+
+  const budgetsWithColors = useMemo(() => {
+  const availableColors = [...allColors];
+  return budgets.map(item => {
+    const randomIndex = Math.floor(Math.random() * availableColors.length);
+    const selectedColor = availableColors.splice(randomIndex, 1)[0];
+
+    return { ...item, color: selectedColor };
+  });
+}, []);
+
+
  return ( 
   <div className="flex flex-col h-auto gap-400">
    <header>
@@ -52,6 +72,7 @@ export const Overview = ({}) => {
          <div className="mt-250 grid grid-cols-2 gap-200">
           {savingsOptions.map(item => (
            <Quote
+            key={item.title}
             variant='primary'
             title={item.title}
             amount={item.amount}
@@ -70,6 +91,7 @@ export const Overview = ({}) => {
         <ul className="flex flex-col justify-center">
          {transactions.map(item => (
           <ListView
+           key={item.name}
            profilePicture={item.profilePicture} 
            name={item.name}
            amount={item.amount}
@@ -83,10 +105,21 @@ export const Overview = ({}) => {
        <OverviewCard
         cardTitle="budgets"
         buttonTitle="see details"
+        customClass="gap-250"
        >
-        <div>
-         <DoughnutChart />
-         <div></div>
+        <div className="flex flex-col items-center gap-200">
+         <DoughnutChart budgetData={budgetsWithColors}/>
+
+         <div className="self-start w-full grid grid-cols-2 gap-200">
+          {budgetsWithColors.map(item => (
+           <Quote
+            key={item.title}
+            title={item.title}
+            amount={formattedAmount(item.amount).toLocaleString()}
+            primaryBorderColor={item.color}
+           />
+          ))}
+         </div>
         </div>
        </OverviewCard>
 
@@ -98,6 +131,7 @@ export const Overview = ({}) => {
         <div className="flex flex-col items-center gap-150">
          {recurringBills.map(item => (
           <Quote
+            key={item.title}
             variant="secondary" 
             title={item.title}
             amount={item.amount}

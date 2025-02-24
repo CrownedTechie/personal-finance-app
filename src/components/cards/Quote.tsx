@@ -3,6 +3,7 @@ import { Typography } from "../typography";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { borderColors } from "@/constants/data";
+import { formattedAmount } from "@/utils/formatAmount";
 
 const VariantClasses = {
  primary: "bg-transparent",
@@ -18,9 +19,10 @@ const variantClasses = cva("", {
 interface IQuoteProps extends VariantProps<typeof variantClasses> {
  title: string;
  amount: string;
+ primaryBorderColor?: string;
 };
 
-export const Quote = ({variant, title, amount}: IQuoteProps) => {
+export const Quote = ({variant, title, amount, primaryBorderColor}: IQuoteProps) => {
  const [borderColor, setBorderColor] = useState<string>("");
 
  useEffect(() => {
@@ -37,14 +39,17 @@ export const Quote = ({variant, title, amount}: IQuoteProps) => {
     "relative w-full",
     isSecondary 
      ? `bg-beige100 border-l-4 rounded-100 px-200 py-250` 
-     : "bg-transparent rounded-l-50 flex items-center ",
+     : "bg-transparent rounded-l-50 flex items-center",
    )}
    style={ isSecondary ? { borderColor } : {} }
   >
    {!isSecondary && 
     <div 
-     className={`absolute left-0 top-0 h-full w-50 rounded-100`}
-     style={{ background: borderColor }}
+      className={`absolute left-0 top-0 h-full w-50 rounded-100`}
+      style={primaryBorderColor 
+        ? { background: primaryBorderColor } 
+        : { background: borderColor }
+      }
     ></div>
    }
    <div className={clsx(

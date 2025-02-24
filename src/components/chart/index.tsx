@@ -1,38 +1,35 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Typography } from "../typography";
+import { budgets } from "@/constants/data";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const DoughnutChart = () => {
-  const rawData = [750, 150, 100, 75];
-  const totalBudget = 975;
+export type BudgetProps = {
+  title: string;
+  amount: number;
+  color: string;
+};
+
+interface IDoughnutChartProps {
+  budgetData: BudgetProps[];
+};
+
+export const DoughnutChart = ({ budgetData }: IDoughnutChartProps) => {
+  const overallBudget = budgetData.reduce((sum, item) => sum + item.amount, 0);
+  // const formattedAmount = `$${totalBudgetAmount.toLocaleString()}`;
+  const formattedText = `of $${overallBudget.toLocaleString()} limit`;
 
   const chartData = {
     datasets: [
       {
-        data: rawData.map((value) => (value / totalBudget) * 100),
-        backgroundColor: [
-          "rgba(144, 202, 213, 1)", // hsl(190, 52%, 68%)
-          "rgba(245, 202, 158, 1)", // hsl(28, 73%, 81%)
-          "rgba(96, 94, 112, 1)",  // hsl(248, 8%, 41%)
-          "rgba(39, 112, 108, 1)", // hsl(177, 52%, 32%)
-        ],
-        borderColor: [
-          "rgba(144, 202, 213, 1)",
-          "rgba(245, 202, 158, 1)",
-          "rgba(96, 94, 112, 1)",
-          "rgba(39, 112, 108, 1)",
-        ],
+        data: budgets.map(item => item.amount),
+        backgroundColor: budgetData.map(item => item.color),
+        borderColor: budgetData.map(item => item.color),
         hoverOffset: 4,
       },
     ],
   };
-
-  const totalAmount = rawData.reduce((sum, value) => sum + value, 0);
-
-  const formattedAmount = `$${totalAmount.toLocaleString()}`;
-  const formattedText = `of $${totalBudget.toLocaleString()} limit`;
 
   return (
     <div className="relative size-60 hover:cursor-pointer">
@@ -71,7 +68,7 @@ export const DoughnutChart = () => {
           fontWeight="bold"
           customClass="text-center"
         >
-          {formattedAmount}
+          $338
         </Typography>
         <Typography
           as="span"
