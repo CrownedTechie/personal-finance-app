@@ -3,7 +3,6 @@ import { Typography } from "../typography";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { borderColors } from "@/constants/data";
-import { formattedAmount } from "@/utils/formatAmount";
 
 const VariantClasses = {
  primary: "bg-transparent",
@@ -61,7 +60,7 @@ export const Quote = ({variant, title, amount, primaryBorderColor}: IQuoteProps)
     <Typography
      as="span"
      color="grey500"
-     customClass="capitalize"
+     customClass="capitalize truncate"
     >
      {title}
     </Typography>
