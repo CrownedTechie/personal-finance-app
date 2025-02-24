@@ -76,4 +76,6 @@ export const budgets = [
   {title: "dining out", amount: 75},
   {title: "personal care", amount: 100},
   {title: "entertainment", amount: 50},
-];
+].map(item => ({
+  ...item, color: allColors[Math.floor(Math.random() * allColors.length)]
+}));
