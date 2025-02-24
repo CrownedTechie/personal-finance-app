@@ -27,6 +27,7 @@ export const ContentHeader = ({buttonGroup, coloredDot, as, fontWeight, title, c
     <Typography
      as={as}
      fontWeight={fontWeight}
+     customClass="capitalize"
     >
      {title}
     </Typography>

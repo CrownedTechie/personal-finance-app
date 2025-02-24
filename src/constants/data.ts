@@ -79,3 +79,9 @@ export const budgets = [
 ].map(item => ({
   ...item, color: allColors[Math.floor(Math.random() * allColors.length)]
 }));
+
+export const summaryOptions = [
+  {name: "current balance", amount: 4836.00},
+  {name: "income", amount: 3814.25},
+  {name: "expenses", amount: 1700.50},
+];

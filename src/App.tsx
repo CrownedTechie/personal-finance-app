@@ -4,7 +4,6 @@ import { Budgets, Component, Login, Overview, Pots, RecurringBills, Signup, Tran
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <AppLayout />,
     children: [
       {
@@ -30,11 +29,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    // path: "/auth",
+    path: "/",
     element: <AuthLayout />,
     children: [
       {
-        path: "login",
+        index: true,
         element: <Login />,
         // loader: redirectIfUser,
       },

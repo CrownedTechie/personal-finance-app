@@ -27,7 +27,7 @@ export const SummaryCard = ({variant, customClass, icon, content, title}: ISumma
   <article 
    className={clsx(
     overviewCardVariants({variant}),
-    "p-300 rounded-150 h-fit flex",
+    "p-300 rounded-150 h-fit w-full flex",
     icon && "gap-200 items-center",
     (icon && customClass) && customClass
    )}
