@@ -9,7 +9,7 @@ const variantClasses = {
    secondary: "text-grey900 bg-beige100 border-transparent hover:bg-white hover:border-beige500 font-bold p-200 ",
    tertiary: "text-grey500 bg-transparent border-transparent hover:text-grey900",
    destroy: "text-white bg-red border-transparent hover:bg-red hover:opacity-85 font-bold p-200",
-   pagination: "text-grey900 border-beige500 hover:text-white hover:bg-beige500 font-regular p-200"
+   pagination: "text-grey900 border-beige500 hover:text-white hover:bg-beige500 font-regular px-200 py-150"
 };
 
 const buttonVariants = cva("", {
@@ -30,10 +30,10 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, Va
  customClass?: string;
 };
 
-export const Button = ({children, variant, paginationDirection, customClass, ...props}: IButtonProps) => {
- const rightArrow = variant === "tertiary" ? variantIcon[variant] : null;
- const prevArrow = variant === "pagination" && paginationDirection === "prev" ? variantIcon["paginationPrev"] : null;
-  const nextArrow = variant === "pagination" && paginationDirection === "next" ? variantIcon["paginationNext"] : null;
+export const Button = ({children, variant, paginationDirection, customClass, onClick, disabled, ...props }: IButtonProps) => {
+   const rightArrow = variant === "tertiary" ? variantIcon[variant] : null;
+   const prevArrow = variant === "pagination" && paginationDirection === "prev" ? variantIcon["paginationPrev"] : null;
+   const nextArrow = variant === "pagination" && paginationDirection === "next" ? variantIcon["paginationNext"] : null;
 
  return ( 
   <button 
@@ -41,8 +41,10 @@ export const Button = ({children, variant, paginationDirection, customClass, ...
     buttonVariants({ variant }),
     (rightArrow || prevArrow || nextArrow) && "gap-150",
     customClass && customClass,
-    "cursor-pointer border rounded-100 text-sm flex items-center justify-center"
+    "border rounded-100 text-sm flex items-center justify-center"
    )}
+   onClick={onClick}
+   disabled={disabled}
    {...props}
   >
    {prevArrow && <span>{prevArrow}</span>}

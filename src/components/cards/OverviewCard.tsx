@@ -26,7 +26,7 @@ export const OverviewCard = ({ cardTitle, buttonTitle, customClass, children }: 
      buttonGroup={
       <Button 
         variant="tertiary"
-        customClass="capitalize"
+        customClass="capitalize cursor-pointer"
       >
         {buttonTitle}
       </Button>

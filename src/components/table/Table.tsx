@@ -1,16 +1,17 @@
 
-import { TextField, Typography } from '@/components'
+import { Button, TextField, Typography } from '@/components'
 import {
  ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { TableWrapper } from './TableWrapper';
 import { PiMagnifyingGlass } from 'react-icons/pi';
 import { categoryOptions, filterOptions, transactionsList } from '@/constants/data';
 import { formattedAmount } from '@/utils/formatAmount';
+import ReactPaginate from 'react-paginate';
 
 export type Transactions = {
  profilePicture: string;
@@ -86,9 +87,23 @@ const columns: ColumnDef<Transactions>[] = [
 
 export const Table = ({}) => {
  const [data, _setData] = useState(() => [...transactionsList]);
+ const [currentPage, setCurrentPage] = useState(0);
+ const itemsPerPage = 4; // Change as needed
+
+ // Calculate paginated data
+  const currentData = useMemo(() => {
+    const startOffset = currentPage * itemsPerPage;
+    return data.slice(startOffset, startOffset + itemsPerPage);
+  }, [currentPage, data]);
+
+  const pageCount = Math.ceil(data.length / itemsPerPage);
+
+  const handlePageClick = (event: { selected: number }) => {
+    setCurrentPage(event.selected);
+  };
 
  const table = useReactTable({
-   data,
+   data: currentData,
    columns,
    getCoreRowModel: getCoreRowModel(),
  });
@@ -161,6 +176,42 @@ export const Table = ({}) => {
        ))}
      </tbody>
     </table>
+
+    {/* Pagination */}
+    <div className="mt-4 flex items-center justify-between">
+     {/* Previous Button */}
+     <Button
+      variant="pagination"
+      paginationDirection="prev"
+      onClick={() => handlePageClick({selected: currentPage - 1})}
+      disabled={currentPage === 0}
+      customClass={currentPage === 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+     >
+      Prev
+     </Button>
+     {/* Centered Page Numbers */}
+     <ReactPaginate
+       previousLabel={null} // Hide previous from main container
+       nextLabel={null} // Hide next from main container
+       pageCount={pageCount}
+       forcePage={currentPage}
+       onPageChange={handlePageClick}
+       containerClassName="flex items-center gap-100" // Just spacing for page numbers
+       pageClassName="size-500 cursor-pointer flex items-center justify-center text-grey900 border border-beige500 hover:text-white hover:bg-beige500 font-regular p-200 rounded-100 text-sm"
+       activeClassName="bg-grey900 text-white border-transparent"
+       disabledClassName="opacity-50 cursor-not-allowed"
+     />
+     <Button 
+      variant="pagination" 
+      paginationDirection="next"
+      onClick={() => handlePageClick({selected: currentPage + 1})}
+      disabled={currentPage === pageCount - 1}
+      customClass={currentPage === pageCount - 1 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+     >
+      Next
+     </Button>
+    </div>
+    
    </div>
   </TableWrapper>
  );
