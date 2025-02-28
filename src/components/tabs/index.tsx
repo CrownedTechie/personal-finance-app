@@ -14,11 +14,11 @@ const tabs = [
 
 interface ITabsProps {
  isOpen?: boolean;
-}
+};
 
 export const Tabs = ({isOpen}: ITabsProps) => {
  const isTabScreen = useMediaQuery("(min-width: 768px) and (max-width: 1023px)");
- const isLargeScreen = useMediaQuery("(min-width: 1024px)")
+ const isLargeScreen = useMediaQuery("(min-width: 1024px)");
  
  return (
   <>

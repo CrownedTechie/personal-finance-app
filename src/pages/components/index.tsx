@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Container, ContentHeader, DoughnutChart, OverviewCard, Quote, Sidebar, SummaryCard, TextField, Typography } from "@/components";
-import { colorOptions, fruitOptions, recurringBills, savingsOptions } from "@/constants/data";
+import { colorOptions, filterOptions, fruitOptions, recurringBills, savingsOptions } from "@/constants/data";
 import { PiCaretLeftFill, PiCaretRightFill, PiCaretDownFill, PiCaretUpFill, PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiDotsThreeOutlineFill, PiListBulletsBold, PiMagnifyingGlass, PiPottedPlantFill, PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiCheckCircleFill, PiWarningCircleFill, PiWrenchFill, PiNetworkFill, PiVideoFill, PiBarbellFill, PiMusicNoteFill, PiBookOpenTextFill, PiShieldPlusFill, PiWarehouseFill, PiFunnelFill, PiSortAscendingFill, PiSortDescendingFill, PiEyeFill, PiEyeSlashFill, PiXCircleLight, PiTipJarLight, PiTipJarFill } from "react-icons/pi";
 
 export const Component = () => {
@@ -27,9 +27,9 @@ export const Component = () => {
     <main>
       <div className="flex flex-col justify-center">
 
-        <div className="mt-500 bg-white p-300">
+        {/* <div className="mt-500 bg-white p-300">
         <DoughnutChart />
-        </div>
+        </div> */}
 
       {/* PROJECT ICONS */}
       <Typography 
@@ -155,6 +155,15 @@ export const Component = () => {
           helperText="Helper text"
           selectOptions={fruitOptions}
           selectPlaceholder="Select a fruit..."
+        />
+
+        <TextField
+          fieldType="select"
+          labelText="Sort by"
+          selectOptions={filterOptions}
+          selectDefaultValue={filterOptions[0]}
+          customClass="flex-row items-center gap-100"
+          labelTextFontWeight="regular"
         />
       </div>
       

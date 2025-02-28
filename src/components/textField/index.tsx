@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { IOptionType } from "../selectDropdown/types";
 import { Typography } from "../typography";
 import { SelectDropdown } from "../selectDropdown";
+import { TypographyFontWeights } from "../typography/types";
 
 interface ITextfieldProps {
  icon?: ReactNode;
@@ -15,6 +16,8 @@ interface ITextfieldProps {
  selectOptions?: IOptionType[];
  selectPlaceholder?: string;
  selectDefaultValue?: IOptionType;
+ customClass?: string;
+ labelTextFontWeight?: TypographyFontWeights;
 }
 
 export const TextField = ({
@@ -22,9 +25,11 @@ export const TextField = ({
  labelText, 
  helperText, 
  prefix, 
+ customClass,
  fieldType = "input",
  inputType = "text",
  inputPlaceholder = "Placeholder",
+ labelTextFontWeight = "bold",
  selectDefaultValue,
  selectPlaceholder,
  selectOptions = [
@@ -34,12 +39,17 @@ export const TextField = ({
  ]
 }: ITextfieldProps) => {
  return ( 
-  <div className="flex flex-col gap-50">
+  <div 
+    className={clsx(
+      "flex",
+      customClass ? customClass : "flex-col gap-50"
+  )}
+  >
    <label htmlFor="">
     <Typography
       as="span"
       color="grey500"
-      fontWeight="bold"
+      fontWeight={labelTextFontWeight}
     >
      {labelText}
     </Typography>
@@ -68,7 +78,7 @@ export const TextField = ({
     )
    }
    
-   <Typography color="grey500" customClass="place-self-end">{helperText}</Typography>
+   {helperText && <Typography color="grey500" customClass="place-self-end">{helperText}</Typography>}
   </div>
  );
 }

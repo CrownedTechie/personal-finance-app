@@ -1,4 +1,3 @@
-import chroma from "chroma-js";
 import Select, { StylesConfig, components } from 'react-select';
 import { PiCaretDownFill, PiCaretUpFill, PiCheckCircleFill } from "react-icons/pi";
 import clsx from "clsx";
@@ -35,44 +34,12 @@ const selectStyles: StylesConfig<IOptionType> = {
    padding: '0rem .25rem',
    fontSize: '.875rem',
    outline: 'none',
+   textWrap: "nowrap",
    boxShadow: 'none',
    ":hover": {
     border: '1px solid var(--color-grey500)',
-   }
+   },
   }),
-  // option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-  //  const colorData = data as ColourOption;
-  //   const color = chroma(colorData.color);
-  //   return {
-  //     ...styles,
-  //     backgroundColor: isDisabled
-  //       ? undefined
-  //       : isSelected
-  //       ? colorData.color
-  //       : isFocused
-  //       ? color.alpha(0.1).css()
-  //       : undefined,
-  //     color: isDisabled
-  //       ? '#ccc'
-  //       : isSelected
-  //       ? chroma.contrast(color, 'white') > 2
-  //         ? 'white'
-  //         : 'black'
-  //       : colorData.color,
-  //     cursor: isDisabled ? 'not-allowed' : 'default',
-  //     textWrap: "nowrap",
-  //     whiteSpace: "wrap",
-
-  //     // ':active': {
-  //     //   ...styles[':active'],
-  //     //   backgroundColor: !isDisabled
-  //     //     ? isSelected
-  //     //       ? colorData.color
-  //     //       : color.alpha(0.3).css()
-  //     //     : undefined,
-  //     // },
-  //   };
-  // },
   input: (styles) => ({ 
    ...styles, 
    ...dot(),
@@ -105,7 +72,7 @@ const CustomOption = (props: any) => {
       ref={innerRef} 
       {...innerProps} 
       className={clsx(
-       "flex items-center border-b border-b-grey100 justify-between mx-200 py-150 cursor-pointer",
+       "flex items-center border-b border-b-grey100 justify-between mx-200 py-150 cursor-pointer capitalize text-nowrap",
       )}
     >
       {/* Colored Dot + Label */}
@@ -138,11 +105,6 @@ const CustomOption = (props: any) => {
 };
 
 export const SelectDropdown = ({
- // options = [
- //   { label: "Un-appraised", value: "Un-appraised" },
- //   { label: "In-progress", value: "In-progress" },
- //   { label: "completed", value: "completed" },
- // ], 
  options,
  placeholder = "Select a value", 
  defaultValue

@@ -27,7 +27,7 @@ export const Sidebar = ({isOpen, setIsOpen}: ISidebarProps) => {
     </header>
 
     <nav className={clsx(
-     "flex flex-col gap-50",
+     "flex flex-col flex-1 gap-50 max-h-[50rem] overflow-y-scroll",
       isOpen ? "pr-300" : "pr-100"
      )}
     >
@@ -38,7 +38,7 @@ export const Sidebar = ({isOpen, setIsOpen}: ISidebarProps) => {
 
     <footer 
      className={clsx(
-      "fixed bottom-0 left-0 flex items-center py-200 px-400 mb-300"
+      "sticky bottom-0 left-0 flex items-center py-200 px-400 mb-300"
      )}
     >
      <button onClick={toggleSidebar}>

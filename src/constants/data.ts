@@ -1,14 +1,30 @@
 import { IOptionType } from "@/components/selectDropdown/types";
-import EmmaPic from "@/assets/avatars/emma-richardson.jpg";
-import SavoryBites from "@/assets/avatars/savory-bites-bistro.jpg";
-import DanielCarter from "@/assets/avatars/daniel-carter.jpg";
-import SunPark from "@/assets/avatars/sun-park.jpg";
-import UrbanServices from "@/assets/avatars/urban-services-hub.jpg";
+import { AlphaAnalytics, BravoZenSpa, CharlieElectricCompany, DanielCarter, DeltaTaxi, EchoGameStore, EmmaPic, EthanClark, JamesThompson, LiamHughes, LilyRamirez, PixelPlayground, SavoryBites, SunPark, UrbanServices } from "@/assets/avatars";
+import { Transactions } from "@/components/table";
 
 export const fruitOptions: IOptionType[] = [
   { value: 'apple', label: 'Apple' },
   { value: 'banana', label: 'Banana' },
   { value: 'cherry', label: 'Cherry' },
+];
+
+export const filterOptions: IOptionType[] = [
+  { value: "latest", label: "Latest" },
+  { value: "oldest", label: "Oldest" },
+  { value: "A to Z", label: "A to Z" },
+  { value: "Z to A", label: "Z to A" },
+  { value: "highest", label: "Highest" },
+  { value: "lowest", label: "Lowest" },
+];
+
+export const categoryOptions: IOptionType[] = [
+  { value: "all transactions", label: "All transactions" },
+  { value: "entertainment", label: "Entertainment" },
+  { value: "bills", label: "Bills" },
+  { value: "groceries", label: "Groceries" },
+  { value: "dining out", label: "Dining Out" },
+  { value: "transportation", label: "Transportation" },
+  { value: "personal care", label: "Personal Care" },
 ];
 
 export const colorOptions: IOptionType[] = [
@@ -82,4 +98,27 @@ export const summaryOptions = [
   {name: "current balance", amount: 4836.00},
   {name: "income", amount: 3814.25},
   {name: "expenses", amount: 1700.50},
+];
+
+export const transactionsList: Transactions[] = [
+  {profilePicture: EmmaPic, name: "emma richardson", category: "general", date: "19 aug 2024", amount: 75.50},
+  {profilePicture: SavoryBites, name: "savory bites bistro", category: "dining out", date: "19 aug 2024", amount: -55.50},
+  {profilePicture: DanielCarter, name: "daniel carter", category: "general", date: "18 aug 2024", amount: -42.30},
+  {profilePicture: SunPark, name: "sun park", category: "general", date: "17 aug 2024", amount: 120},
+  {profilePicture: UrbanServices, name: "urban services hub", category: "general", date: "17 aug 2024", amount: -65},
+  {profilePicture: LiamHughes, name: "liam hughes", category: "general", date: "15 aug 2024", amount: 65.75},
+  {profilePicture: LilyRamirez, name: "lily ramirez", category: "general", date: "14 aug 2024", amount: 50},
+  {profilePicture: EthanClark, name: "ethan clark", category: "dining out", date: "13 aug 2024", amount: -32.50},
+  {profilePicture: JamesThompson, name: "james thompson", category: "entertainment", date: "11 aug 2024", amount: -5},
+  {profilePicture: PixelPlayground, name: "pixel playground", category: "entertainment", date: "11 aug 2024", amount: -10},
+  {profilePicture: BravoZenSpa, name: "bravo zen spa", category: "personal care", date: "29 aug 2024", amount: -25},
+  {profilePicture: AlphaAnalytics, name: "alpha analytics", category: "general", date: "27 aug 2024", amount: 450},
+  {profilePicture: EchoGameStore, name: "echo game store", category: "lifestyle", date: "22 aug 2024", amount: -21.50},
+  {profilePicture: EmmaPic, name: "emma richardson", category: "general", date: "20 aug 2024", amount: -21.50},
+  {profilePicture: DeltaTaxi, name: "delta taxi", category: "transportation", date: "19 aug 2024", amount: -15},
+  {profilePicture: SunPark, name: "sun park", category: "general", date: "15 aug 2024", amount: -15},
+  {profilePicture: BravoZenSpa, name: "bravo zen spa", category: "personal care", date: "13 aug 2024", amount: -25},
+  {profilePicture: LiamHughes, name: "liam hughes", category: "general", date: "5 aug 2024", amount: -10},
+  {profilePicture: AlphaAnalytics, name: "alpha analytics", category: "general", date: "3 aug 2024", amount: 1900},
+  {profilePicture: CharlieElectricCompany, name: "charlie electric company", category: "bills", date: "1 aug 2024", amount: -100},
 ];
