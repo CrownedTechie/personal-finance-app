@@ -1,96 +1,113 @@
-
-import { Button, TextField, Typography } from '@/components'
+import { Button, Typography } from '@/components'
 import {
- ColumnDef,
+  ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { useMemo, useState } from 'react'
+import { ReactNode, useMemo, useState } from 'react'
 import { TableWrapper } from './TableWrapper';
-import { PiMagnifyingGlass } from 'react-icons/pi';
-import { categoryOptions, filterOptions, transactionsList } from '@/constants/data';
-import { formattedAmount } from '@/utils/formatAmount';
 import ReactPaginate from 'react-paginate';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
-export type Transactions = {
- profilePicture: string;
- name: string;
- category: string;
- date: string;
- amount: number;
+interface PaginationProps {
+ pageCount: number;
+ currentPage: number;
+ handlePageClick: (selectedItem: { selected: number }) => void;
 };
 
-const columns: ColumnDef<Transactions>[] = [
-  {
-   accessorKey: "name",
-   header: "recipient / sender",
-   cell: ({ cell, row }) => {
-      return (
-       <Typography 
-        fontWeight="bold"
-        customClass="flex items-center gap-200 capitalize"
-       >
-         <img src={row.original.profilePicture} alt="" className="size-500 rounded-full" />
-         {cell.getValue() as string}
-       </Typography>
-      )
-   },
-  },
-  {
-   accessorKey: "category",
-   header: "category",
-   cell: info => 
-    <Typography 
-     as="span"
-     color="grey500"
-     customClass="capitalize"
-    >
-     {info.getValue() as string}
-    </Typography>,
-  },
-  {
-   accessorKey: "date",
-   header: () => 'Transaction Date',
-   cell: info => 
-    <Typography
-     as="span"
-     color="grey500"
-     customClass="capitalize"
-    >
-     {info.getValue() as string}
-    </Typography>,
-  },
-  {
-   accessorKey: "amount",
-   header: () => 
-    <Typography 
-     as="span" 
-     color="grey500" 
-     customClass="block text-right"
-    >
-     amount
-    </Typography>,
-   cell: info => {
-    const infoValue = formattedAmount(info.getValue() as number);
-    const isDebitValue = infoValue.includes("-");
-    return (
-      <Typography
-       color={isDebitValue ? "grey900" : "green"}
-       fontWeight="bold"
-       customClass="text-right"
-      >
-      {isDebitValue ? infoValue : `+${infoValue}`}
-     </Typography>)}  
-  },
-];
+const PaginationDesktop = ({pageCount, currentPage, handlePageClick}: PaginationProps) => {
+ const isDesktop = useMediaQuery("(min-width: 768px)");
+ 
+ return (
+ <div className="mt-4 flex items-center justify-between">
+  {/* Previous Button */}
+  <Button
+   variant="pagination"
+   paginationDirection="prev"
+   onClick={() => handlePageClick({selected: currentPage - 1})}
+   disabled={currentPage === 0}
+   customClass={currentPage === 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+  >
+   {isDesktop ? "Prev" : ""}
+  </Button>
+  {/* Centered Page Numbers */}
+  <ReactPaginate
+    previousLabel={null} // Hide previous from main container
+    nextLabel={null} // Hide next from main container
+    pageCount={pageCount}
+    forcePage={currentPage}
+    onPageChange={handlePageClick}
+    containerClassName="flex items-center gap-100" // Just spacing for page numbers
+    pageClassName="size-500 cursor-pointer flex items-center justify-center text-grey900 border border-beige500 hover:text-white hover:bg-beige500 font-regular p-200 rounded-100 text-sm"
+    activeClassName="bg-grey900 text-white border-transparent"
+    disabledClassName="opacity-50 cursor-not-allowed"
+  />
+  <Button 
+   variant="pagination" 
+   paginationDirection="next"
+   onClick={() => handlePageClick({selected: currentPage + 1})}
+   disabled={currentPage === pageCount - 1}
+   customClass={currentPage === pageCount - 1 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+  >
+   {isDesktop ? "Next" : ""}
+  </Button>
+ </div>
+)};
 
-export const Table = ({}) => {
- const [data, _setData] = useState(() => [...transactionsList]);
- const [currentPage, setCurrentPage] = useState(0);
- const itemsPerPage = 4; // Change as needed
+// const PaginationMobile = ({pageCount, currentPage, handlePageClick}: PaginationProps) => (
+//  <div className="flex items-center justify-center">
+//   {/* Previous Button */}
+//   <Button
+//    variant="pagination"
+//    paginationDirection="prev"
+//    onClick={() => handlePageClick({selected: currentPage - 1})}
+//    disabled={currentPage === 0}
+//    customClass={currentPage === 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+//   >
+//    {""}
+//   </Button>
+//   {/* Centered Page Numbers */}
+//   <ReactPaginate
+//     previousLabel={null} // Hide previous from main container
+//     nextLabel={null} // Hide next from main container
+//     pageCount={pageCount}
+//     forcePage={currentPage}
+//     onPageChange={handlePageClick}
+//     pageRangeDisplayed={1}
+//     marginPagesDisplayed={1}
+//     breakLabel="..."
+//     breakClassName="size-500 border border-beige500 rounded-100 flex items-center justify-center text-grey900"
+//     containerClassName="flex items-center gap-100" // Just spacing for page numbers
+//     pageClassName="size-500 cursor-pointer flex items-center justify-center text-grey900 border border-beige500 hover:text-white hover:bg-beige500 font-regular p-200 rounded-100 text-sm"
+//     activeClassName="bg-grey900 text-white border-transparent"
+//     disabledClassName="opacity-50 cursor-not-allowed"
+//   />
+//   <Button 
+//    variant="pagination" 
+//    paginationDirection="next"
+//    onClick={() => handlePageClick({selected: currentPage + 1})}
+//    disabled={currentPage === pageCount - 1}
+//    customClass={currentPage === pageCount - 1 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+//   >
+//   {""}
+//   </Button>
+//  </div>
+// );
 
- // Calculate paginated data
+interface ITableProps<T extends object> {
+ dataList: T[];
+ columns: ColumnDef<T>[];
+ currentPage: number;
+ setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+ itemsPerPage: number;
+ additionalTableData: ReactNode;
+};
+
+export const Table =  <T extends object>({dataList, columns, currentPage, setCurrentPage, itemsPerPage, additionalTableData}: ITableProps<T>) => {
+ const [data, _setData] = useState(() => [...dataList]);
+
+ // Calculating paginated data
   const currentData = useMemo(() => {
     const startOffset = currentPage * itemsPerPage;
     return data.slice(startOffset, startOffset + itemsPerPage);
@@ -100,9 +117,9 @@ export const Table = ({}) => {
 
   const handlePageClick = (event: { selected: number }) => {
     setCurrentPage(event.selected);
-  };
+ };
 
- const table = useReactTable({
+ const table = useReactTable<T>({
    data: currentData,
    columns,
    getCoreRowModel: getCoreRowModel(),
@@ -110,32 +127,9 @@ export const Table = ({}) => {
 
  return ( 
   <TableWrapper>
-   <div className="flex flex-col justify-center gap-300">
+   <div className="flex flex-col md:gap-300">
     {/* Search and filters */}
-    <div className="flex items-center justify-between">
-     <TextField
-      inputPlaceholder="Search transaction"
-      icon={<PiMagnifyingGlass  className="size-200 text-grey900" />}
-     />
-     <div className="flex items-center gap-300">
-      <TextField
-       fieldType="select"
-       labelText="Sort by"
-       selectOptions={filterOptions}
-       selectDefaultValue={filterOptions[0]}
-       customClass="flex-row items-center gap-100"
-       labelTextFontWeight="regular"
-      />
-      <TextField
-       fieldType="select"
-       labelText="Category"
-       selectOptions={categoryOptions}
-       selectDefaultValue={categoryOptions[0]}
-       customClass="flex-row items-center gap-100"
-       labelTextFontWeight="regular"
-      />
-     </div>
-    </div>
+    {additionalTableData}
 
     {/* Table */}
     <table>
@@ -143,7 +137,7 @@ export const Table = ({}) => {
       {table.getHeaderGroups().map(headerGroup => (
        <tr key={headerGroup.id}>
          {headerGroup.headers.map(header => (
-           <th key={header.id} className="px-200 py-250">
+           <th key={header.id} className="px-200 py-250 md:border-b border-b-grey100 ">
               <Typography 
                as="span"
                color="grey500"
@@ -167,7 +161,7 @@ export const Table = ({}) => {
            {row.getVisibleCells().map(cell => (
              <td 
               key={cell.id} 
-              className="px-200 py-250 border-t border-t-grey100"
+              className="md:px-200 py-250 border-b border-b-grey100"
              >
                {flexRender(cell.column.columnDef.cell, cell.getContext())}
              </td>
@@ -176,42 +170,13 @@ export const Table = ({}) => {
        ))}
      </tbody>
     </table>
-
-    {/* Pagination */}
-    <div className="mt-4 flex items-center justify-between">
-     {/* Previous Button */}
-     <Button
-      variant="pagination"
-      paginationDirection="prev"
-      onClick={() => handlePageClick({selected: currentPage - 1})}
-      disabled={currentPage === 0}
-      customClass={currentPage === 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-     >
-      Prev
-     </Button>
-     {/* Centered Page Numbers */}
-     <ReactPaginate
-       previousLabel={null} // Hide previous from main container
-       nextLabel={null} // Hide next from main container
-       pageCount={pageCount}
-       forcePage={currentPage}
-       onPageChange={handlePageClick}
-       containerClassName="flex items-center gap-100" // Just spacing for page numbers
-       pageClassName="size-500 cursor-pointer flex items-center justify-center text-grey900 border border-beige500 hover:text-white hover:bg-beige500 font-regular p-200 rounded-100 text-sm"
-       activeClassName="bg-grey900 text-white border-transparent"
-       disabledClassName="opacity-50 cursor-not-allowed"
-     />
-     <Button 
-      variant="pagination" 
-      paginationDirection="next"
-      onClick={() => handlePageClick({selected: currentPage + 1})}
-      disabled={currentPage === pageCount - 1}
-      customClass={currentPage === pageCount - 1 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-     >
-      Next
-     </Button>
-    </div>
     
+    {/* Pagination */}
+    <PaginationDesktop 
+     pageCount={pageCount}
+     currentPage={currentPage}
+     handlePageClick={handlePageClick}
+    />
    </div>
   </TableWrapper>
  );

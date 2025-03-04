@@ -8,6 +8,7 @@ export interface ISelectDropdownProps {
  options: IOptionType[];
  placeholder?: string;
  defaultValue?: IOptionType;
+ customClass?: string;
 }
 
 const dot = (color?: string) => ({
@@ -107,7 +108,8 @@ const CustomOption = (props: any) => {
 export const SelectDropdown = ({
  options,
  placeholder = "Select a value", 
- defaultValue
+ defaultValue,
+ customClass
 }: ISelectDropdownProps) => {
  return ( 
   <Select 
@@ -120,6 +122,7 @@ export const SelectDropdown = ({
     IndicatorSeparator: () => null,
     Option: CustomOption,
    }}
+   className={customClass && customClass}
   />
  );
 };

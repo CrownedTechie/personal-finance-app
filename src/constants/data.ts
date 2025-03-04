@@ -1,6 +1,6 @@
 import { IOptionType } from "@/components/selectDropdown/types";
 import { AlphaAnalytics, BravoZenSpa, CharlieElectricCompany, DanielCarter, DeltaTaxi, EchoGameStore, EmmaPic, EthanClark, JamesThompson, LiamHughes, LilyRamirez, PixelPlayground, SavoryBites, SunPark, UrbanServices } from "@/assets/avatars";
-import { Transactions } from "@/components/table";
+import { Transactions } from "@/pages";
 
 export const fruitOptions: IOptionType[] = [
   { value: 'apple', label: 'Apple' },

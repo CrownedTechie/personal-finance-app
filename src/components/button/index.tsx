@@ -48,9 +48,11 @@ export const Button = ({children, variant, paginationDirection, customClass, onC
    {...props}
   >
    {prevArrow && <span>{prevArrow}</span>}
-   <Typography customClass="!text-inherit" disableDefaultStyles>
-    {children}
-   </Typography>
+   {children && (
+      <Typography customClass="!text-inherit" disableDefaultStyles>
+      {children}
+      </Typography>
+   )}
    {(rightArrow || nextArrow) && <span>{rightArrow || nextArrow}</span>}
   </button>
  );

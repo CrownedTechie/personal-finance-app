@@ -16,6 +16,7 @@ interface ITextfieldProps {
  selectOptions?: IOptionType[];
  selectPlaceholder?: string;
  selectDefaultValue?: IOptionType;
+ selectCustomClass?: string;
  customClass?: string;
  labelTextFontWeight?: TypographyFontWeights;
 }
@@ -30,6 +31,7 @@ export const TextField = ({
  inputType = "text",
  inputPlaceholder = "Placeholder",
  labelTextFontWeight = "bold",
+ selectCustomClass,
  selectDefaultValue,
  selectPlaceholder,
  selectOptions = [
@@ -57,7 +59,7 @@ export const TextField = ({
 
    {fieldType === "input" ? (
      <div className={clsx(
-      "border border-beige500 px-200 rounded-100 hover:border-grey500",
+      "border border-beige500 px-200 rounded-100 hover:border-grey500 w-full",
       (icon || prefix) && "flex items-center gap-150"
      )}>
       {prefix && <Typography color="beige500">$</Typography>}
@@ -65,7 +67,7 @@ export const TextField = ({
        type={inputType} 
        name="" 
        placeholder={inputPlaceholder} 
-       className=" py-150 font-normal text-sm text-grey900 w-full placeholder:text-sm placeholder-beige500 focus:outline-none " 
+       className=" py-150 font-normal text-sm text-grey900 w-full placeholder:text-sm placeholder-beige500 focus:outline-none truncate " 
       />
       {icon && icon}
      </div>
@@ -74,6 +76,7 @@ export const TextField = ({
       options={selectOptions}
       placeholder={selectPlaceholder}
       defaultValue={selectDefaultValue}
+      customClass={selectCustomClass}
      />
     )
    }
