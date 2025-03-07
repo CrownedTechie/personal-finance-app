@@ -18,11 +18,12 @@ const variantClasses = cva("", {
 interface IQuoteProps extends VariantProps<typeof variantClasses> {
  title: string;
  amount: string;
+ totalBudget?: string;
  primaryBorderColor?: string;
  customClass?: string;
 };
 
-export const Quote = ({variant, title, amount, primaryBorderColor, customClass}: IQuoteProps) => {
+export const Quote = ({variant, title, amount, primaryBorderColor, totalBudget, customClass}: IQuoteProps) => {
  const [borderColor, setBorderColor] = useState<string>("");
 
  useEffect(() => {
@@ -66,11 +67,27 @@ export const Quote = ({variant, title, amount, primaryBorderColor, customClass}:
     >
      {title}
     </Typography>
-    <Typography
-    fontWeight="bold"
+
+    <div 
+      className={clsx(
+        totalBudget && "flex items-center gap-100"
+      )}
     >
-     {amount}
-    </Typography>
+      <Typography
+        fontWeight="bold"
+      >
+        {amount}
+      </Typography>
+      {totalBudget && 
+        <Typography
+          as="span"
+          color="grey500"
+        >
+          of {totalBudget}
+        </Typography>
+      }
+    </div>
+    
    </div>
   </article>
  );

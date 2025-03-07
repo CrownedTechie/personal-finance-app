@@ -1,23 +1,9 @@
+import React from "react";
 import { BudgetsCard, Button, ContentHeader, DoughnutChart, Quote, Typography } from "@/components";
-import { allColors, budgets, budgetsList } from "@/constants/data";
+import { budgetsList } from "@/constants/data";
 import { formattedAmount } from "@/utils/formatAmount";
-import { useMemo } from "react";
 
-type Props = {
- 
-}
-
-export const Budgets = ({}: Props) => {
- const budgetsWithColors = useMemo(() => {
-    const availableColors = [...allColors];
-    return budgets.map(item => {
-      const randomIndex = Math.floor(Math.random() * availableColors.length);
-      const selectedColor = availableColors.splice(randomIndex, 1)[0];
-  
-      return { ...item, color: selectedColor };
-    });
-  }, []);
-
+export const Budgets = () => {
  return ( 
   <div className="flex flex-col gap-400">
    <header>
@@ -35,15 +21,18 @@ export const Budgets = ({}: Props) => {
     />
    </header>
 
-    <section className="flex flex-col gap-300">
+    <section className="grid grid-cols-5 gap-300">
 
-     <article className="bg-white rounded-150 p-400">
-      <DoughnutChart 
-       data={budgetsList.map((item) => item.amountSpent)}
-       backgroundColors={budgetsList.map(item => item.color)}
-       overallBudget={budgetsList.reduce((sum, item) => sum + item.amountSpent, 0)}
-      />
-      <div>
+     <article className="bg-white rounded-150 p-400 max-h-[37.5rem] col-span-2 ">
+      <div className="place-self-center">
+       <DoughnutChart 
+        data={budgetsList.map((item) => item.amountSpent)}
+        backgroundColors={budgetsList.map(item => item.color)}
+        overallBudget={budgetsList.reduce((sum, item) => sum + item.amountSpent, 0)}
+       />
+      </div>
+      
+      <div className="mt-300 flex flex-col gap-300">
        <Typography
         as="h2"
         fontWeight="bold"
@@ -51,28 +40,36 @@ export const Budgets = ({}: Props) => {
        >
         spending summary
        </Typography>
-       <ul>
-        {budgetsList.map(item => (
-          <li>
+       <ul className="flex flex-col justify-center gap-200">
+        {budgetsList.map((item, index) => (
+         <React.Fragment key={item.title}>
            <Quote
-            key={item.title}
             title={item.title}
-            amount={formattedAmount(item.amountSpent).toLocaleString()}
+            totalBudget={formattedAmount(item.totalBudget)}
+            amount={formattedAmount(item.amountSpent)}
             primaryBorderColor={item.color}
-            customClass="flex-row items-center justify-between border"
+            customClass="flex-row items-center justify-between w-full"
            />
-          </li>
-          ))}
-          
-        
+      
+          {index !== budgetsList.length - 1 && 
+           <hr className="text-grey100" /> 
+          }
+         </React.Fragment>
+        ))}
        </ul>
       </div>
      </article>
-
-     <BudgetsCard
-      title="entertainment" 
-      coloredDot={""}
-     />
+     
+     <div className="flex flex-col justify-center gap-300 col-span-3">
+      {budgetsList.map(item => (
+       <BudgetsCard
+        title={item.title} 
+        itemColor={item.color}
+        latestSpendings={item.latestSpendings}
+       />
+      ))}
+      
+     </div>
 
     </section>
   </div>

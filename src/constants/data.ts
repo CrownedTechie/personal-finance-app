@@ -1,7 +1,6 @@
 import { IOptionType } from "@/components/selectDropdown/types";
 import { AlphaAnalytics, AquaFlowUtilities, BravoZenSpa, CharlieElectricCompany, DanielCarter, DeltaTaxi, EchoGameStore, EllaPhillips, EmmaPic, EthanClark, JamesThompson, LiamHughes, LilyRamirez, PixelPlayground, RinaSato, SavoryBites, SunPark, UrbanServices, williamHarris } from "@/assets/avatars";
 import { Transactions } from "@/pages";
-import { color } from "chart.js/helpers";
 
 export const fruitOptions: IOptionType[] = [
   { value: 'apple', label: 'Apple' },
@@ -129,7 +128,7 @@ export const budgetsList = [
     amountSpent: 15, 
     totalBudget: 50, 
     color: "#934F6F",
-    latestSpending: [
+    latestSpendings: [
       {profilePicture: JamesThompson, name: "james thompson", date: "11 aug 2024", amount: -5},
       {profilePicture: PixelPlayground, name: "pixel playground", date: "11 aug 2024", amount: -10},
       {profilePicture: RinaSato, name: "rina sato", date: "13 jul 2024", amount: -10},
@@ -140,7 +139,7 @@ export const budgetsList = [
     amountSpent: 150, 
     totalBudget: 750, 
     color: "#C94736",
-    latestSpending: [
+    latestSpendings: [
       {profilePicture: CharlieElectricCompany, name: "spark electric solutions", date: "2 aug 2024", amount: -100},
       {profilePicture: RinaSato, name: "rina sato", date: "2 aug 2024", amount: -50},
       {profilePicture: AquaFlowUtilities, name: "aqua flow utilities", date: "30 jul 2024", amount: -100},
@@ -151,7 +150,7 @@ export const budgetsList = [
     amountSpent: 133.75, 
     totalBudget: 75, 
     color: "#826CB0",
-    latestSpending: [
+    latestSpendings: [
       {profilePicture: SavoryBites, name: "savory bites bistro", date: "19 aug 2024", amount: -55.50},
       {profilePicture: EthanClark, name: "ethan clark", category: "dining out", date: "20 aug 2024", amount: -32.50},
       {profilePicture: EllaPhillips, name: "ella phillips", date: "10 aug 2024", amount: -45},
@@ -162,7 +161,7 @@ export const budgetsList = [
     amountSpent: 40, 
     totalBudget: 100, 
     color: "#F2CDAC",
-    latestSpending: [
+    latestSpendings: [
       {profilePicture: williamHarris, name: "william harris", date: "5 aug 2024", amount: -10},
       {profilePicture: BravoZenSpa, name: "serenity spa & wellness", date: "3 aug 2024", amount: -30},
       {profilePicture: BravoZenSpa, name: "serenity spa & wellness", date: "3 jul 2024", amount: -30},

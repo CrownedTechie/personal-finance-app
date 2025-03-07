@@ -1,16 +1,22 @@
+import clsx from "clsx";
 import { Typography } from "../typography";
 
-interface IListViewProps {
+export interface IListViewProps {
  profilePicture: string;
  name: string;
  amount: string;
  date: string;
+ customClass?: string;
 };
 
-export const ListView = ({profilePicture, name, amount, date}: IListViewProps) => {
+export const ListView = ({profilePicture, name, amount, date, customClass="border-b-grey100 py-200"}: IListViewProps) => {
 
  return ( 
-  <li className="flex items-center justify-between border-b border-b-grey100 py-250 capitalize">
+  <li className={clsx(
+   "flex items-center justify-between border-b capitalize",
+   customClass
+   )}
+  >
    <div className="flex items-center gap-200 min-w-0">
     <img src={profilePicture} alt={name} className="rounded-full size-400 md:size-500 flex-shrink-0" />
     <Typography 
