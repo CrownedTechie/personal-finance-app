@@ -1,18 +1,24 @@
-import { ContentHeader, DoughnutChart, ListView, OverviewCard, Quote, SummaryCard } from "@/components";
+import { Button, ContentHeader, DoughnutChart, ListView, OverviewCard, Quote, SummaryCard } from "@/components";
 import { allColors, budgets, recurringBills, savingsOptions, transactions } from "@/constants/data";
 import { formattedAmount } from "@/utils/formatAmount";
 import { useMemo } from "react";
 import { PiTipJarLight } from "react-icons/pi";
 
+export type BudgetProps = {
+  title: string;
+  amountSpent: number;
+  color: string;
+};
+
 export const Overview = ({}) => {
   const budgetsWithColors = useMemo(() => {
-  const availableColors = [...allColors];
-  return budgets.map(item => {
-    const randomIndex = Math.floor(Math.random() * availableColors.length);
-    const selectedColor = availableColors.splice(randomIndex, 1)[0];
+    const availableColors = [...allColors];
+    return budgets.map(item => {
+      const randomIndex = Math.floor(Math.random() * availableColors.length);
+      const selectedColor = availableColors.splice(randomIndex, 1)[0];
 
-    return { ...item, color: selectedColor };
-  });
+      return { ...item, color: selectedColor };
+    });
 }, []);
 
  return ( 
@@ -107,7 +113,11 @@ export const Overview = ({}) => {
          >
           <div className="flex flex-col items-center md:grid md:grid-cols-4 gap-200 xl:h-[20rem]">
            <div className="md:col-span-3 flex justify-center">
-            <DoughnutChart budgetData={budgetsWithColors}/>
+            <DoughnutChart 
+              data={budgetsWithColors.map((item) => item.amountSpent)}
+              backgroundColors={budgetsWithColors.map(item => item.color)}
+              overallBudget={budgetsWithColors.reduce((sum, item) => sum + item.amountSpent, 0)}
+            />
            </div>
 
            <div className="self-start md:self-center w-full grid grid-cols-2 md:grid-cols-1 gap-200">
@@ -115,7 +125,7 @@ export const Overview = ({}) => {
              <Quote
               key={item.title}
               title={item.title}
-              amount={formattedAmount(item.amount).toLocaleString()}
+              amount={formattedAmount(item.amountSpent).toLocaleString()}
               primaryBorderColor={item.color}
              />
             ))}

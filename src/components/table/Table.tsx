@@ -16,7 +16,16 @@ interface PaginationProps {
  handlePageClick: (selectedItem: { selected: number }) => void;
 };
 
-const PaginationDesktop = ({pageCount, currentPage, handlePageClick}: PaginationProps) => {
+interface ITableProps<T extends object> {
+ dataList: T[];
+ columns: ColumnDef<T>[];
+ currentPage: number;
+ setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+ itemsPerPage: number;
+ additionalTableData: ReactNode;
+};
+
+const Pagination = ({pageCount, currentPage, handlePageClick}: PaginationProps) => {
  const isDesktop = useMediaQuery("(min-width: 768px)");
  
  return (
@@ -54,55 +63,6 @@ const PaginationDesktop = ({pageCount, currentPage, handlePageClick}: Pagination
   </Button>
  </div>
 )};
-
-// const PaginationMobile = ({pageCount, currentPage, handlePageClick}: PaginationProps) => (
-//  <div className="flex items-center justify-center">
-//   {/* Previous Button */}
-//   <Button
-//    variant="pagination"
-//    paginationDirection="prev"
-//    onClick={() => handlePageClick({selected: currentPage - 1})}
-//    disabled={currentPage === 0}
-//    customClass={currentPage === 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-//   >
-//    {""}
-//   </Button>
-//   {/* Centered Page Numbers */}
-//   <ReactPaginate
-//     previousLabel={null} // Hide previous from main container
-//     nextLabel={null} // Hide next from main container
-//     pageCount={pageCount}
-//     forcePage={currentPage}
-//     onPageChange={handlePageClick}
-//     pageRangeDisplayed={1}
-//     marginPagesDisplayed={1}
-//     breakLabel="..."
-//     breakClassName="size-500 border border-beige500 rounded-100 flex items-center justify-center text-grey900"
-//     containerClassName="flex items-center gap-100" // Just spacing for page numbers
-//     pageClassName="size-500 cursor-pointer flex items-center justify-center text-grey900 border border-beige500 hover:text-white hover:bg-beige500 font-regular p-200 rounded-100 text-sm"
-//     activeClassName="bg-grey900 text-white border-transparent"
-//     disabledClassName="opacity-50 cursor-not-allowed"
-//   />
-//   <Button 
-//    variant="pagination" 
-//    paginationDirection="next"
-//    onClick={() => handlePageClick({selected: currentPage + 1})}
-//    disabled={currentPage === pageCount - 1}
-//    customClass={currentPage === pageCount - 1 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-//   >
-//   {""}
-//   </Button>
-//  </div>
-// );
-
-interface ITableProps<T extends object> {
- dataList: T[];
- columns: ColumnDef<T>[];
- currentPage: number;
- setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
- itemsPerPage: number;
- additionalTableData: ReactNode;
-};
 
 export const Table =  <T extends object>({dataList, columns, currentPage, setCurrentPage, itemsPerPage, additionalTableData}: ITableProps<T>) => {
  const [data, _setData] = useState(() => [...dataList]);
@@ -172,7 +132,7 @@ export const Table =  <T extends object>({dataList, columns, currentPage, setCur
     </table>
     
     {/* Pagination */}
-    <PaginationDesktop 
+    <Pagination
      pageCount={pageCount}
      currentPage={currentPage}
      handlePageClick={handlePageClick}

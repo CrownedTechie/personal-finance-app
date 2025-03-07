@@ -1,6 +1,7 @@
 import { IOptionType } from "@/components/selectDropdown/types";
-import { AlphaAnalytics, BravoZenSpa, CharlieElectricCompany, DanielCarter, DeltaTaxi, EchoGameStore, EmmaPic, EthanClark, JamesThompson, LiamHughes, LilyRamirez, PixelPlayground, SavoryBites, SunPark, UrbanServices } from "@/assets/avatars";
+import { AlphaAnalytics, AquaFlowUtilities, BravoZenSpa, CharlieElectricCompany, DanielCarter, DeltaTaxi, EchoGameStore, EllaPhillips, EmmaPic, EthanClark, JamesThompson, LiamHughes, LilyRamirez, PixelPlayground, RinaSato, SavoryBites, SunPark, UrbanServices, williamHarris } from "@/assets/avatars";
 import { Transactions } from "@/pages";
+import { color } from "chart.js/helpers";
 
 export const fruitOptions: IOptionType[] = [
   { value: 'apple', label: 'Apple' },
@@ -84,14 +85,13 @@ export const transactions = [
   {profilePicture: UrbanServices, name: "urban services hub", amount: "-$65.00", date: "17 aug 2024"},
 ];
 
-
 export const allColors = ["#277C78", "#F2CDAC", "#82C9D7", "#626070", "#C94736", "#826CB0", "#93674F", "#597C7C", "#AF81BA", "#934F6F", "#3F82B2", "#97A0AC", "#BE6C49", "#CAB361", "#7F9161"];
 
 export const budgets = [
-  {title: "bills", amount: 750},
-  {title: "dining out", amount: 75},
-  {title: "personal care", amount: 100},
-  {title: "entertainment", amount: 50},
+  {title: "bills", amountSpent: 750},
+  {title: "dining out", amountSpent: 75},
+  {title: "personal care", amountSpent: 100},
+  {title: "entertainment", amountSpent: 50},
 ];
 
 export const summaryOptions = [
@@ -121,4 +121,58 @@ export const transactionsList: Transactions[] = [
   {profilePicture: LiamHughes, name: "liam hughes", category: "general", date: "5 aug 2024", amount: -10},
   {profilePicture: AlphaAnalytics, name: "alpha analytics", category: "general", date: "3 aug 2024", amount: 1900},
   {profilePicture: CharlieElectricCompany, name: "charlie electric company", category: "bills", date: "1 aug 2024", amount: -100},
+];
+
+export const budgetsList = [
+  {
+    title: "entertainment", 
+    amountSpent: 15, 
+    totalBudget: 50, 
+    color: "#934F6F",
+    latestSpending: [
+      {profilePicture: JamesThompson, name: "james thompson", date: "11 aug 2024", amount: -5},
+      {profilePicture: PixelPlayground, name: "pixel playground", date: "11 aug 2024", amount: -10},
+      {profilePicture: RinaSato, name: "rina sato", date: "13 jul 2024", amount: -10},
+    ]
+  },
+  {
+    title: "bills", 
+    amountSpent: 150, 
+    totalBudget: 750, 
+    color: "#C94736",
+    latestSpending: [
+      {profilePicture: CharlieElectricCompany, name: "spark electric solutions", date: "2 aug 2024", amount: -100},
+      {profilePicture: RinaSato, name: "rina sato", date: "2 aug 2024", amount: -50},
+      {profilePicture: AquaFlowUtilities, name: "aqua flow utilities", date: "30 jul 2024", amount: -100},
+    ]
+  },
+  {
+    title: "dining out", 
+    amountSpent: 133.75, 
+    totalBudget: 75, 
+    color: "#826CB0",
+    latestSpending: [
+      {profilePicture: SavoryBites, name: "savory bites bistro", date: "19 aug 2024", amount: -55.50},
+      {profilePicture: EthanClark, name: "ethan clark", category: "dining out", date: "20 aug 2024", amount: -32.50},
+      {profilePicture: EllaPhillips, name: "ella phillips", date: "10 aug 2024", amount: -45},
+    ]
+  },
+  {
+    title: "personal care", 
+    amountSpent: 40, 
+    totalBudget: 100, 
+    color: "#F2CDAC",
+    latestSpending: [
+      {profilePicture: williamHarris, name: "william harris", date: "5 aug 2024", amount: -10},
+      {profilePicture: BravoZenSpa, name: "serenity spa & wellness", date: "3 aug 2024", amount: -30},
+      {profilePicture: BravoZenSpa, name: "serenity spa & wellness", date: "3 jul 2024", amount: -30},
+    ]
+  },
+];
+
+export const spendingSummaryList = [
+  {title: "entertainment", amountSpent: 15, totalBudget: 50, color: "#934F6F" },
+  {title: "bills", amountSpent: 150, totalBudget: 750, color: "#C94736" },
+  {title: "dining out", amountSpent: 133, totalBudget: 75, color: "#826CB0" },
+  {title: "personal care", amountSpent: 40, totalBudget: 100, color: "#F2CDAC" }
 ];

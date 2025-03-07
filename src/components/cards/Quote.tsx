@@ -19,9 +19,10 @@ interface IQuoteProps extends VariantProps<typeof variantClasses> {
  title: string;
  amount: string;
  primaryBorderColor?: string;
+ customClass?: string;
 };
 
-export const Quote = ({variant, title, amount, primaryBorderColor}: IQuoteProps) => {
+export const Quote = ({variant, title, amount, primaryBorderColor, customClass}: IQuoteProps) => {
  const [borderColor, setBorderColor] = useState<string>("");
 
  useEffect(() => {
@@ -52,6 +53,7 @@ export const Quote = ({variant, title, amount, primaryBorderColor}: IQuoteProps)
     ></div>
    }
    <div className={clsx(
+    customClass && customClass,
     isSecondary 
      ? "flex flex-row items-center justify-between" 
      : "flex flex-col ml-50 gap-50 rounded-r-100 px-200",

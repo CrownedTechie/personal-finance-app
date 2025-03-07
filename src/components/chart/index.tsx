@@ -1,31 +1,25 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Typography } from "../typography";
-import { budgets } from "@/constants/data";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export type BudgetProps = {
-  title: string;
-  amount: number;
-  color: string;
-};
-
 interface IDoughnutChartProps {
-  budgetData: BudgetProps[];
+  data: number[];
+  backgroundColors: string[];
+  overallBudget: number;
 };
 
-export const DoughnutChart = ({ budgetData }: IDoughnutChartProps) => {
-  const overallBudget = budgetData.reduce((sum, item) => sum + item.amount, 0);
+export const DoughnutChart = ({  data, backgroundColors, overallBudget }: IDoughnutChartProps) => {
   // const formattedAmount = `$${totalBudgetAmount.toLocaleString()}`;
   const formattedText = `of $${overallBudget.toLocaleString()} limit`;
 
   const chartData = {
     datasets: [
       {
-        data: budgets.map(item => item.amount),
-        backgroundColor: budgetData.map(item => item.color),
-        borderColor: budgetData.map(item => item.color),
+        data,
+        backgroundColor: backgroundColors,
+        borderColor: backgroundColors,
         hoverOffset: 4,
       },
     ],

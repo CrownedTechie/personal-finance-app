@@ -13,8 +13,10 @@ export {default as AlphaAnalytics} from "./elevate-education.jpg";
 export {default as EchoGameStore} from "./pixel-playground.jpg";
 export {default as DeltaTaxi} from "./swift-ride-share.jpg";
 export {default as CharlieElectricCompany} from "./spark-electric-solutions.jpg";
-
-
+export {default as RinaSato} from "./rina-sato.jpg";
+export {default as AquaFlowUtilities} from "./aqua-flow-utilities.jpg";
+export {default as EllaPhillips} from "./ella-phillips.jpg";
+export {default as williamHarris} from "./william-harris.jpg";
 
 
 

@@ -127,7 +127,7 @@ const columnsMobile: ColumnDef<Transactions>[] =[
   },
 ];
 
-const SearchAndFiltersDesktop = () => {
+const SearchAndFilters = () => {
  const isDesktop = useMediaQuery("(min-width: 768px)");
 
  return (
@@ -200,7 +200,7 @@ export const Transactions = ({}) => {
      currentPage={currentPage}
      setCurrentPage={setCurrentPage}
      itemsPerPage={itemsPerPage}
-     additionalTableData={<SearchAndFiltersDesktop/>}
+     additionalTableData={<SearchAndFilters />}
     />
    </section>
   </div>
