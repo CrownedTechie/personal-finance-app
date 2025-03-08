@@ -41,7 +41,7 @@ export const Button = ({children, variant, paginationDirection, customClass, onC
     buttonVariants({ variant }),
     (rightArrow || prevArrow || nextArrow) && "gap-150",
     customClass && customClass,
-    "border rounded-100 text-sm flex items-center justify-center"
+    "border rounded-100 text-sm flex items-center justify-center cursor-pointer"
    )}
    onClick={onClick}
    disabled={disabled}
@@ -49,7 +49,7 @@ export const Button = ({children, variant, paginationDirection, customClass, onC
   >
    {prevArrow && <span>{prevArrow}</span>}
    {children && (
-      <Typography customClass="!text-inherit" disableDefaultStyles>
+      <Typography customClass="!text-inherit cursor-pointer" disableDefaultStyles>
       {children}
       </Typography>
    )}

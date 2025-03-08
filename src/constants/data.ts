@@ -169,9 +169,10 @@ export const budgetsList = [
   },
 ];
 
-export const spendingSummaryList = [
-  {title: "entertainment", amountSpent: 15, totalBudget: 50, color: "#934F6F" },
-  {title: "bills", amountSpent: 150, totalBudget: 750, color: "#C94736" },
-  {title: "dining out", amountSpent: 133, totalBudget: 75, color: "#826CB0" },
-  {title: "personal care", amountSpent: 40, totalBudget: 100, color: "#F2CDAC" }
+export const potsList = [
+  {title: "savings", color: "#826CB0", totalSaved: 159, targetAmount: 2000},
+  {title: "concert ticket", color: "#626070", totalSaved: 110, targetAmount: 150},
+  {title: "gift", color: "#7F9161", totalSaved: 40, targetAmount: 60},
+  {title: "new laptop", color: "#3F82B2", totalSaved: 10, targetAmount: 1000},
+  {title: "holiday", color: "#AF81BA", totalSaved: 531, targetAmount: 1440},
 ];

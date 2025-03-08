@@ -26,7 +26,7 @@ interface IBudgetscardProps {
 export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestSpendings}: IBudgetscardProps) => {
   const maxBudget = formattedAmount(totalBudget);
   const totalSpent = formattedAmount(amountSpent);
-  const progressBar = (amountSpent/totalBudget) * 100;
+  const progressPercentage = (amountSpent/totalBudget) * 100;
  return ( 
   <CardWrapper>
    <div className="flex flex-col justify-center gap-250">
@@ -37,7 +37,7 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
      coloredDot={itemColor}
      buttonGroup={
       <Button 
-       className="outline-none text-grey300"
+       className="outline-none text-grey300 cursor-pointer"
       >
        <PiDotsThreeOutlineFill className="size-200" />
       </Button>
@@ -56,7 +56,7 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
       className="h-300 rounded-50"
       style={{
         backgroundColor: itemColor, 
-        width: `${progressBar}%`
+        width: `${progressPercentage}%`
       }}
      ></div>
     </div>
