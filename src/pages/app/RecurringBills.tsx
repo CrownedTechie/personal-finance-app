@@ -4,7 +4,7 @@ import { billsSummaryList, filterOptions, recurringBillsTransactions } from "@/c
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { formattedAmount } from "@/utils/formatAmount";
 import { ColumnDef } from "@tanstack/react-table";
-import React from "react";
+import React, { useMemo } from "react";
 import { PiMagnifyingGlass, PiReceiptLight, PiSortDescendingFill } from "react-icons/pi";
 
 export type RecurringBillsTransactions = {
@@ -64,6 +64,44 @@ const columnsDesktop : ColumnDef<RecurringBillsTransactions>[] = [
  }
 ];
 
+const columnsMobile: ColumnDef<RecurringBillsTransactions>[] =[
+  {
+   id: "mobile-table",
+   cell: ({ cell, row }) => {
+      const date = row.original.date;
+      const amount = row.original.amount;
+      const profilePicture = row.original.profilePicture;
+      return (
+       <div className="flex flex-col gap-100">
+        <div className="flex items-center gap-200">
+         <img src={profilePicture} alt="" className="size-500 rounded-full" />
+         <Typography 
+          fontWeight="bold"
+          customClass="flex items-center gap-200 capitalize"
+         >
+           {row.original.name}
+         </Typography>
+        </div>
+
+        <div className="flex items-center justify-between">
+         <Typography
+          as="span"
+          color="grey500"
+         >
+          {date}
+         </Typography>
+         <Typography
+          fontWeight="bold"
+         >
+          {formattedAmount(amount)}
+         </Typography>
+        </div>
+       </div>
+      )
+   },
+  },
+];
+
 const SearchAndFilters = () => {
  const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -72,7 +110,7 @@ const SearchAndFilters = () => {
   <TextField
    inputPlaceholder="Search transaction"
    icon={<PiMagnifyingGlass  className="size-200 text-grey900" />}
-   customClass="w-[13rem] xl:w-[20rem]"
+   customClass="w-[17rem] md:w-[20rem]"
   />
   {isDesktop 
    ? (
@@ -85,12 +123,20 @@ const SearchAndFilters = () => {
      labelTextFontWeight="regular"
      selectCustomClass="w-[7rem]"
     />)
-   : (<PiSortDescendingFill className="size-250 text-grey900" />)
+   : (<PiSortDescendingFill className="size-250 text-grey900 cursor-pointer" />)
   }
  </div>
 )};
 
 export const RecurringBills = ({}) => {
+ const isDesktop = useMediaQuery("(min-width: 768px)");
+
+ const columns = useMemo(() => 
+   isDesktop 
+    ? columnsDesktop 
+    : columnsMobile
+ , [isDesktop]);
+
  return ( 
   <div className="flex flex-col gap-400">
    <header>
@@ -101,14 +147,14 @@ export const RecurringBills = ({}) => {
     />
    </header>
 
-   <section className="grid grid-cols-6 gap-300">
-    <div className="flex flex-col gap-300 col-span-2">
+   <section className="grid grid-cols-1 xl:grid-cols-6 gap-300">
+    <div className="xl:col-span-2 flex flex-col gap-300 md:grid md:grid-cols-2 xl:flex xl:flex-col ">
      <SummaryCard
       variant="primary" 
       title="total bills"
       content="$384.98"
       icon={<PiReceiptLight className="size-500" />}
-      customClass="items-start flex-col justify-center"
+      customClass=" items-center md:items-start md:flex-col md:justify-center md:h-full xl:h-auto"
      />
      <article className="bg-white rounded-150 p-250 flex flex-col justify-center gap-250">
       <ContentHeader 
@@ -136,10 +182,10 @@ export const RecurringBills = ({}) => {
     </div>
 
     {/* Recurring bills table */}
-    <div className="col-span-4">
+    <div className="xl:col-span-4">
      <Table<RecurringBillsTransactions>
       dataList={recurringBillsTransactions}
-      columns={columnsDesktop}
+      columns={columns}
       additionalTableData={<SearchAndFilters />}
       enablePagination={false}
      />
