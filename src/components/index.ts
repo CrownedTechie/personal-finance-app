@@ -1,4 +1,5 @@
 export * from "./auth/AuthWrapper";
+export * from "./billsSummaryList";
 export * from "./button";
 export * from "./cards";
 export * from "./chart";

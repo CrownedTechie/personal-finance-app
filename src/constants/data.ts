@@ -176,3 +176,9 @@ export const potsList = [
   {title: "new laptop", color: "#3F82B2", totalSaved: 10, targetAmount: 1000},
   {title: "holiday", color: "#AF81BA", totalSaved: 531, targetAmount: 1440},
 ];
+
+export const billsSummaryList = [
+  {title: "paid bills", totalAmount: 190, noOfTransactions: "4"},
+  {title: "total upcoming", totalAmount: 194.98, noOfTransactions: "4"},
+  {title: "due soon", totalAmount: 59.98, noOfTransactions: "2"},
+];

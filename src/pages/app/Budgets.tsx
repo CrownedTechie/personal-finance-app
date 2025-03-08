@@ -65,11 +65,12 @@ export const Budgets = () => {
     <div className="flex flex-col justify-center gap-300 xl:col-span-3">
      {budgetsList.map(item => (
       <BudgetsCard
-       title={item.title} 
-       itemColor={item.color}
-       amountSpent={item.amountSpent}
-       totalBudget={item.totalBudget}
-       latestSpendings={item.latestSpendings}
+        key={item.title}
+        title={item.title} 
+        itemColor={item.color}
+        amountSpent={item.amountSpent}
+        totalBudget={item.totalBudget}
+        latestSpendings={item.latestSpendings}
       />
      ))}
      
