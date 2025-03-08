@@ -17,6 +17,11 @@ export {default as RinaSato} from "./rina-sato.jpg";
 export {default as AquaFlowUtilities} from "./aqua-flow-utilities.jpg";
 export {default as EllaPhillips} from "./ella-phillips.jpg";
 export {default as williamHarris} from "./william-harris.jpg";
+export {default as NimbusDataStorage} from "./nimbus-data-storage.jpg";
+export {default as ByteWise} from "./bytewise.jpg";
+export {default as Ecofuel} from "./ecofuel-energy.jpg";
+
+
 
 
 

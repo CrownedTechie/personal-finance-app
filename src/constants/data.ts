@@ -1,6 +1,6 @@
 import { IOptionType } from "@/components/selectDropdown/types";
-import { AlphaAnalytics, AquaFlowUtilities, BravoZenSpa, CharlieElectricCompany, DanielCarter, DeltaTaxi, EchoGameStore, EllaPhillips, EmmaPic, EthanClark, JamesThompson, LiamHughes, LilyRamirez, PixelPlayground, RinaSato, SavoryBites, SunPark, UrbanServices, williamHarris } from "@/assets/avatars";
-import { Transactions } from "@/pages";
+import { AlphaAnalytics, AquaFlowUtilities, BravoZenSpa, ByteWise, CharlieElectricCompany, DanielCarter, DeltaTaxi, EchoGameStore, Ecofuel, EllaPhillips, EmmaPic, EthanClark, JamesThompson, LiamHughes, LilyRamirez, NimbusDataStorage, PixelPlayground, RinaSato, SavoryBites, SunPark, UrbanServices, williamHarris } from "@/assets/avatars";
+import { RecurringBillsTransactions, Transactions } from "@/pages";
 
 export const fruitOptions: IOptionType[] = [
   { value: 'apple', label: 'Apple' },
@@ -181,4 +181,15 @@ export const billsSummaryList = [
   {title: "paid bills", totalAmount: 190, noOfTransactions: "4"},
   {title: "total upcoming", totalAmount: 194.98, noOfTransactions: "4"},
   {title: "due soon", totalAmount: 59.98, noOfTransactions: "2"},
+];
+
+export const recurringBillsTransactions: RecurringBillsTransactions[] = [
+  {profilePicture: CharlieElectricCompany, name: "spark electric solutions", date: "monthly-2nd", amount: 100},
+  {profilePicture: BravoZenSpa, name: "serenity spa & wellness", date: "monthly-3rd", amount: 30},
+  {profilePicture: AlphaAnalytics, name: "elevate education", date: "monthly-4th", amount: 50},
+  {profilePicture: PixelPlayground, name: "pixel playground", date: "monthly-11th", amount: 10},
+  {profilePicture: NimbusDataStorage, name: "nimbus data storage", date: "monthly-21st", amount: 9.99},
+  {profilePicture: ByteWise, name: "byteWise", date: "monthly-23rd", amount: 49.99},
+  {profilePicture: Ecofuel, name: "ecofuel energy", date: "monthly-2nd", amount: 35},
+  {profilePicture: AquaFlowUtilities, name: "aqua flow utilities", date: "monthly-30th", amount: 100},
 ];

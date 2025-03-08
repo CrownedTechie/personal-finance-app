@@ -19,10 +19,11 @@ interface PaginationProps {
 interface ITableProps<T extends object> {
  dataList: T[];
  columns: ColumnDef<T>[];
- currentPage: number;
- setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
- itemsPerPage: number;
+ currentPage?: number;
+ setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
+ itemsPerPage?: number;
  additionalTableData: ReactNode;
+ enablePagination?: boolean;
 };
 
 const Pagination = ({pageCount, currentPage, handlePageClick}: PaginationProps) => {
@@ -64,20 +65,23 @@ const Pagination = ({pageCount, currentPage, handlePageClick}: PaginationProps) 
  </div>
 )};
 
-export const Table =  <T extends object>({dataList, columns, currentPage, setCurrentPage, itemsPerPage, additionalTableData}: ITableProps<T>) => {
+export const Table =  <T extends object>({dataList, columns, currentPage, setCurrentPage, itemsPerPage, additionalTableData, enablePagination = true}: ITableProps<T>) => {
  const [data, _setData] = useState(() => [...dataList]);
 
  // Calculating paginated data
   const currentData = useMemo(() => {
-    const startOffset = currentPage * itemsPerPage;
-    return data.slice(startOffset, startOffset + itemsPerPage);
-  }, [currentPage, data]);
+    if(!enablePagination) return data;
+    const startOffset = (currentPage || 0) * (itemsPerPage || data.length);
+    return data.slice(startOffset, startOffset + (itemsPerPage || data.length));
+  }, [currentPage, data, enablePagination]);
 
-  const pageCount = Math.ceil(data.length / itemsPerPage);
+  const pageCount = enablePagination ? Math.ceil(data.length / (itemsPerPage || 1)) : 1;
 
   const handlePageClick = (event: { selected: number }) => {
-    setCurrentPage(event.selected);
- };
+    if (enablePagination && setCurrentPage) {
+      setCurrentPage(event.selected);
+    }
+  };
 
  const table = useReactTable<T>({
    data: currentData,
@@ -132,11 +136,13 @@ export const Table =  <T extends object>({dataList, columns, currentPage, setCur
     </table>
     
     {/* Pagination */}
-    <Pagination
-     pageCount={pageCount}
-     currentPage={currentPage}
-     handlePageClick={handlePageClick}
-    />
+    {enablePagination && (
+      <Pagination
+        pageCount={pageCount}
+        currentPage={currentPage || 0}
+        handlePageClick={handlePageClick}
+      />
+    )}
    </div>
   </TableWrapper>
  );
