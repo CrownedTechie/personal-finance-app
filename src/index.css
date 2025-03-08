@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Public Sans" ;
+  src: url("./assets/fonts/PublicSans-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Public Sans";
+  src: url("./assets/fonts/PublicSans-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Public Sans";
+  src: url("./assets/fonts/PublicSans-Bold.ttf");
+  font-weight: 700;
+}
+
 :root {
   font-family: "Public Sans", serif;
 }

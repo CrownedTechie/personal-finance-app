@@ -1,10 +1,25 @@
+import { Button, ContentHeader } from "@/components";
+
 type Props = {
  
 }
 export const Pots = ({}: Props) => {
  return ( 
   <div>
-   <h1>Pots page</h1>
+   <header>
+    <ContentHeader
+     title="pots" 
+     as="h1"
+     fontWeight="bold"
+     buttonGroup={
+     <Button
+      variant="primary"
+     >
+      + Add New Pot
+     </Button>
+     }
+    />
+   </header>
   </div>
  );
 }
