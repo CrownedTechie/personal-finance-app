@@ -3,6 +3,7 @@ import { Typography } from "../typography";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { borderColors } from "@/constants/data";
+import { TypographyElements } from "../typography/types";
 
 const VariantClasses = {
  primary: "bg-transparent",
@@ -17,13 +18,15 @@ const variantClasses = cva("", {
 
 interface IQuoteProps extends VariantProps<typeof variantClasses> {
  title: string;
+ titleElement?: TypographyElements;
  amount: string;
+ amountElement?: TypographyElements;
  totalBudget?: string;
  primaryBorderColor?: string;
  customClass?: string;
 };
 
-export const Quote = ({variant, title, amount, primaryBorderColor, totalBudget, customClass}: IQuoteProps) => {
+export const Quote = ({variant, title, titleElement = "span", amount, amountElement, primaryBorderColor, totalBudget, customClass}: IQuoteProps) => {
  const [borderColor, setBorderColor] = useState<string>("");
 
  useEffect(() => {
@@ -61,7 +64,7 @@ export const Quote = ({variant, title, amount, primaryBorderColor, totalBudget, 
     )}
    >
     <Typography
-     as="span"
+     as={titleElement}
      color="grey500"
      customClass="capitalize truncate"
     >
@@ -74,6 +77,7 @@ export const Quote = ({variant, title, amount, primaryBorderColor, totalBudget, 
       )}
     >
       <Typography
+        as={amountElement}
         fontWeight="bold"
       >
         {amount}
