@@ -67,6 +67,8 @@ export const Budgets = () => {
       <BudgetsCard
        title={item.title} 
        itemColor={item.color}
+       amountSpent={item.amountSpent}
+       totalBudget={item.totalBudget}
        latestSpendings={item.latestSpendings}
       />
      ))}

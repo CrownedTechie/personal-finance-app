@@ -18,10 +18,15 @@ interface ILatestSpendingsProps {
 interface IBudgetscardProps {
  title: string;
  itemColor: string;
+ amountSpent: number;
+ totalBudget: number
  latestSpendings: ILatestSpendingsProps[];
-}
+};
 
-export const BudgetsCard = ({title, itemColor, latestSpendings}: IBudgetscardProps) => {
+export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestSpendings}: IBudgetscardProps) => {
+  const maxBudget = formattedAmount(totalBudget);
+  const totalSpent = formattedAmount(amountSpent);
+  const progressBar = (amountSpent/totalBudget) * 100;
  return ( 
   <CardWrapper>
    <div className="flex flex-col justify-center gap-250">
@@ -42,14 +47,17 @@ export const BudgetsCard = ({title, itemColor, latestSpendings}: IBudgetscardPro
     <Typography
      color="grey500"
     >
-     Maximum of $50.00
+     Maximum of {maxBudget}
     </Typography>
 
     {/* Progress bar */}
     <div className="border border-transparent rounded-50 bg-beige100 flex items-center p-50">
      <div 
-      className="h-300 rounded-50 w-[30%]"
-      style={{backgroundColor: itemColor}}
+      className="h-300 rounded-50"
+      style={{
+        backgroundColor: itemColor, 
+        width: `${progressBar}%`
+      }}
      ></div>
     </div>
 
@@ -57,12 +65,12 @@ export const BudgetsCard = ({title, itemColor, latestSpendings}: IBudgetscardPro
     <div className="flex items-center">
      <Quote
       title="spent" 
-      amount="$15.00"
+      amount={totalSpent}
       primaryBorderColor={itemColor}
      />
      <Quote
       title="remaining" 
-      amount="$35.00"
+      amount={maxBudget}
       primaryBorderColor="var(--color-grey100)"
      />
     </div>
