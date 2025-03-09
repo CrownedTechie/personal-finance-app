@@ -4,6 +4,7 @@ import { ModalWrapper } from "./ModalWrapper";
 import { Button } from "../button";
 import { forwardRef, ReactNode } from "react";
 import { PiXCircleLight } from "react-icons/pi";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface IEditOrAddModalProps {
  title: string;
@@ -16,10 +17,12 @@ interface IEditOrAddModalProps {
 
 export const EditOrAddModal = forwardRef<HTMLDialogElement, IEditOrAddModalProps>
  (({title, subText, buttonText, children, onAction, onClose}, ref) => {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+ 
   return ( 
    <ModalWrapper ref={ref}>
     <ContentHeader 
-     as="h1"
+     as={isDesktop ? "h1" : "h2"}
      title={title}
      fontWeight="bold"
      buttonGroup={

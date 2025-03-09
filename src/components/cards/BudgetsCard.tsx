@@ -6,7 +6,8 @@ import { Quote } from "./Quote";
 import { CardWrapper } from "./CardWrapper";
 import { ListView } from "../listView";
 import { formattedAmount } from "@/utils/formatAmount";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { DeleteModal } from "../modal";
 
 interface ILatestSpendingsProps {
  profilePicture: string;
@@ -26,9 +27,21 @@ interface IBudgetscardProps {
 
 export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestSpendings, handleOpenModal}: IBudgetscardProps) => {
   const [openMoreOptions, setOpenMoreOptions] = useState<boolean>(false);
+  const deleteModalRef = useRef<HTMLDialogElement>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const maxBudget = formattedAmount(totalBudget);
   const totalSpent = formattedAmount(amountSpent);
   const progressPercentage = (amountSpent/totalBudget) * 100;
+
+  const handleOpenDeleteModal = () => {
+    setIsModalOpen(true);
+    setOpenMoreOptions(false);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsModalOpen(false);
+  };
 
   const toggleMoreOptions = () => {
     setOpenMoreOptions(prevState => !prevState);
@@ -37,6 +50,11 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
   const handleEditBudget = () => {
     handleOpenModal("edit");
     setOpenMoreOptions(false);
+  };
+
+  const handleDeleteAction = () => {
+    console.log(`Deleted ${title}`);
+    handleCloseDeleteModal();
   };
 
  return ( 
@@ -131,8 +149,24 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
           <Typography>Edit Budget</Typography>
         </li>
         <hr className="text-grey100" />
-        <li className="cursor-pointer"><Typography color="red">Delete Budget</Typography></li>
+        <li 
+          className="cursor-pointer"
+          onClick={handleOpenDeleteModal}
+        >
+          <Typography color="red">Delete Budget</Typography>
+        </li>
       </ul>
+    )}
+
+    {isModalOpen && (
+      <DeleteModal
+        ref={deleteModalRef}
+        title={`delete '${title}'`} 
+        subText="Are you sure you want to delete this budget? This action cannot be reversed, and all the data inside it will be removed forever."
+        onClose={handleCloseDeleteModal}
+        onConfirm={handleDeleteAction}
+        isOpen={isModalOpen}
+      />
     )}
     
    </div>

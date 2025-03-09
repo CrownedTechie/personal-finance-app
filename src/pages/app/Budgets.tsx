@@ -12,7 +12,7 @@ export const Budgets = () => {
   useEffect(() => {
     if (modalType) {
      modalRef.current?.showModal();
-    }
+    } 
   }, [modalType]);
 
   const handleOpenModal = (type: string) => {

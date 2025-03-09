@@ -33,11 +33,6 @@ export const PotsCard = ({title, itemColor, totalSaved, targetAmount, handleOpen
     setIsModalOpen(false);
   };
 
-  const handleDeleteAction = () => {
-    console.log(`Deleted ${title}`);
-    handleCloseDeleteModal();
-  };
-
   const toggleMoreOptions = () => {
     setOpenMoreOptions(prevState => !prevState);
   };
@@ -45,6 +40,11 @@ export const PotsCard = ({title, itemColor, totalSaved, targetAmount, handleOpen
   const handleEditPot = () => {
     handleOpenModal("edit");
     setOpenMoreOptions(false);
+  };
+
+  const handleDeleteAction = () => {
+    console.log(`Deleted ${title}`);
+    handleCloseDeleteModal();
   };
 
  return ( 
@@ -138,11 +138,10 @@ export const PotsCard = ({title, itemColor, totalSaved, targetAmount, handleOpen
           title={`delete '${title}'`} 
           subText="Are you sure you want to delete this pot? This action cannot be reversed, and all the data inside it will be removed forever."
           onClose={handleCloseDeleteModal}
-          onCancel={handleCloseDeleteModal}
           onConfirm={handleDeleteAction}
           isOpen={isModalOpen}
         />
-  )}
+      )}
    </div>
   
   

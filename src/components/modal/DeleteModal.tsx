@@ -4,18 +4,20 @@ import { ContentHeader } from "../contentHeader";
 import { ModalWrapper } from "./ModalWrapper";
 import { Typography } from "../typography";
 import { forwardRef, useEffect } from "react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface IDeleteModalProps {
  title: string;
  subText: string;
  onClose: () => void;
  onConfirm: () => void;
- onCancel: () => void;
  isOpen: boolean;
 };
 
 export const DeleteModal = forwardRef<HTMLDialogElement, IDeleteModalProps>
- (({title, subText, onClose, onCancel, onConfirm, isOpen}, ref) => {
+ (({title, subText, onClose, onConfirm, isOpen}, ref) => {
+   const isDesktop = useMediaQuery("(min-width: 768px)");
+  
 
   useEffect(() => {
    const dialogElement = ref as React.RefObject<HTMLDialogElement>;
@@ -29,7 +31,7 @@ export const DeleteModal = forwardRef<HTMLDialogElement, IDeleteModalProps>
   return ( 
    <ModalWrapper ref={ref}>
     <ContentHeader 
-     as="h1"
+     as={isDesktop ? "h1" : "h2"}
      title={title}
      fontWeight="bold"
      buttonGroup={
@@ -58,7 +60,7 @@ export const DeleteModal = forwardRef<HTMLDialogElement, IDeleteModalProps>
       <Button 
        variant="tertiary" 
        rightArrowIcon={false}
-       onClick={onCancel}
+       onClick={onClose}
       >
        No, Go Back
       </Button>
