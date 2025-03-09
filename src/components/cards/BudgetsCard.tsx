@@ -6,7 +6,7 @@ import { Quote } from "./Quote";
 import { CardWrapper } from "./CardWrapper";
 import { ListView } from "../listView";
 import { formattedAmount } from "@/utils/formatAmount";
-import React from "react";
+import React, { useState } from "react";
 
 interface ILatestSpendingsProps {
  profilePicture: string;
@@ -24,12 +24,18 @@ interface IBudgetscardProps {
 };
 
 export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestSpendings}: IBudgetscardProps) => {
+  const [openMoreOptions, setOpenMoreOptions] = useState<boolean>(false);
   const maxBudget = formattedAmount(totalBudget);
   const totalSpent = formattedAmount(amountSpent);
   const progressPercentage = (amountSpent/totalBudget) * 100;
+
+  const toggleMoreOptions = () => {
+    setOpenMoreOptions(prevState => !prevState);
+  };
+
  return ( 
   <CardWrapper>
-   <div className="flex flex-col justify-center gap-250">
+   <div className="flex flex-col justify-center gap-250 relative">
     <ContentHeader
      as="h2"
      fontWeight="bold"
@@ -38,6 +44,7 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
      buttonGroup={
       <Button 
        className="outline-none text-grey300 cursor-pointer"
+       onClick={toggleMoreOptions}
       >
        <PiDotsThreeOutlineFill className="size-200" />
       </Button>
@@ -107,6 +114,20 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
        ))}
       </ul>
     </div>
+
+    {/* More options */}
+    {openMoreOptions && (
+      <ul className="absolute right-1 top-8 px-250 py-150 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] flex flex-col justify-between gap-150 rounded-100 max-h-[18.75rem] z-50">
+        <li 
+          className="cursor-pointer"
+          // onClick={handleEditPot}
+        >
+          <Typography>Edit Budget</Typography>
+        </li>
+        <hr className="text-grey100" />
+        <li className="cursor-pointer"><Typography color="red">Delete Budget</Typography></li>
+      </ul>
+    )}
     
    </div>
   </CardWrapper>

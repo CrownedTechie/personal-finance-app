@@ -11,9 +11,10 @@ interface IPotsCardProps {
  itemColor: string;
  totalSaved: number;
  targetAmount: number;
+ handleOpenModal: (type: string) => void;
 };
 
-export const PotsCard = ({title, itemColor, totalSaved, targetAmount}: IPotsCardProps) => {
+export const PotsCard = ({title, itemColor, totalSaved, targetAmount, handleOpenModal}: IPotsCardProps) => {
   const [openMoreOptions, setOpenMoreOptions] = useState<boolean>(false);
   const formattedTotalSaved = formattedAmount(totalSaved);
   const formattedTargetAmount = formattedAmount(targetAmount);
@@ -21,6 +22,11 @@ export const PotsCard = ({title, itemColor, totalSaved, targetAmount}: IPotsCard
 
   const toggleMoreOptions = () => {
     setOpenMoreOptions(prevState => !prevState);
+  };
+
+  const handleEditPot = () => {
+    handleOpenModal("edit");
+    setOpenMoreOptions(false);
   };
 
  return ( 
@@ -91,11 +97,16 @@ export const PotsCard = ({title, itemColor, totalSaved, targetAmount}: IPotsCard
 
       {/* More options */}
       {openMoreOptions && (
-      <ul className="absolute right-1 top-8 px-250 py-150 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] flex flex-col justify-between gap-150 rounded-100 max-h-[18.75rem] z-50">
-        <li className="cursor-pointer"><Typography>Edit Pot</Typography></li>
-        <hr className="text-grey100" />
-        <li className="cursor-pointer"><Typography color="red">Delete Pot</Typography></li>
-      </ul>
+        <ul className="absolute right-1 top-8 px-250 py-150 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] flex flex-col justify-between gap-150 rounded-100 max-h-[18.75rem] z-50">
+          <li 
+            className="cursor-pointer"
+            onClick={handleEditPot}
+          >
+            <Typography>Edit Pot</Typography>
+          </li>
+          <hr className="text-grey100" />
+          <li className="cursor-pointer"><Typography color="red">Delete Pot</Typography></li>
+        </ul>
       )}
       
    </div>

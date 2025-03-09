@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 export const Pots = () => {
  const modalRef = useRef<HTMLDialogElement>(null);
  const [modalType, setModalType] = useState<string | null>(null);
- // const [isModalOpen, setIsModalOpen] = useState(false);
 
  useEffect(() => {
   if (modalType) {
@@ -23,7 +22,13 @@ export const Pots = () => {
  };
 
  const handleAction = () => {
-   console.log(modalType === "add" ? "Adding pot..." : "Saving changes...");
+   console.log(
+    modalType === "add" 
+     ? "Adding pot..." 
+     : modalType === "edit" 
+      ? "Saving changes..." 
+      : null
+   );
    handleCloseModal();
  };
 
@@ -53,6 +58,7 @@ export const Pots = () => {
       itemColor={item.color}
       totalSaved={item.totalSaved}
       targetAmount={item.targetAmount}
+      handleOpenModal={handleOpenModal}
      />
     ))}
    </section>
