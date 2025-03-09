@@ -26,12 +26,13 @@ const variantIcon: Record<string, ReactNode> = {
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
  children: ReactNode,
+ rightArrowIcon?: boolean;
  paginationDirection?: "prev" | "next";
  customClass?: string;
 };
 
-export const Button = ({children, variant, paginationDirection, customClass, onClick, disabled, ...props }: IButtonProps) => {
-   const rightArrow = variant === "tertiary" ? variantIcon[variant] : null;
+export const Button = ({children, variant, rightArrowIcon = true, paginationDirection, customClass, onClick, disabled, ...props }: IButtonProps) => {
+   const rightArrow = variant === "tertiary" && rightArrowIcon ? variantIcon[variant] : null;
    const prevArrow = variant === "pagination" && paginationDirection === "prev" ? variantIcon["paginationPrev"] : null;
    const nextArrow = variant === "pagination" && paginationDirection === "next" ? variantIcon["paginationNext"] : null;
 

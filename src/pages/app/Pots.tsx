@@ -1,16 +1,31 @@
-import { Button, ContentHeader, Modal, PotsCard } from "@/components";
+import { Button, ContentHeader, DeleteModal, EditOrAddModal, PotsCard } from "@/components";
 import { potsList } from "@/constants/data";
+import { useEffect, useRef, useState } from "react";
 
 export const Pots = () => {
- // if (isOpen) {
- //  dialogRef.current?.showModal();
- // } else {
- //  dialogRef.current?.close();
- // }
+ const modalRef = useRef<HTMLDialogElement>(null);
+ const [modalType, setModalType] = useState<string | null>(null);
+ // const [isModalOpen, setIsModalOpen] = useState(false);
 
- // const toggleModal = () => {
- //  setIsOpen(prev => !prev)
- // };
+ useEffect(() => {
+  if (modalType) {
+   modalRef.current?.showModal();
+  }
+ }, [modalType]);
+
+ const handleOpenModal = (type: string) => {
+  setModalType(type);
+ };
+
+ const handleCloseModal = () => {
+  modalRef.current?.close();
+  setModalType(null);
+ };
+
+ const handleAction = () => {
+   console.log(modalType === "add" ? "Adding pot..." : "Saving changes...");
+   handleCloseModal();
+ };
 
  return ( 
   <div className="flex flex-col gap-400">
@@ -22,6 +37,7 @@ export const Pots = () => {
      buttonGroup={
      <Button
       variant="primary"
+      onClick={() => handleOpenModal("add")}
      >
       + Add New Pot
      </Button>
@@ -40,7 +56,19 @@ export const Pots = () => {
      />
     ))}
    </section>
-   <Modal />
+
+   {modalType && (
+    <EditOrAddModal 
+     ref={modalRef}
+     title={modalType === "add" ? "add new pot" : "edit pot"}
+     subText="Create a pot to set savings targets. These can help keep you on track as you save for special purchases."
+     buttonText={modalType === "add" ? "add pot" : "save changes"}
+     onAction={handleAction}
+     onClose={handleCloseModal}
+   />
+   )}
+   
+   {/* <DeleteModal /> */}
   </div>
  );
 }
