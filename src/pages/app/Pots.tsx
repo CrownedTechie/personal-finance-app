@@ -1,7 +1,17 @@
-import { Button, ContentHeader, PotsCard } from "@/components";
+import { Button, ContentHeader, Modal, PotsCard } from "@/components";
 import { potsList } from "@/constants/data";
 
 export const Pots = () => {
+ // if (isOpen) {
+ //  dialogRef.current?.showModal();
+ // } else {
+ //  dialogRef.current?.close();
+ // }
+
+ // const toggleModal = () => {
+ //  setIsOpen(prev => !prev)
+ // };
+
  return ( 
   <div className="flex flex-col gap-400">
    <header>
@@ -30,6 +40,7 @@ export const Pots = () => {
      />
     ))}
    </section>
+   <Modal />
   </div>
  );
 }

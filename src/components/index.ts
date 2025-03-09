@@ -5,9 +5,10 @@ export * from "./cards";
 export * from "./chart";
 export * from "./container";
 export * from "./contentHeader";
-export * from "./listView"
+export * from "./listView";
+export * from "./modal";
 export * from "./selectDropdown";
 export * from "./sidebar";
-export * from "./tabs"
+export * from "./tabs";
 export * from "./textField";
 export * from "./typography";
