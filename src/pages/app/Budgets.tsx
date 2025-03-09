@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BudgetsCard, Button, ContentHeader, DoughnutChart, EditOrAddModal, Quote, TextField, Typography } from "@/components";
-import { budgetsList, categoryOptions, colorOptions, fruitOptions } from "@/constants/data";
+import { budgetsList, categoryOptions, colorOptions } from "@/constants/data";
 import { formattedAmount } from "@/utils/formatAmount";
 
 export const Budgets = () => {
