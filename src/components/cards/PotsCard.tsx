@@ -4,7 +4,8 @@ import { ContentHeader } from "../contentHeader";
 import { CardWrapper } from "./CardWrapper";
 import { Typography } from "../typography";
 import { formattedAmount } from "@/utils/formatAmount";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { DeleteModal } from "../modal";
 
 interface IPotsCardProps {
  title: string;
@@ -16,9 +17,26 @@ interface IPotsCardProps {
 
 export const PotsCard = ({title, itemColor, totalSaved, targetAmount, handleOpenModal}: IPotsCardProps) => {
   const [openMoreOptions, setOpenMoreOptions] = useState<boolean>(false);
+  const deleteModalRef = useRef<HTMLDialogElement>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const formattedTotalSaved = formattedAmount(totalSaved);
   const formattedTargetAmount = formattedAmount(targetAmount);
   const progressPercentage = ((totalSaved / targetAmount) * 100);
+
+  const handleOpenDeleteModal = () => {
+    setIsModalOpen(true);
+    setOpenMoreOptions(false);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteAction = () => {
+    console.log(`Deleted ${title}`);
+    handleCloseDeleteModal();
+  };
 
   const toggleMoreOptions = () => {
     setOpenMoreOptions(prevState => !prevState);
@@ -105,13 +123,29 @@ export const PotsCard = ({title, itemColor, totalSaved, targetAmount, handleOpen
             <Typography>Edit Pot</Typography>
           </li>
           <hr className="text-grey100" />
-          <li className="cursor-pointer"><Typography color="red">Delete Pot</Typography></li>
+          <li 
+            className="cursor-pointer"
+            onClick={handleOpenDeleteModal}
+          >
+            <Typography color="red">Delete Pot</Typography>
+          </li>
         </ul>
       )}
-      
-   </div>
 
-   
+      {isModalOpen && (
+        <DeleteModal
+          ref={deleteModalRef}
+          title={`delete '${title}'`} 
+          subText="Are you sure you want to delete this pot? This action cannot be reversed, and all the data inside it will be removed forever."
+          onClose={handleCloseDeleteModal}
+          onCancel={handleCloseDeleteModal}
+          onConfirm={handleDeleteAction}
+          isOpen={isModalOpen}
+        />
+  )}
+   </div>
+  
+  
   </CardWrapper>
  );
 }

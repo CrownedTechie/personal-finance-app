@@ -21,9 +21,10 @@ interface IBudgetscardProps {
  amountSpent: number;
  totalBudget: number
  latestSpendings: ILatestSpendingsProps[];
+ handleOpenModal: (type: string) => void;
 };
 
-export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestSpendings}: IBudgetscardProps) => {
+export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestSpendings, handleOpenModal}: IBudgetscardProps) => {
   const [openMoreOptions, setOpenMoreOptions] = useState<boolean>(false);
   const maxBudget = formattedAmount(totalBudget);
   const totalSpent = formattedAmount(amountSpent);
@@ -31,6 +32,11 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
 
   const toggleMoreOptions = () => {
     setOpenMoreOptions(prevState => !prevState);
+  };
+
+  const handleEditBudget = () => {
+    handleOpenModal("edit");
+    setOpenMoreOptions(false);
   };
 
  return ( 
@@ -120,7 +126,7 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
       <ul className="absolute right-1 top-8 px-250 py-150 bg-white shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)] flex flex-col justify-between gap-150 rounded-100 max-h-[18.75rem] z-50">
         <li 
           className="cursor-pointer"
-          // onClick={handleEditPot}
+          onClick={handleEditBudget}
         >
           <Typography>Edit Budget</Typography>
         </li>

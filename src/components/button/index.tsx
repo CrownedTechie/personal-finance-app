@@ -50,7 +50,7 @@ export const Button = ({children, variant, rightArrowIcon = true, paginationDire
   >
    {prevArrow && <span>{prevArrow}</span>}
    {children && (
-      <Typography customClass="!text-inherit cursor-pointer" disableDefaultStyles>
+      <Typography customClass="!text-inherit !cursor-inherit" disableDefaultStyles>
       {children}
       </Typography>
    )}

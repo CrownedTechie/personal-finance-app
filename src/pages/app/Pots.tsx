@@ -1,10 +1,13 @@
-import { Button, ContentHeader, DeleteModal, EditOrAddModal, PotsCard } from "@/components";
-import { potsList } from "@/constants/data";
+import { Button, ContentHeader, EditOrAddModal, PotsCard, TextField } from "@/components";
+import { colorOptions, potsList } from "@/constants/data";
 import { useEffect, useRef, useState } from "react";
 
 export const Pots = () => {
  const modalRef = useRef<HTMLDialogElement>(null);
  const [modalType, setModalType] = useState<string | null>(null);
+
+ const isAddModal = modalType === "add";
+ const isEditModal = modalType === "edit";
 
  useEffect(() => {
   if (modalType) {
@@ -23,9 +26,9 @@ export const Pots = () => {
 
  const handleAction = () => {
    console.log(
-    modalType === "add" 
+    isAddModal
      ? "Adding pot..." 
-     : modalType === "edit" 
+     : isEditModal
       ? "Saving changes..." 
       : null
    );
@@ -66,15 +69,32 @@ export const Pots = () => {
    {modalType && (
     <EditOrAddModal 
      ref={modalRef}
-     title={modalType === "add" ? "add new pot" : "edit pot"}
-     subText="Create a pot to set savings targets. These can help keep you on track as you save for special purchases."
+     title={isAddModal ? "add new pot" : "edit pot"}
+     subText={isAddModal ? "Create a pot to set savings targets. These can help keep you on track as you save for special purchases." : "If your saving targets change, feel free to update your pots."}
      buttonText={modalType === "add" ? "add pot" : "save changes"}
      onAction={handleAction}
      onClose={handleCloseModal}
-   />
+    >
+     <TextField 
+      inputType="text"
+      labelText="pot name"
+      inputPlaceholder="e.g. Rainy Days"
+      helperText="30 characters left"
+     />
+     <TextField
+      inputType="text"
+      labelText="target"
+      inputPlaceholder="e.g. 2000"
+      prefix
+     />
+     <TextField
+      fieldType="select"
+      labelText="theme" 
+      selectOptions={colorOptions}
+      selectDefaultValue={colorOptions[0]}
+     />
+    </EditOrAddModal>
    )}
-   
-   {/* <DeleteModal /> */}
   </div>
  );
 }

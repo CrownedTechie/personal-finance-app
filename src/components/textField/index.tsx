@@ -52,6 +52,7 @@ export const TextField = ({
       as="span"
       color="grey500"
       fontWeight={labelTextFontWeight}
+      customClass="capitalize"
     >
      {labelText}
     </Typography>

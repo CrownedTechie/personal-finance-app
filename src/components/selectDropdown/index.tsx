@@ -69,39 +69,41 @@ const CustomOption = (props: any) => {
   const { data, isSelected, isDisabled, innerRef, innerProps } = props;
   
   return (
-    <div 
-      ref={innerRef} 
-      {...innerProps} 
-      className={clsx(
-       "flex items-center border-b border-b-grey100 justify-between mx-200 py-150 cursor-pointer capitalize text-nowrap",
-      )}
-    >
-      {/* Colored Dot + Label */}
-      <div className={clsx(
-        "flex items-center gap-150 text-nowrap",
-       )}
-      >
-        {data.color && (
-         <span
-          className={clsx(
-           "size-200 rounded-full",
-           isDisabled && "opacity-10"
-          )}
-           style={{
-             backgroundColor: data.color,
-           }}
-         />
+    <>
+      <div 
+        ref={innerRef} 
+        {...innerProps} 
+        className={clsx(
+        "flex items-center justify-between border-b border-b-grey100 mx-200 py-150 cursor-pointer capitalize text-nowrap",
         )}
-        <Typography 
-         color={isDisabled && "grey500"}
+      >
+        {/* Colored Dot + Label */}
+        <div className={clsx(
+          "flex items-center gap-150 text-nowrap",
+        )}
         >
-         {data.label}
-        </Typography>
-      </div>
+          {data.color && (
+          <span
+            className={clsx(
+            "size-200 rounded-full",
+            isDisabled && "opacity-10"
+            )}
+            style={{
+              backgroundColor: data.color,
+            }}
+          />
+          )}
+          <Typography 
+          color={isDisabled && "grey500"}
+          >
+          {data.label}
+          </Typography>
+        </div>
 
-      {isSelected && <PiCheckCircleFill className="text-green size-200" />}
-      {isDisabled && <Typography as="span" color="grey500" >Already used</Typography>}
-    </div>
+        {isSelected && <PiCheckCircleFill className="text-green size-200" />}
+        {isDisabled && <Typography as="span" color="grey500" >Already used</Typography>}
+      </div>
+    </>
   );
 };
 

@@ -1,22 +1,21 @@
-import { colorOptions, fruitOptions } from "@/constants/data";
 import { ContentHeader } from "../contentHeader";
-import { TextField } from "../textField";
 import { Typography } from "../typography";
 import { ModalWrapper } from "./ModalWrapper";
 import { Button } from "../button";
-import { forwardRef } from "react";
+import { forwardRef, ReactNode } from "react";
 import { PiXCircleLight } from "react-icons/pi";
 
-interface IModalProps {
+interface IEditOrAddModalProps {
  title: string;
  subText: string;
  buttonText: string;
+ children: ReactNode;
  onClose: () => void;
  onAction: () => void;
 };
 
-export const EditOrAddModal = forwardRef<HTMLDialogElement, IModalProps>
- (({title, subText, buttonText, onAction, onClose}, ref) => {
+export const EditOrAddModal = forwardRef<HTMLDialogElement, IEditOrAddModalProps>
+ (({title, subText, buttonText, children, onAction, onClose}, ref) => {
   return ( 
    <ModalWrapper ref={ref}>
     <ContentHeader 
@@ -40,24 +39,7 @@ export const EditOrAddModal = forwardRef<HTMLDialogElement, IModalProps>
     </Typography>
 
     <form className="flex flex-col gap-200" onSubmit={(e) => e.preventDefault()}>
-     <TextField
-      fieldType="select"
-      labelText="Field Without Color Tag"
-      selectOptions={fruitOptions}
-      selectPlaceholder="Select a fruit..."
-     />
-     <TextField
-      inputType="text"
-      labelText="Field With Prefix"
-      prefix
-     />
-     <TextField
-      fieldType="select"
-      labelText="Field With Color Tag" 
-      selectOptions={colorOptions}
-      selectDefaultValue={colorOptions[0]}
-     />
-
+     {children}
      <Button 
       variant="primary" 
       customClass="capitalize"

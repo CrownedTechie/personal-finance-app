@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { BudgetsCard, Button, ContentHeader, DoughnutChart, EditOrAddModal, Quote, Typography } from "@/components";
-import { budgetsList } from "@/constants/data";
+import { BudgetsCard, Button, ContentHeader, DoughnutChart, EditOrAddModal, Quote, TextField, Typography } from "@/components";
+import { budgetsList, colorOptions, fruitOptions } from "@/constants/data";
 import { formattedAmount } from "@/utils/formatAmount";
 
 export const Budgets = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const [modalType, setModalType] = useState<string | null>(null);
+  const isAddModal = modalType === "add";
+  const isEditModal = modalType === "edit";
 
   useEffect(() => {
     if (modalType) {
@@ -24,9 +26,9 @@ export const Budgets = () => {
 
   const handleAction = () => {
    console.log(
-    modalType === "add" 
+    isAddModal 
      ? "Adding budget..." 
-     : modalType === "edit" 
+     : isEditModal 
       ? "Saving changes..." 
       : null
    );
@@ -102,6 +104,7 @@ export const Budgets = () => {
           amountSpent={item.amountSpent}
           totalBudget={item.totalBudget}
           latestSpendings={item.latestSpendings}
+          handleOpenModal={handleOpenModal}
         />
       ))}
       
@@ -111,12 +114,30 @@ export const Budgets = () => {
     {modalType && (
       <EditOrAddModal 
         ref={modalRef}
-        title={modalType === "add" ? "add new budget" : "edit budget"}
-        subText="Choose a category to set a spending budget. These categories can help you monitor spending."
-        buttonText={modalType === "add" ? "add budget" : "save changes"}
+        title={isAddModal ? "add new budget" : "edit budget"}
+        subText={isAddModal ? "Choose a category to set a spending budget. These categories can help you monitor spending." : "As your budgets change, feel free to update your spending limits."}
+        buttonText={isAddModal ? "add budget" : "save changes"}
         onAction={handleAction}
         onClose={handleCloseModal}
-      />
+      >
+        <TextField
+          fieldType="select"
+          labelText="Field Without Color Tag"
+          selectOptions={fruitOptions}
+          selectPlaceholder="Select a fruit..."
+        />
+        <TextField
+          inputType="text"
+          labelText="Field With Prefix"
+          prefix
+        />
+        <TextField
+          fieldType="select"
+          labelText="Field With Color Tag" 
+          selectOptions={colorOptions}
+          selectDefaultValue={colorOptions[0]}
+        />
+      </EditOrAddModal>
     )}
     </div>
   );
