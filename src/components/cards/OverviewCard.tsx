@@ -7,11 +7,12 @@ import { ReactNode } from "react";
 interface IOverviewCardProps {
  cardTitle: string;
  buttonTitle?: string;
+ onClick: () => void;
  customClass?: string;
  children: ReactNode;
 };
 
-export const OverviewCard = ({ cardTitle, buttonTitle, customClass, children }: IOverviewCardProps) => {
+export const OverviewCard = ({ cardTitle, buttonTitle, customClass, children, onClick }: IOverviewCardProps) => {
  return ( 
   <CardWrapper>
    <div className={clsx(
@@ -27,6 +28,7 @@ export const OverviewCard = ({ cardTitle, buttonTitle, customClass, children }: 
       <Button 
         variant="tertiary"
         customClass="capitalize cursor-pointer"
+        onClick={onClick}
       >
         {buttonTitle}
       </Button>

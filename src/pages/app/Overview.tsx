@@ -3,6 +3,7 @@ import { allColors, budgets, recurringBills, savingsOptions, transactions } from
 import { formattedAmount } from "@/utils/formatAmount";
 import { useMemo } from "react";
 import { PiTipJarLight } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
 
 export type BudgetProps = {
   title: string;
@@ -11,6 +12,8 @@ export type BudgetProps = {
 };
 
 export const Overview = ({}) => {
+  const navigate = useNavigate();
+
   const budgetsWithColors = useMemo(() => {
     const availableColors = [...allColors];
     return budgets.map(item => {
@@ -62,6 +65,7 @@ export const Overview = ({}) => {
          cardTitle="pots"
          buttonTitle="see details"
          customClass="gap-250"
+         onClick={() => navigate("/pots")}
         >
          <div className="grid grid-cols-1 md:grid-cols-2 gap-250">
           <SummaryCard
@@ -88,6 +92,7 @@ export const Overview = ({}) => {
          cardTitle="transactions"
          buttonTitle="see details"
          customClass="gap-400"
+         onClick={() => navigate("/transactions")}
         >
          <ul className="flex flex-col justify-center">
           {transactions.map(item => (
@@ -110,6 +115,7 @@ export const Overview = ({}) => {
           cardTitle="budgets"
           buttonTitle="see details"
           customClass="gap-250"
+         onClick={() => navigate("/budgets")}
          >
           <div className="flex flex-col items-center md:grid md:grid-cols-4 gap-200 xl:h-[20rem]">
            <div className="md:col-span-3 flex justify-center">
@@ -138,6 +144,7 @@ export const Overview = ({}) => {
           cardTitle="recurring bills"
           buttonTitle="see details"
           customClass="gap-400"
+         onClick={() => navigate("/recurring-bills")}
          >
           <div className="flex flex-col items-center gap-150 ">
            {recurringBills.map(item => (

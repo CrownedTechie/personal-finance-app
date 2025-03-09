@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BudgetsCard, Button, ContentHeader, DoughnutChart, EditOrAddModal, Quote, TextField, Typography } from "@/components";
-import { budgetsList, colorOptions, fruitOptions } from "@/constants/data";
+import { budgetsList, categoryOptions, colorOptions, fruitOptions } from "@/constants/data";
 import { formattedAmount } from "@/utils/formatAmount";
 
 export const Budgets = () => {
@@ -122,18 +122,19 @@ export const Budgets = () => {
       >
         <TextField
           fieldType="select"
-          labelText="Field Without Color Tag"
-          selectOptions={fruitOptions}
-          selectPlaceholder="Select a fruit..."
+          labelText="budget category"
+          selectOptions={categoryOptions}
+          selectDefaultValue={categoryOptions[1]}
         />
         <TextField
           inputType="text"
-          labelText="Field With Prefix"
+          labelText="maximum spend"
+          inputPlaceholder="e.g. 2000"
           prefix
         />
         <TextField
           fieldType="select"
-          labelText="Field With Color Tag" 
+          labelText="theme" 
           selectOptions={colorOptions}
           selectDefaultValue={colorOptions[0]}
         />
