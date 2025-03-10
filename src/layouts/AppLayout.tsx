@@ -1,17 +1,20 @@
-// import React from "react";
-
+import { Container, Sidebar } from "@/components";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 export const AppLayout = () => {
- return (  
-  <>
-   <h1>APP Layout</h1>
+ const [isOpen, setIsOpen] = useState<boolean>(true);
 
-   <main>
+ return (  
+  <div className="border-blue flex flex-col-reverse lg:flex-row w-screen max-h-screen bg-beige100">
+   <Sidebar 
+    isOpen={isOpen}
+    setIsOpen={setIsOpen}
+   />
+
+   <Container>
     <Outlet />
-   </main>
-  </>
+   </Container> 
+  </div>
  );
-}
- 
-// export default AppLayout;
+};

@@ -1,28 +1,39 @@
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { AppLayout } from './layouts/AppLayout';
-import { Overview } from './pages/Overview';
-import { AuthLayout } from './layouts/AuthLayout';
-import { Login } from './pages/auth/Login';
-import { Signup } from './pages/auth/Signup';
+import { AuthLayout, AppLayout } from "./layouts";
+import { Budgets, Component, Login, Overview, Pots, RecurringBills, Signup, Transactions } from './pages';
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <AppLayout />,
     children: [
       {
         path: "overview",
         element: <Overview />
       },
+      {
+        path: "transactions",
+        element: <Transactions />
+      },
+      {
+        path: "budgets",
+        element: <Budgets />
+      },
+      {
+        path: "pots",
+        element: <Pots />
+      },
+      {
+        path: "recurring-bills",
+        element: <RecurringBills />
+      },
     ],
   },
   {
-    path: "/auth",
+    path: "/",
     element: <AuthLayout />,
     children: [
       {
-        path: "login",
+        index: true,
         element: <Login />,
         // loader: redirectIfUser,
       },
@@ -32,6 +43,10 @@ const router = createBrowserRouter([
         // loader: redirectIfUser,
       },
     ],
+  },
+  {
+    path: "/components",
+    element: <Component />
   },
 ]);
 

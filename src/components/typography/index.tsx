@@ -31,6 +31,7 @@ const colorClasses = {
  armyGreen: "text-army-green",
  gold: "text-gold",
  orange: "text-orange",
+ white: "text-white",
 }
 
 const fontWeightClasses = {

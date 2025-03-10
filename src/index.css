@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Public Sans" ;
+  src: url("./assets/fonts/PublicSans-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Public Sans";
+  src: url("./assets/fonts/PublicSans-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Public Sans";
+  src: url("./assets/fonts/PublicSans-Bold.ttf");
+  font-weight: 700;
+}
+
 :root {
   font-family: "Public Sans", serif;
 }
@@ -35,11 +52,11 @@
   --color-orange: hsl(18, 47%, 52%);
 
   /* Text font sizes */
-  --text-xl: 2rem;
-  --text-lg: 1.25rem;
-  --text-md: 1rem;
-  --text-sm: .875rem;
-  --text-xs: .75rem;
+  --text-xl: 2rem;  /*text preset 1*/
+  --text-lg: 1.25rem; /*text preset 2*/
+  --text-md: 1rem; /*text preset 3*/
+  --text-sm: .875rem; /*text preset 4*/
+  --text-xs: .75rem; /*text preset 5*/
 
   /* Line height for the font sizes */
   --text-xl--line-height: 120%;
@@ -67,4 +84,12 @@
   --radius-300: 1.5rem;
   --radius-400: 2rem;
   --radius-500: 2.5rem;
+}
+
+body {
+  @apply bg-grey100;
+}
+
+dialog::backdrop {
+  @apply bg-[#00000080];
 }
