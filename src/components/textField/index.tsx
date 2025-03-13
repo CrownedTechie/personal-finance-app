@@ -1,45 +1,20 @@
-import { ReactNode } from "react";
 import clsx from "clsx";
-import { IOptionType } from "../selectDropdown/types";
 import { Typography } from "../typography";
 import { SelectDropdown } from "../selectDropdown";
-import { TypographyFontWeights } from "../typography/types";
+import { IBaseTextfieldProps, IInputFieldProps, ISelectFieldProps } from "./types";
 
-interface ITextfieldProps {
- icon?: ReactNode;
- prefix?: boolean;
- labelText?: string;
- helperText?: string;
- fieldType?: "input" | "select";
- inputType?: "text" | "password" | "email";
- inputPlaceholder?: string;
- selectOptions?: IOptionType[];
- selectPlaceholder?: string;
- selectDefaultValue?: IOptionType;
- selectCustomClass?: string;
- customClass?: string;
- labelTextFontWeight?: TypographyFontWeights;
-}
+type TextfieldProps = IBaseTextfieldProps & (IInputFieldProps | ISelectFieldProps);
 
 export const TextField = ({
- icon, 
+ id,
+ name,
  labelText, 
  helperText, 
- prefix, 
  customClass,
  fieldType = "input",
- inputType = "text",
- inputPlaceholder = "Placeholder",
  labelTextFontWeight = "bold",
- selectCustomClass,
- selectDefaultValue,
- selectPlaceholder,
- selectOptions = [
-   { label: "Un-appraised", value: "Un-appraised" },
-   { label: "In-progress", value: "In-progress" },
-   { label: "completed", value: "completed" },
- ]
-}: ITextfieldProps) => {
+ ...restProps
+}: TextfieldProps) => {
  return ( 
   <div 
     className={clsx(
@@ -47,7 +22,7 @@ export const TextField = ({
       customClass ? customClass : "flex-col gap-50"
   )}
   >
-   <label htmlFor="">
+   <label htmlFor={id}>
     <Typography
       as="span"
       color="grey500"
@@ -59,30 +34,55 @@ export const TextField = ({
    </label>
 
    {fieldType === "input" ? (
-     <div className={clsx(
-      "border border-beige500 px-200 rounded-100 hover:border-grey500 w-full",
-      (icon || prefix) && "flex items-center gap-150"
-     )}>
-      {prefix && <Typography color="beige500">$</Typography>}
-      <input 
-       type={inputType} 
-       name="" 
-       placeholder={inputPlaceholder} 
-       className=" py-150 font-normal text-sm text-grey900 w-full placeholder:text-sm placeholder-beige500 focus:outline-none truncate " 
-      />
-      {icon && icon}
-     </div>
+     <InputField id={id} name={name}  {...restProps as IInputFieldProps} />
     ) : (
-     <SelectDropdown 
-      options={selectOptions}
-      placeholder={selectPlaceholder}
-      defaultValue={selectDefaultValue}
-      customClass={selectCustomClass}
-     />
+     <SelectField {...restProps as ISelectFieldProps} />
     )
    }
    
    {helperText && <Typography color="grey500" customClass="place-self-end">{helperText}</Typography>}
   </div>
  );
-}
+};
+
+const InputField = ({
+  icon, 
+  prefix, 
+  inputType = "text", 
+  name, 
+  id, 
+  inputPlaceholder
+} : IInputFieldProps & Pick<IBaseTextfieldProps, "name" | "id">) => (
+  <div className={clsx(
+    "border border-beige500 px-200 rounded-100 hover:border-grey500 w-full",
+    (icon || prefix) && "flex items-center gap-150"
+    )}>
+    {prefix && <Typography color="beige500">$</Typography>}
+    <input 
+      type={inputType} 
+      id={id}
+      name={name}
+      placeholder={inputPlaceholder} 
+      className=" py-150 font-normal text-sm text-grey900 w-full placeholder:text-sm placeholder-beige500 focus:outline-none truncate " 
+    />
+    {icon && icon}
+  </div>
+);
+
+const SelectField = ({
+  selectPlaceholder, 
+  selectDefaultValue, 
+  selectCustomClass,
+  selectOptions = [
+   { label: "Un-appraised", value: "Un-appraised" },
+   { label: "In-progress", value: "In-progress" },
+   { label: "completed", value: "completed" },
+ ]
+} : ISelectFieldProps) => (
+  <SelectDropdown 
+    options={selectOptions}
+    placeholder={selectPlaceholder}
+    defaultValue={selectDefaultValue}
+    customClass={selectCustomClass}
+  />
+);
