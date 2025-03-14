@@ -37,17 +37,21 @@ export const TextField = <TFieldValues extends FieldValues>({
    </label>
 
    {fieldType === "input" ? (
-     <InputField<TFieldValues> 
-      id={id} 
-      fieldName={fieldName} 
-      {...restProps as IInputFieldProps<TFieldValues>} 
-     />
+    <>
+      <InputField<TFieldValues> 
+        id={id} 
+        fieldName={fieldName} 
+        {...restProps as IInputFieldProps<TFieldValues>} 
+      />
+      {helperText && <Typography color="red" customClass="place-self-end">{helperText}</Typography>}
+    </>
     ) : (
-     <SelectField {...restProps as ISelectFieldProps} />
+    <>
+      <SelectField {...restProps as ISelectFieldProps} />
+      {helperText && <Typography color="grey500" customClass="place-self-end">{helperText}</Typography>}
+    </>
     )
    }
-   
-   {helperText && <Typography color="grey500" customClass="place-self-end">{helperText}</Typography>}
   </div>
  );
 };
@@ -70,7 +74,7 @@ const InputField = <TFieldValues extends FieldValues> ({
     <input 
       type={inputType} 
       id={id}
-      {...(register ? register(fieldName) : { fieldName })}
+      {...(register ? register(fieldName, {required: true}) : { fieldName })}
       placeholder={inputPlaceholder} 
       className=" py-150 font-normal text-sm text-grey900 w-full placeholder:text-sm placeholder-beige500 focus:outline-none truncate " 
       {...restProps}

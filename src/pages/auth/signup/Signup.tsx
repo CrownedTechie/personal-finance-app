@@ -1,19 +1,22 @@
 import { AuthWrapper, Button, TextField, Typography } from "@/components";
-import { PiEyeFill } from "react-icons/pi";
+import { PiEyeFill, PiEyeSlashFill } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useState } from "react";
 
 const signUpSchema = z.object({
   username: z.string().min(5, "Name must be at least 5 characters"),
-  email: z.string().email(),
+  email: z.string().email("Invalid Email Address"),
   password: z.string().min(8, "Password must be at least 8 characters")
-});
+}).required();
 
 type SignUpSchemaType = z.infer<typeof signUpSchema>;
 
 export const Signup = () => {
+  const [ showPassword, setShowPassword ] = useState(false); 
+
   const { 
     register, 
     handleSubmit, 
@@ -22,14 +25,14 @@ export const Signup = () => {
     resolver: zodResolver(signUpSchema)
   });
 
-
   const onSubmit = (data: SignUpSchemaType) => {
     console.log(data);
   };
 
-
   //TODO: Work on clearing errors while we're typing
-  
+  //TODO: Show Password 
+
+
  return ( 
   <AuthWrapper>
    <div className="flex flex-col justify-center gap-400">
@@ -40,7 +43,7 @@ export const Signup = () => {
      Sign Up
     </Typography>
  
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit, (err)=> console.log(err))}>
       <div className="flex flex-col gap-200 justify-center">
         <TextField 
           id="username"
@@ -64,11 +67,19 @@ export const Signup = () => {
           id="password"
           fieldName="password"
           register={register}
-          inputType="password"
+          inputType={showPassword ? "text" : "password"}
           labelText="Password"
           inputPlaceholder="Enter your password"
           helperText={errors.password?.message}
-          icon={<PiEyeFill size-200 text-grey900 />}
+          icon={
+            <button type="button" onClick={() => setShowPassword(prev => !prev)}>
+              {
+                showPassword 
+                ? <PiEyeSlashFill className="text-grey900 size-200" />
+                : <PiEyeFill className="text-grey900 size-200" />
+              }
+            </button>
+          }
         />
       </div>
       
@@ -86,9 +97,10 @@ export const Signup = () => {
     >
      Already have an account?
      <Link to="/login">
-      <Typography 
-       fontWeight="bold"
-       customClass="underline underline-offset-auto"
+      <Typography
+        as="span"
+        fontWeight="bold"
+        customClass="underline underline-offset-auto"
       >
        Login
       </Typography>

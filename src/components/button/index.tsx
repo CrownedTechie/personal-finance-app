@@ -1,5 +1,5 @@
 import { cva, VariantProps } from "class-variance-authority";
-import { ReactNode } from "react";
+import { forwardRef, ReactNode } from "react";
 import clsx from "clsx";
 import { PiCaretLeftFill, PiCaretRightFill } from "react-icons/pi";
 import { Typography } from "../typography";
@@ -31,13 +31,15 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, Va
  customClass?: string;
 };
 
-export const Button = ({children, variant, rightArrowIcon = true, paginationDirection, customClass, onClick, disabled, ...props }: IButtonProps) => {
+export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
+({children, variant, rightArrowIcon = true, paginationDirection, customClass, onClick, disabled, ...props }, ref) =>{
    const rightArrow = variant === "tertiary" && rightArrowIcon ? variantIcon[variant] : null;
    const prevArrow = variant === "pagination" && paginationDirection === "prev" ? variantIcon["paginationPrev"] : null;
    const nextArrow = variant === "pagination" && paginationDirection === "next" ? variantIcon["paginationNext"] : null;
 
  return ( 
   <button 
+   ref={ref}
    className={clsx(
     buttonVariants({ variant }),
     (rightArrow || prevArrow || nextArrow) && "gap-150",
@@ -57,4 +59,4 @@ export const Button = ({children, variant, rightArrowIcon = true, paginationDire
    {(rightArrow || nextArrow) && <span>{rightArrow || nextArrow}</span>}
   </button>
  );
-};
+});

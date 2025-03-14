@@ -122,7 +122,7 @@ export const Component = () => {
       </div>
 
       {/* TEXT FIELDS */}
-      <div className="mt-500 flex flex-col lg:flex-row flex-wrap gap-300 lg:gap-500 lg:items-center">
+      {/* <div className="mt-500 flex flex-col lg:flex-row flex-wrap gap-300 lg:gap-500 lg:items-center">
         <TextField 
           inputType="text"
           labelText="Basic Field"
@@ -165,7 +165,7 @@ export const Component = () => {
           customClass="flex-row items-center gap-100"
           labelTextFontWeight="regular"
         />
-      </div>
+      </div> */}
       
       {/* Summary cards */}
       <div className="mt-500 flex flex-wrap flex-col md:flex-row md:items-center gap-150 ">
