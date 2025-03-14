@@ -6,22 +6,30 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 const signUpSchema = z.object({
-  // username: 
+  username: z.string().min(5, "Name must be at least 5 characters"),
+  email: z.string().email(),
+  password: z.string().min(8, "Password must be at least 8 characters")
 });
+
+type SignUpSchemaType = z.infer<typeof signUpSchema>;
 
 export const Signup = () => {
   const { 
     register, 
     handleSubmit, 
     formState: {errors}
-  } = useForm({
+  } = useForm<SignUpSchemaType>({
     resolver: zodResolver(signUpSchema)
   });
 
-  const onSubmit = (data) => {
+
+  const onSubmit = (data: SignUpSchemaType) => {
     console.log(data);
   };
 
+
+  //TODO: Work on clearing errors while we're typing
+  
  return ( 
   <AuthWrapper>
    <div className="flex flex-col justify-center gap-400">
@@ -32,29 +40,34 @@ export const Signup = () => {
      Sign Up
     </Typography>
  
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-200 justify-center">
         <TextField 
           id="username"
-          name="username"
+          fieldName="username"
+          register={register}
           inputType="text"
           labelText="Name"
           inputPlaceholder="Enter your name"
+          helperText={errors.username?.message}
         />
         <TextField 
           id="email"
-          name="email"
+          fieldName="email"
+          register={register}
           inputType="email"
           labelText="Email"
           inputPlaceholder="Enter your email"
+          helperText={errors.email?.message}
         />
         <TextField 
           id="password"
-          name="password"
+          fieldName="password"
+          register={register}
           inputType="password"
           labelText="Password"
           inputPlaceholder="Enter your password"
-          helperText="Passwords must be at least 8 characters"
+          helperText={errors.password?.message}
           icon={<PiEyeFill size-200 text-grey900 />}
         />
       </div>

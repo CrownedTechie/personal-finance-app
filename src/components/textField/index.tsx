@@ -2,19 +2,22 @@ import clsx from "clsx";
 import { Typography } from "../typography";
 import { SelectDropdown } from "../selectDropdown";
 import { IBaseTextfieldProps, IInputFieldProps, ISelectFieldProps } from "./types";
+import { FieldValues, Path } from "react-hook-form";
 
-type TextfieldProps = IBaseTextfieldProps & (IInputFieldProps | ISelectFieldProps);
+type TextfieldProps<TFieldValues extends FieldValues> = 
+  IBaseTextfieldProps<TFieldValues> & (
+  IInputFieldProps<TFieldValues> | ISelectFieldProps);
 
-export const TextField = ({
+export const TextField = <TFieldValues extends FieldValues>({
  id,
- name,
+ fieldName,
  labelText, 
  helperText, 
  customClass,
  fieldType = "input",
  labelTextFontWeight = "bold",
  ...restProps
-}: TextfieldProps) => {
+}: TextfieldProps<TFieldValues>) => {
  return ( 
   <div 
     className={clsx(
@@ -34,7 +37,11 @@ export const TextField = ({
    </label>
 
    {fieldType === "input" ? (
-     <InputField id={id} name={name}  {...restProps as IInputFieldProps} />
+     <InputField<TFieldValues> 
+      id={id} 
+      fieldName={fieldName} 
+      {...restProps as IInputFieldProps<TFieldValues>} 
+     />
     ) : (
      <SelectField {...restProps as ISelectFieldProps} />
     )
@@ -45,14 +52,16 @@ export const TextField = ({
  );
 };
 
-const InputField = ({
+const InputField = <TFieldValues extends FieldValues> ({
   icon, 
   prefix, 
   inputType = "text", 
-  name, 
+  fieldName, 
   id, 
-  inputPlaceholder
-} : IInputFieldProps & Pick<IBaseTextfieldProps, "name" | "id">) => (
+  inputPlaceholder,
+  register,
+  ...restProps
+} : IInputFieldProps<TFieldValues> & { fieldName: Path<TFieldValues>, id: string }) => (
   <div className={clsx(
     "border border-beige500 px-200 rounded-100 hover:border-grey500 w-full",
     (icon || prefix) && "flex items-center gap-150"
@@ -61,9 +70,10 @@ const InputField = ({
     <input 
       type={inputType} 
       id={id}
-      name={name}
+      {...(register ? register(fieldName) : { fieldName })}
       placeholder={inputPlaceholder} 
       className=" py-150 font-normal text-sm text-grey900 w-full placeholder:text-sm placeholder-beige500 focus:outline-none truncate " 
+      {...restProps}
     />
     {icon && icon}
   </div>
