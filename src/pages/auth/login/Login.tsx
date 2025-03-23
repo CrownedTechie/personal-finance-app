@@ -1,9 +1,13 @@
 import { AuthWrapper, Button, TextField, Typography } from "@/components";
+import { auth } from "@/config/firebase";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PiEyeFill, PiEyeSlashFill } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 import { z } from "zod";
 
 const loginSchema = z.object({
@@ -19,13 +23,20 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: {errors}
+    formState: {errors, isSubmitting}
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema)
   });
 
-  const onSubmit = (data: LoginSchemaType) => {
-    console.log(data);
+  const onSubmit = async (data: LoginSchemaType) => {
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      redirect("overview");
+      toast.success("Logged in Successfully");
+    } catch(error) {
+      const errorMessage = getErrorMessage(error);
+      toast.error(errorMessage);
+    }
   };
 
  return ( 
@@ -76,6 +87,7 @@ export const Login = () => {
    <Button 
     variant="primary"
     customClass="w-full mt-400"
+    loading={isSubmitting}
    >
     Login
    </Button>

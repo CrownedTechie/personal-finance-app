@@ -1,6 +1,6 @@
 import { AuthWrapper, Button, TextField, Typography } from "@/components";
 import { PiEyeFill, PiEyeSlashFill } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -43,7 +43,8 @@ export const Signup = () => {
           username: data.username.trim().toLowerCase(),
         });
       }
-      toast.success("Account created successfully!")
+      redirect("overview");
+      toast.success("Account created successfully!");
     } catch(error) {
       const errorMessage = getErrorMessage(error);
       toast.error(errorMessage);

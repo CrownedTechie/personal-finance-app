@@ -7,6 +7,8 @@ export * from "./container";
 export * from "./contentHeader";
 export * from "./listView";
 export * from "./modal";
+export * from "./notFound";
+export * from "./pageLoader";
 export * from "./selectDropdown";
 export * from "./sidebar";
 export * from "./tabs";
