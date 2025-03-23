@@ -8,7 +8,9 @@ import { NotFound, PageLoader } from './components';
 //Redirecting logged-in users from auth pages
 const RedirectIfUser = () => {
   const { user, loading } = useAuth();
-  if(loading) <PageLoader />
+  if (loading) {
+    return <PageLoader />;
+  }
   return user ? <Navigate to="overview" replace/> : <Outlet />;
 };
 

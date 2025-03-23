@@ -19,8 +19,10 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
+      setTimeout(() => {
+        setUser(currentUser);
+        setLoading(false);
+      }, 1000);
     });
 
     return () => unsubscribe(); // Cleanup on unmount

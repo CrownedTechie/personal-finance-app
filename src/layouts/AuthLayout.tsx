@@ -1,31 +1,8 @@
 import { AuthImage, LogoLarge } from "@/assets/svgs";
-import { PageLoader, Typography } from "@/components";
-import { auth } from "@/config/firebase";
-import { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Typography } from "@/components";
+import { Outlet } from "react-router-dom";
 
 export const AuthLayout = () => {
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   let timeoutId: NodeJS.Timeout;
-  //   const unsubscribe = auth.onAuthStateChanged(user => {
-  //     timeoutId = setTimeout(() => {
-  //     if (user) {
-  //       navigate("overview"); // Redirecting to login page if the user is not authenticated
-  //     } 
-  //       setLoading(false); // Set loading to false after auth check
-  //     }, 1000);
-  //   });
-
-  //   return () => {
-  //     unsubscribe();
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, [navigate]);
-
-  // if (loading) {<PageLoader />}
 
  return ( 
   <main className="flex items-center justify-center flex-col xl:flex-row w-screen h-screen p-250">
