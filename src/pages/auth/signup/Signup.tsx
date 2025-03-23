@@ -5,6 +5,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "@/config/firebase";
+import { setDoc, doc } from "firebase/firestore";
+import { toast } from "react-toastify";
+import { FirebaseError } from "firebase/app";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 const signUpSchema = z.object({
   username: z.string().min(5, "Name must be at least 5 characters"),
@@ -25,8 +31,24 @@ export const Signup = () => {
     resolver: zodResolver(signUpSchema)
   });
 
-  const onSubmit = (data: SignUpSchemaType) => {
-    console.log(data);
+  const onSubmit = async (data: SignUpSchemaType) => {
+    try {
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      const user = auth.currentUser;
+      console.log(user);
+
+      // Creating a collection of users and storing them their details 
+      if (user) {
+        await setDoc(doc(db, "Users", user?.uid), {
+          email: user.email,
+          username: data.username.trim().toLowerCase(),
+        });
+      }
+      toast.success("Account created successfully!")
+    } catch(error) {
+      const errorMessage = getErrorMessage(error);
+      toast.error(errorMessage);
+    }
   };
 
   //TODO: Work on clearing errors while we're typing
@@ -43,7 +65,7 @@ export const Signup = () => {
      Sign Up
     </Typography>
  
-    <form onSubmit={handleSubmit(onSubmit, (err)=> console.log(err))}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-200 justify-center">
         <TextField 
           id="username"
@@ -72,13 +94,17 @@ export const Signup = () => {
           inputPlaceholder="Enter your password"
           helperText={errors.password?.message}
           icon={
-            <button type="button" onClick={() => setShowPassword(prev => !prev)}>
+            <Button
+              type="button"
+              onClick={() => setShowPassword(prev => !prev)}
+              customClass="border-none"
+            >
               {
                 showPassword 
                 ? <PiEyeSlashFill className="text-grey900 size-200" />
                 : <PiEyeFill className="text-grey900 size-200" />
               }
-            </button>
+            </Button>
           }
         />
       </div>
@@ -96,11 +122,11 @@ export const Signup = () => {
      customClass="flex items-center justify-center gap-100"
     >
      Already have an account?
-     <Link to="/login">
+     <Link to="/">
       <Typography
         as="span"
         fontWeight="bold"
-        customClass="underline underline-offset-auto"
+        customClass="underline underline-offset-auto text-xl"
       >
        Login
       </Typography>
