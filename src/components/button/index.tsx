@@ -1,7 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { forwardRef, ReactNode } from "react";
 import clsx from "clsx";
-import { PiCaretLeftFill, PiCaretRightFill } from "react-icons/pi";
+import { PiCaretLeftFill, PiCaretRightFill, PiSpinnerGapBold } from "react-icons/pi";
 import { Typography } from "../typography";
 
 const variantClasses = {
@@ -29,10 +29,12 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, Va
  rightArrowIcon?: boolean;
  paginationDirection?: "prev" | "next";
  customClass?: string;
+ loading?: boolean;
+ disabled?: boolean;
 };
 
 export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
-({children, variant, rightArrowIcon = true, paginationDirection, customClass, onClick, disabled, ...props }, ref) =>{
+({children, variant, rightArrowIcon = true, paginationDirection, customClass, onClick, loading, disabled, ...props }, ref) =>{
    const rightArrow = variant === "tertiary" && rightArrowIcon ? variantIcon[variant] : null;
    const prevArrow = variant === "pagination" && paginationDirection === "prev" ? variantIcon["paginationPrev"] : null;
    const nextArrow = variant === "pagination" && paginationDirection === "next" ? variantIcon["paginationNext"] : null;
@@ -44,14 +46,17 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
     buttonVariants({ variant }),
     (rightArrow || prevArrow || nextArrow) && "gap-150",
     customClass && customClass,
-    "border rounded-100 text-sm flex items-center justify-center cursor-pointer"
+    "border rounded-100 text-sm flex items-center justify-center",
+    (loading || disabled) ? "cursor-not-allowed" : "cursor-pointer"
    )}
    onClick={onClick}
-   disabled={disabled}
+   disabled={disabled || loading}
    {...props}
   >
    {prevArrow && <span>{prevArrow}</span>}
-   {children && (
+   {loading ? (  // Showing spinner when loading is true
+      <PiSpinnerGapBold  className="animate-spin [animation-duration:1.5s] size-250" />
+   ) : (
       <Typography customClass="!text-inherit !cursor-inherit" disableDefaultStyles>
       {children}
       </Typography>

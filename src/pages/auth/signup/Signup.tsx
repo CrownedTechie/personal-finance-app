@@ -9,7 +9,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/config/firebase";
 import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
-import { FirebaseError } from "firebase/app";
 import { getErrorMessage } from "@/utils/getErrorMessage";
 
 const signUpSchema = z.object({
@@ -21,12 +20,12 @@ const signUpSchema = z.object({
 type SignUpSchemaType = z.infer<typeof signUpSchema>;
 
 export const Signup = () => {
-  const [ showPassword, setShowPassword ] = useState(false); 
+  const [ showPassword, setShowPassword ] = useState<boolean>(false); 
 
   const { 
     register, 
-    handleSubmit, 
-    formState: {errors}
+    handleSubmit,
+    formState: {errors, isSubmitting}
   } = useForm<SignUpSchemaType>({
     resolver: zodResolver(signUpSchema)
   });
@@ -112,6 +111,7 @@ export const Signup = () => {
       <Button 
         variant="primary"
         customClass="w-full mt-400"
+        loading={isSubmitting}
       >
         Create Account
       </Button>
