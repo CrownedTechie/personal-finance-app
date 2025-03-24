@@ -1,10 +1,13 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/config/firebase";
+import { toast } from "react-toastify";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 interface IAuthContextProps {
   user: User | null;
   loading: boolean;
+  logout: () => void;
 };
 
 interface IAuthProviderProps {
@@ -19,8 +22,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
       setTimeout(() => {
-        setUser(currentUser);
         setLoading(false);
       }, 1000);
     });
@@ -28,8 +31,18 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     return () => unsubscribe(); // Cleanup on unmount
   }, []);
 
+  const logout = async () => {
+    try {
+      await auth.signOut();
+      toast.success("Logged out successfully!");
+    } catch(error) {
+      const errorMessage = getErrorMessage(error);
+      toast.error(errorMessage);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, loading, logout }}>
       {children}
     </AuthContext.Provider>
   );

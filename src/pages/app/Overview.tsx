@@ -1,8 +1,10 @@
-import { ContentHeader, DoughnutChart, ListView, OverviewCard, Quote, SummaryCard } from "@/components";
+import { Button, ContentHeader, DoughnutChart, ListView, OverviewCard, Quote, SummaryCard } from "@/components";
 import { allColors, budgets, recurringBills, savingsOptions, transactions } from "@/constants/data";
+import { useAuth } from "@/hooks/useAuth";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { formattedAmount } from "@/utils/formatAmount";
 import { useMemo } from "react";
-import { PiTipJarLight } from "react-icons/pi";
+import { PiPowerFill, PiTipJarLight } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 
 export type BudgetProps = {
@@ -12,7 +14,9 @@ export type BudgetProps = {
 };
 
 export const Overview = ({}) => {
+  const { logout } = useAuth();
   const navigate = useNavigate();
+  const isTabScreen = useMediaQuery("(max-width: 1023px)");
 
   const budgetsWithColors = useMemo(() => {
     const availableColors = [...allColors];
@@ -24,6 +28,11 @@ export const Overview = ({}) => {
     });
 }, []);
 
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
  return ( 
   <div className="flex flex-col h-auto gap-400">
    <header>
@@ -31,6 +40,14 @@ export const Overview = ({}) => {
      title="overview" 
      as="h1"
      fontWeight="bold"
+     buttonGroup={ isTabScreen && 
+      <Button 
+        customClass="border-none flex items-center justify-center"
+        onClick={handleLogout}
+      >
+          <PiPowerFill className="text-[2rem]"/>
+      </Button>
+     }
     />
    </header>
 

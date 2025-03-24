@@ -3,6 +3,8 @@ import clsx from "clsx";
 import { PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiPowerFill } from "react-icons/pi";
 import { Tabs } from "../tabs";
 import { Typography } from "../typography";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 interface ISidebarProps {
  isOpen: boolean;
@@ -10,9 +12,17 @@ interface ISidebarProps {
 }
 
 export const Sidebar = ({isOpen, setIsOpen}: ISidebarProps) => {
- const toggleSidebar = () => {
-  setIsOpen(prevState => !prevState);
- };
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const toggleSidebar = () => {
+    setIsOpen(prevState => !prevState);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
  return ( 
   <>
@@ -41,7 +51,7 @@ export const Sidebar = ({isOpen, setIsOpen}: ISidebarProps) => {
       "sticky bottom-0 left-0 flex flex-col gap-400 py-200 px-400 mb-300 "
      )}
     >
-      <button>
+      <button onClick={handleLogout}>
         <Typography
         fontWeight="bold" 
         fontSize="md" 

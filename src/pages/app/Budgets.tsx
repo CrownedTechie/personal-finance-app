@@ -121,18 +121,24 @@ export const Budgets = () => {
         onClose={handleCloseModal}
       >
         <TextField
+          id=""
+          fieldName=""
           fieldType="select"
           labelText="budget category"
           selectOptions={categoryOptions}
           selectDefaultValue={categoryOptions[1]}
         />
         <TextField
+          id=""
+          fieldName=""
           inputType="text"
           labelText="maximum spend"
           inputPlaceholder="e.g. 2000"
           prefix
         />
         <TextField
+          id=""
+          fieldName=""
           fieldType="select"
           labelText="theme" 
           selectOptions={colorOptions}
