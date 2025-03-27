@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom';
 import { AuthLayout, AppLayout, ProtectedRoute } from "./layouts";
-import { Budgets, Component, Login, Overview, Pots, RecurringBills, Signup, Transactions } from './pages';
+import { Budgets, Component, ForgotPassword, Login, Overview, Pots, RecurringBills, Signup, Transactions } from './pages';
 import { ToastContainer } from 'react-toastify';
 import { useAuth } from './hooks/useAuth';
 import { NotFound, PageLoader } from './components';
@@ -54,6 +54,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Login />},
           {path: "signup", element: <Signup />},
+          {path: "reset-password", element: <ForgotPassword />}
         ],
       },
     ],

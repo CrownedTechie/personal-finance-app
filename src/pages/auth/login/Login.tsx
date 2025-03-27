@@ -6,7 +6,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PiEyeFill, PiEyeSlashFill } from "react-icons/pi";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
@@ -19,6 +19,7 @@ type LoginSchemaType = z.infer<typeof loginSchema>;
 
 export const Login = () => {
   const [ showPassword, setShowPassword ] = useState(false); 
+  const navigate = useNavigate();
 
   const {
     register,
@@ -31,7 +32,7 @@ export const Login = () => {
   const onSubmit = async (data: LoginSchemaType) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      redirect("overview");
+      navigate("/overview");
       toast.success("Logged in Successfully");
     } catch(error) {
       const errorMessage = getErrorMessage(error);
@@ -49,66 +50,82 @@ export const Login = () => {
     Login
    </Typography>
 
-  <form onSubmit={handleSubmit(onSubmit)}>
-   <div className="flex flex-col gap-200 justify-center">
-    <TextField 
-      id="email"
-      fieldName="email"
-      register={register}
-      inputType="email"
-      labelText="Email"
-      inputPlaceholder="Enter your email"
-      helperText={errors?.email?.message}
-    />
-    <TextField 
-      id="password"
-      fieldName="password"
-      register={register}
-      inputType={showPassword ? "text" : "password"}
-      labelText="Password"
-      inputPlaceholder="Enter your password"
-      helperText={errors?.password?.message}
-      icon={
-        <Button
-          type="button"
-          onClick={() => setShowPassword(prev => !prev)}
-          customClass="border-none"
-        >
-          {
-            showPassword 
-            ? <PiEyeSlashFill className="text-grey900 size-200" />
-            : <PiEyeFill className="text-grey900 size-200" />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-col gap-200 justify-center">
+        <TextField 
+          id="email"
+          fieldName="email"
+          register={register}
+          inputType="email"
+          labelText="Email"
+          inputPlaceholder="Enter your email"
+          helperText={errors?.email?.message}
+        />
+        <TextField 
+          id="password"
+          fieldName="password"
+          register={register}
+          inputType={showPassword ? "text" : "password"}
+          labelText="Password"
+          inputPlaceholder="Enter your password"
+          helperText={errors?.password?.message}
+          icon={
+            <Button
+              type="button"
+              onClick={() => setShowPassword(prev => !prev)}
+              customClass="border-none"
+            >
+              {
+                showPassword 
+                ? <PiEyeSlashFill className="text-grey900 size-200" />
+                : <PiEyeFill className="text-grey900 size-200" />
+              }
+            </Button>
           }
-        </Button>
-      }
-    />
-   </div>
-   
-   <Button 
-    variant="primary"
-    customClass="w-full mt-400"
-    loading={isSubmitting}
-   >
-    Login
-   </Button>
-  </form>
+        />
+      </div>
+    
+      <Button 
+        variant="primary"
+        customClass="w-full mt-400"
+        loading={isSubmitting}
+      >
+        Login
+      </Button>
+    </form>
 
-   <Typography
-    color="grey500"
-    customClass="flex items-center justify-center gap-100"
-   >
-    Need to create an account?
-    <Link to="/signup" className="flex items-center">
-     <Typography
-      as="span" 
-      fontWeight="bold"
-      customClass="underline underline-offset-auto"
-     >
-      Sign Up
-     </Typography>
-    </Link>
-   </Typography>
-   
+    <div className="flex flex-col gap-100">
+      <Typography
+        color="grey500"
+        customClass="flex items-center justify-center gap-100"
+      >
+        Need to create an account?
+        <Link to="/signup" className="flex items-center">
+        <Typography
+          as="span" 
+          fontWeight="bold"
+          customClass="underline underline-offset-auto"
+        >
+          Sign Up
+        </Typography>
+        </Link>
+      </Typography>
+      <Typography
+        color="grey500"
+        customClass="flex items-center justify-center gap-100"
+      >
+        Forgot password? 
+        <Link to="/reset-password" className="flex items-center">
+        <Typography
+          as="span" 
+          fontWeight="bold"
+          customClass="underline underline-offset-auto"
+        >
+          Click here
+        </Typography>
+        </Link>
+      </Typography>
+    </div>
   </div>
  </AuthWrapper>
  );

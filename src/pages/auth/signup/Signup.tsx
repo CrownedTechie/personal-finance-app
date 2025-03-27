@@ -1,6 +1,6 @@
 import { AuthWrapper, Button, TextField, Typography } from "@/components";
 import { PiEyeFill, PiEyeSlashFill } from "react-icons/pi";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -21,6 +21,7 @@ type SignUpSchemaType = z.infer<typeof signUpSchema>;
 
 export const Signup = () => {
   const [ showPassword, setShowPassword ] = useState<boolean>(false); 
+  const navigate = useNavigate();
 
   const { 
     register, 
@@ -30,11 +31,24 @@ export const Signup = () => {
     resolver: zodResolver(signUpSchema)
   });
 
+  // const ResendEmailVerification = async () => {
+  //   const user = auth.currentUser;
+  //   if (user && !user.emailVerified) {
+  //     await sendEmailVerification(user);
+  //     toast.success("Verification email resent. Check your inbox!");
+  //   }
+  // };
+
+  // TODO: create an email verification page 
+
   const onSubmit = async (data: SignUpSchemaType) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
       const user = auth.currentUser;
-      console.log(user);
+
+      // OR
+      // const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+      // const user = userCredential.user;
 
       // Creating a collection of users and storing them their details 
       if (user) {
@@ -43,17 +57,13 @@ export const Signup = () => {
           username: data.username.trim().toLowerCase(),
         });
       }
-      redirect("overview");
+      navigate("/");
       toast.success("Account created successfully!");
     } catch(error) {
       const errorMessage = getErrorMessage(error);
       toast.error(errorMessage);
     }
   };
-
-  //TODO: Work on clearing errors while we're typing
-  //TODO: Show Password 
-
 
  return ( 
   <AuthWrapper>
