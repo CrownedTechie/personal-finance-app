@@ -1,8 +1,10 @@
 import { LogoLarge, LogoSmall } from "@/assets/svgs";
 import clsx from "clsx";
-import { PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill } from "react-icons/pi";
+import { PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiPowerFill } from "react-icons/pi";
 import { Tabs } from "../tabs";
 import { Typography } from "../typography";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 interface ISidebarProps {
  isOpen: boolean;
@@ -10,9 +12,17 @@ interface ISidebarProps {
 }
 
 export const Sidebar = ({isOpen, setIsOpen}: ISidebarProps) => {
- const toggleSidebar = () => {
-  setIsOpen(prevState => !prevState);
- };
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const toggleSidebar = () => {
+    setIsOpen(prevState => !prevState);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
  return ( 
   <>
@@ -38,23 +48,34 @@ export const Sidebar = ({isOpen, setIsOpen}: ISidebarProps) => {
 
     <footer 
      className={clsx(
-      "sticky bottom-0 left-0 flex items-center py-200 px-400 mb-300"
+      "sticky bottom-0 left-0 flex flex-col gap-400 py-200 px-400 mb-300 "
      )}
     >
-     <button onClick={toggleSidebar}>
-      <Typography 
-       fontWeight="bold" 
-       fontSize="md" 
-       color="grey300"
-       customClass="flex items-center gap-200 hover:text-grey100 hover:cursor-pointer"
-      >
-       {isOpen 
-        ? <PiArrowFatLinesLeftFill className="text-[1.5rem]" /> 
-        : <PiArrowFatLinesRightFill className="text-[1.5rem]" />
-       }
-       {isOpen && "Minimize menu"}
-      </Typography>
-     </button>
+      <button onClick={handleLogout}>
+        <Typography
+        fontWeight="bold" 
+        fontSize="md" 
+        color="grey300"
+        customClass="flex items-center gap-200 hover:text-grey100 hover:cursor-pointer"
+        >
+          <PiPowerFill className="text-[1.5rem]" />
+          {isOpen && "Logout"}
+        </Typography>
+      </button>
+      <button onClick={toggleSidebar}>
+        <Typography 
+        fontWeight="bold" 
+        fontSize="md" 
+        color="grey300"
+        customClass="flex items-center gap-200 hover:text-grey100 hover:cursor-pointer"
+        >
+        {isOpen 
+          ? <PiArrowFatLinesLeftFill className="text-[1.5rem]" /> 
+          : <PiArrowFatLinesRightFill className="text-[1.5rem]" />
+        }
+        {isOpen && "Minimize menu"}
+        </Typography>
+      </button>
     </footer>
    </aside>
 

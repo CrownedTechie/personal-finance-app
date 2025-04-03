@@ -3,6 +3,7 @@ import { Typography } from "@/components";
 import { Outlet } from "react-router-dom";
 
 export const AuthLayout = () => {
+
  return ( 
   <main className="flex items-center justify-center flex-col xl:flex-row w-screen h-screen p-250">
     <aside className="xl:hidden fixed top-0 left-0 bg-grey900 h-[4.36rem] w-full rounded-b-100 flex items-center justify-center">

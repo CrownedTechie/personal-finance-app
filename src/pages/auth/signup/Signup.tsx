@@ -1,11 +1,70 @@
 import { AuthWrapper, Button, TextField, Typography } from "@/components";
-import { PiEyeFill } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { PiEyeFill, PiEyeSlashFill } from "react-icons/pi";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "@/config/firebase";
+import { setDoc, doc } from "firebase/firestore";
+import { toast } from "react-toastify";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
-type Props = {
- 
-}
-export const Signup = ({}: Props) => {
+const signUpSchema = z.object({
+  username: z.string().min(5, "Name must be at least 5 characters"),
+  email: z.string().email("Invalid Email Address"),
+  password: z.string().min(8, "Password must be at least 8 characters")
+}).required();
+
+type SignUpSchemaType = z.infer<typeof signUpSchema>;
+
+export const Signup = () => {
+  const [ showPassword, setShowPassword ] = useState<boolean>(false); 
+  const navigate = useNavigate();
+
+  const { 
+    register, 
+    handleSubmit,
+    formState: {errors, isSubmitting}
+  } = useForm<SignUpSchemaType>({
+    resolver: zodResolver(signUpSchema)
+  });
+
+  // const ResendEmailVerification = async () => {
+  //   const user = auth.currentUser;
+  //   if (user && !user.emailVerified) {
+  //     await sendEmailVerification(user);
+  //     toast.success("Verification email resent. Check your inbox!");
+  //   }
+  // };
+
+  // TODO: create an email verification page 
+
+  const onSubmit = async (data: SignUpSchemaType) => {
+    try {
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      const user = auth.currentUser;
+
+      // OR
+      // const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+      // const user = userCredential.user;
+
+      // Creating a collection of users and storing them their details 
+      if (user) {
+        await setDoc(doc(db, "Users", user?.uid), {
+          email: user.email,
+          username: data.username.trim().toLowerCase(),
+        });
+      }
+      navigate("/");
+      toast.success("Account created successfully!");
+    } catch(error) {
+      const errorMessage = getErrorMessage(error);
+      toast.error(errorMessage);
+    }
+  };
+
  return ( 
   <AuthWrapper>
    <div className="flex flex-col justify-center gap-400">
@@ -16,42 +75,69 @@ export const Signup = ({}: Props) => {
      Sign Up
     </Typography>
  
-    <div className="flex flex-col gap-200 justify-center">
-     <TextField 
-      inputType="text"
-      labelText="Name"
-      inputPlaceholder="Enter your name"
-     />
-     <TextField 
-       inputType="email"
-       labelText="Email"
-       inputPlaceholder="Enter your email"
-     />
-     <TextField 
-       inputType="password"
-       labelText="Password"
-       inputPlaceholder="Enter your password"
-       helperText="Passwords must be at least 8 characters"
-       icon={<PiEyeFill size-200 text-grey900 />}
-     />
-    </div>
-    
-    <Button 
-     variant="primary"
-     customClass="w-full"
-    >
-     Create Account
-    </Button>
- 
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-col gap-200 justify-center">
+        <TextField 
+          id="username"
+          fieldName="username"
+          register={register}
+          inputType="text"
+          labelText="Name"
+          inputPlaceholder="Enter your name"
+          helperText={errors.username?.message}
+        />
+        <TextField 
+          id="email"
+          fieldName="email"
+          register={register}
+          inputType="email"
+          labelText="Email"
+          inputPlaceholder="Enter your email"
+          helperText={errors.email?.message}
+        />
+        <TextField 
+          id="password"
+          fieldName="password"
+          register={register}
+          inputType={showPassword ? "text" : "password"}
+          labelText="Password"
+          inputPlaceholder="Enter your password"
+          helperText={errors.password?.message}
+          icon={
+            <Button
+              type="button"
+              onClick={() => setShowPassword(prev => !prev)}
+              customClass="border-none"
+            >
+              {
+                showPassword 
+                ? <PiEyeSlashFill className="text-grey900 size-200" />
+                : <PiEyeFill className="text-grey900 size-200" />
+              }
+            </Button>
+          }
+        />
+      </div>
+      
+      <Button 
+        variant="primary"
+        customClass="w-full mt-400"
+        loading={isSubmitting}
+      >
+        Create Account
+      </Button>
+    </form>
+
     <Typography
      color="grey500"
      customClass="flex items-center justify-center gap-100"
     >
      Already have an account?
-     <Link to="/login">
-      <Typography 
-       fontWeight="bold"
-       customClass="underline underline-offset-auto"
+     <Link to="/">
+      <Typography
+        as="span"
+        fontWeight="bold"
+        customClass="underline underline-offset-auto text-xl"
       >
        Login
       </Typography>
