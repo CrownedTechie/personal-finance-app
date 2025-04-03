@@ -67,7 +67,7 @@ const columnsDesktop : ColumnDef<RecurringBillsTransactions>[] = [
 const columnsMobile: ColumnDef<RecurringBillsTransactions>[] =[
   {
    id: "mobile-table",
-   cell: ({ cell, row }) => {
+   cell: ({ row }) => {
       const date = row.original.date;
       const amount = row.original.amount;
       const profilePicture = row.original.profilePicture;
@@ -108,13 +108,17 @@ const SearchAndFilters = () => {
  return (
  <div className="flex items-center justify-between gap-300">
   <TextField
-   inputPlaceholder="Search transaction"
-   icon={<PiMagnifyingGlass  className="size-200 text-grey900" />}
-   customClass="w-[17rem] md:w-[20rem]"
+    id="transaction search"
+    fieldName="transaction search"
+    inputPlaceholder="Search transaction"
+    icon={<PiMagnifyingGlass  className="size-200 text-grey900" />}
+    customClass="w-[17rem] md:w-[20rem]"
   />
   {isDesktop 
    ? (
      <TextField
+     id="select"
+     fieldName="select"
      fieldType="select"
      labelText="Sort by"
      selectOptions={filterOptions}

@@ -76,18 +76,24 @@ export const Pots = () => {
      onClose={handleCloseModal}
     >
      <TextField 
+      id="potName"
+      fieldName="potName"
       inputType="text"
       labelText="pot name"
       inputPlaceholder="e.g. Rainy Days"
       helperText="30 characters left"
      />
      <TextField
+      id="target"
+      fieldName="target"
       inputType="text"
       labelText="target"
       inputPlaceholder="e.g. 2000"
       prefix
      />
      <TextField
+      id="theme"
+      fieldName="theme"
       fieldType="select"
       labelText="theme" 
       selectOptions={colorOptions}
