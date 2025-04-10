@@ -1,6 +1,5 @@
 import { IOptionType } from "@/components/selectDropdown/types";
-import { AlphaAnalytics, AquaFlowUtilities, BravoZenSpa, ByteWise, CharlieElectricCompany, DanielCarter, DeltaTaxi, EchoGameStore, Ecofuel, EllaPhillips, EmmaPic, EthanClark, JamesThompson, LilyRamirez, NimbusDataStorage, PixelPlayground, RinaSato, SavoryBites, SunPark, UrbanServices, williamHarris } from "@/assets/avatars";
-import { RecurringBillsTransactions } from "@/pages";
+import { AlphaAnalytics, AquaFlowUtilities, BravoZenSpa, ByteWise, CharlieElectricCompany, DanielCarter, DeltaTaxi, EchoGameStore, Ecofuel, EmmaPic,  LilyRamirez, NimbusDataStorage, PixelPlayground, SavoryBites, SunPark, UrbanServices } from "@/assets/avatars";
 
 //! Delete:: check this to know what to delete
 
@@ -162,74 +161,74 @@ export const sampleTransactions = [
 // ];
 
 
-export const budgetsList = [
-	{
-		title: "entertainment", 
-		amountSpent: 15, 
-		totalBudget: 50, 
-		color: "#934F6F",
-		latestSpendings: [
-			{profilePicture: JamesThompson, name: "james thompson", date: "11 aug 2024", amount: -5},
-			{profilePicture: PixelPlayground, name: "pixel playground", date: "11 aug 2024", amount: -10},
-			{profilePicture: RinaSato, name: "rina sato", date: "13 jul 2024", amount: -10},
-		]
-	},
-	{
-		title: "bills", 
-		amountSpent: 150, 
-		totalBudget: 750, 
-		color: "#C94736",
-		latestSpendings: [
-			{profilePicture: CharlieElectricCompany, name: "spark electric solutions", date: "2 aug 2024", amount: -100},
-			{profilePicture: RinaSato, name: "rina sato", date: "2 aug 2024", amount: -50},
-			{profilePicture: AquaFlowUtilities, name: "aqua flow utilities", date: "30 jul 2024", amount: -100},
-		]
-	},
-	{
-		title: "dining out", 
-		amountSpent: 133.75, 
-		totalBudget: 75, 
-		color: "#826CB0",
-		latestSpendings: [
-			{profilePicture: SavoryBites, name: "savory bites bistro", date: "19 aug 2024", amount: -55.50},
-			{profilePicture: EthanClark, name: "ethan clark", category: "dining out", date: "20 aug 2024", amount: -32.50},
-			{profilePicture: EllaPhillips, name: "ella phillips", date: "10 aug 2024", amount: -45},
-		]
-	},
-	{
-		title: "personal care", 
-		amountSpent: 40, 
-		totalBudget: 100, 
-		color: "#F2CDAC",
-		latestSpendings: [
-			{profilePicture: williamHarris, name: "william harris", date: "5 aug 2024", amount: -10},
-			{profilePicture: BravoZenSpa, name: "serenity spa & wellness", date: "3 aug 2024", amount: -30},
-			{profilePicture: BravoZenSpa, name: "serenity spa & wellness", date: "3 jul 2024", amount: -30},
-		]
-	},
-];
+// export const budgetsList = [
+// 	{
+// 		title: "entertainment", 
+// 		amountSpent: 15, 
+// 		totalBudget: 50, 
+// 		color: "#934F6F",
+// 		latestSpendings: [
+// 			{profilePicture: JamesThompson, name: "james thompson", date: "11 aug 2024", amount: -5},
+// 			{profilePicture: PixelPlayground, name: "pixel playground", date: "11 aug 2024", amount: -10},
+// 			{profilePicture: RinaSato, name: "rina sato", date: "13 jul 2024", amount: -10},
+// 		]
+// 	},
+// 	{
+// 		title: "bills", 
+// 		amountSpent: 150, 
+// 		totalBudget: 750, 
+// 		color: "#C94736",
+// 		latestSpendings: [
+// 			{profilePicture: CharlieElectricCompany, name: "spark electric solutions", date: "2 aug 2024", amount: -100},
+// 			{profilePicture: RinaSato, name: "rina sato", date: "2 aug 2024", amount: -50},
+// 			{profilePicture: AquaFlowUtilities, name: "aqua flow utilities", date: "30 jul 2024", amount: -100},
+// 		]
+// 	},
+// 	{
+// 		title: "dining out", 
+// 		amountSpent: 133.75, 
+// 		totalBudget: 75, 
+// 		color: "#826CB0",
+// 		latestSpendings: [
+// 			{profilePicture: SavoryBites, name: "savory bites bistro", date: "19 aug 2024", amount: -55.50},
+// 			{profilePicture: EthanClark, name: "ethan clark", category: "dining out", date: "20 aug 2024", amount: -32.50},
+// 			{profilePicture: EllaPhillips, name: "ella phillips", date: "10 aug 2024", amount: -45},
+// 		]
+// 	},
+// 	{
+// 		title: "personal care", 
+// 		amountSpent: 40, 
+// 		totalBudget: 100, 
+// 		color: "#F2CDAC",
+// 		latestSpendings: [
+// 			{profilePicture: williamHarris, name: "william harris", date: "5 aug 2024", amount: -10},
+// 			{profilePicture: BravoZenSpa, name: "serenity spa & wellness", date: "3 aug 2024", amount: -30},
+// 			{profilePicture: BravoZenSpa, name: "serenity spa & wellness", date: "3 jul 2024", amount: -30},
+// 		]
+// 	},
+// ];
 
-export const potsList = [
-	{title: "savings", color: "#826CB0", totalSaved: 159, targetAmount: 2000},
-	{title: "concert ticket", color: "#626070", totalSaved: 110, targetAmount: 150},
-	{title: "gift", color: "#7F9161", totalSaved: 40, targetAmount: 60},
-	{title: "new laptop", color: "#3F82B2", totalSaved: 10, targetAmount: 1000},
-	{title: "holiday", color: "#AF81BA", totalSaved: 531, targetAmount: 1440},
-];
+// export const potsList = [
+// 	{title: "savings", color: "#826CB0", totalSaved: 159, targetAmount: 2000},
+// 	{title: "concert ticket", color: "#626070", totalSaved: 110, targetAmount: 150},
+// 	{title: "gift", color: "#7F9161", totalSaved: 40, targetAmount: 60},
+// 	{title: "new laptop", color: "#3F82B2", totalSaved: 10, targetAmount: 1000},
+// 	{title: "holiday", color: "#AF81BA", totalSaved: 531, targetAmount: 1440},
+// ];
 
-export const billsSummaryList = [
-	{title: "paid bills", totalAmount: 190, noOfTransactions: "4"},
-	{title: "total upcoming", totalAmount: 194.98, noOfTransactions: "4"},
-	{title: "due soon", totalAmount: 59.98, noOfTransactions: "2"},
-];
+// export const billsSummaryList = [
+// 	{title: "paid bills", totalAmount: 190, noOfTransactions: "4"},
+// 	{title: "total upcoming", totalAmount: 194.98, noOfTransactions: "4"},
+// 	{title: "due soon", totalAmount: 59.98, noOfTransactions: "2"},
+// ];
 
-export const recurringBillsTransactions: RecurringBillsTransactions[] = [
-	{profilePicture: CharlieElectricCompany, name: "spark electric solutions", date: "monthly-2nd", amount: 100},
-	{profilePicture: BravoZenSpa, name: "serenity spa & wellness", date: "monthly-3rd", amount: 30},
-	{profilePicture: AlphaAnalytics, name: "elevate education", date: "monthly-4th", amount: 50},
-	{profilePicture: PixelPlayground, name: "pixel playground", date: "monthly-11th", amount: 10},
-	{profilePicture: NimbusDataStorage, name: "nimbus data storage", date: "monthly-21st", amount: 9.99},
-	{profilePicture: ByteWise, name: "byteWise", date: "monthly-23rd", amount: 49.99},
-	{profilePicture: Ecofuel, name: "ecofuel energy", date: "monthly-2nd", amount: 35},
-	{profilePicture: AquaFlowUtilities, name: "aqua flow utilities", date: "monthly-30th", amount: 100},
-];
+// export const recurringBillsTransactions: RecurringBillsTransactions[] = [
+// 	{profilePicture: CharlieElectricCompany, name: "spark electric solutions", date: "monthly-2nd", amount: 100},
+// 	{profilePicture: BravoZenSpa, name: "serenity spa & wellness", date: "monthly-3rd", amount: 30},
+// 	{profilePicture: AlphaAnalytics, name: "elevate education", date: "monthly-4th", amount: 50},
+// 	{profilePicture: PixelPlayground, name: "pixel playground", date: "monthly-11th", amount: 10},
+// 	{profilePicture: NimbusDataStorage, name: "nimbus data storage", date: "monthly-21st", amount: 9.99},
+// 	{profilePicture: ByteWise, name: "byteWise", date: "monthly-23rd", amount: 49.99},
+// 	{profilePicture: Ecofuel, name: "ecofuel energy", date: "monthly-2nd", amount: 35},
+// 	{profilePicture: AquaFlowUtilities, name: "aqua flow utilities", date: "monthly-30th", amount: 100},
+// ];

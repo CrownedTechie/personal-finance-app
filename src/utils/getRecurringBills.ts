@@ -8,15 +8,35 @@ export const getRecurringBills = () => {
  const soon = new Date("2024-07-28");
  soon.setDate(now.getDate() + 3);
 
- const paidBills = recurringTransactions.filter(item => new Date(item.date) <= now);
- const unpaidBills = recurringTransactions.filter(item => new Date(item.date) > now);
- const dueSoon = unpaidBills.filter(item => new Date(item.date) <= soon);
- const upcomingBills = unpaidBills.filter(item => new Date(item.date) > soon);
+ const modifiedRecurringTransactions = recurringTransactions.map(item => {
+	const itemDate = new Date(item.date);
+
+	let status = "paid";
+	if (itemDate > now && itemDate <= soon ) {
+	 status = "dueSoon";
+	} else if (itemDate > soon) {
+	 status = "upcoming";
+	}
+
+	return {...item, status};
+ })
+
+ const paidBills = modifiedRecurringTransactions.filter(item => item.status === "paid");
+ const dueSoon = modifiedRecurringTransactions.filter(item => item.status === "dueSoon");
+ const upcomingBills = modifiedRecurringTransactions.filter(item => item.status === "upcoming");
 
 
  const totalPaidBills = paidBills.reduce((sum, item) => sum + item.amount, 0);
  const totalDueSoon = dueSoon.reduce((sum, item) => sum + item.amount, 0);
  const totalUpcomingBills = upcomingBills.reduce((sum, item) => sum + item.amount, 0);
  
- return { paidBills, dueSoon, upcomingBills, totalPaidBills, totalDueSoon, totalUpcomingBills};
+ return { 
+	recurringTransactions: modifiedRecurringTransactions, 
+	paidBills, 
+	dueSoon, 
+	upcomingBills, 
+	totalPaidBills, 
+	totalDueSoon, 
+	totalUpcomingBills
+ };
 }

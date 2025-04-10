@@ -25,4 +25,5 @@ export type TransactionProps = {
  date: string;
  name: string;
  recurring: boolean;
+ status?: string | undefined;
 };

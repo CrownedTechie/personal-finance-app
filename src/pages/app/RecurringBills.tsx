@@ -1,20 +1,16 @@
 import { BillsSummaryList, ContentHeader, SummaryCard, TextField, Typography } from "@/components";
 import { Table } from "@/components/table";
-import { billsSummaryList, filterOptions, recurringBillsTransactions } from "@/constants/data";
+import { filterOptions } from "@/constants/data";
+import { TransactionProps } from "@/constants/types";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { formattedAmount } from "@/utils/formatAmount";
+import { formattedDate } from "@/utils/formatDate";
+import { getRecurringBills } from "@/utils/getRecurringBills";
 import { ColumnDef } from "@tanstack/react-table";
 import React, { useMemo } from "react";
-import { PiMagnifyingGlass, PiReceiptLight, PiSortDescendingFill } from "react-icons/pi";
+import { PiCheckCircleFill, PiMagnifyingGlass, PiReceiptLight, PiSortDescendingFill, PiWarningCircleFill } from "react-icons/pi";
 
-export type RecurringBillsTransactions = {
- profilePicture: string;
- name: string;
- date: string;
- amount: number;
-}
-
-const columnsDesktop : ColumnDef<RecurringBillsTransactions>[] = [
+const columnsDesktop : ColumnDef<TransactionProps>[] = [
  {
 	accessorKey: "name",
 	header: "bill title",
@@ -24,7 +20,7 @@ const columnsDesktop : ColumnDef<RecurringBillsTransactions>[] = [
 		 fontWeight="bold"
 		 customClass="flex items-center gap-200 capitalize"
 		>
-			<img src={row.original.profilePicture} alt="" className="size-500 rounded-full" />
+			<img src={row.original.avatar} alt="" className="size-500 rounded-full" />
 			{cell.getValue() as string}
 		</Typography>
 	 )
@@ -33,44 +29,56 @@ const columnsDesktop : ColumnDef<RecurringBillsTransactions>[] = [
  {
 	accessorKey: "date",
 	header: "due date",
-	cell: info => 
-	 <Typography
-		as="span"
-		color="grey500"
-		customClass="capitalize"
-	 >
-		{info.getValue() as string}
-	 </Typography>,
+	cell: ({cell, row}) => {
+		const isUpcoming = row.original.status === "paid";
+		const isDueSoon = row.original.status === "dueSoon";  
+
+		return(
+			<Typography
+			as="span"
+			color={isUpcoming ? "green" : "grey500"}
+			customClass="capitalize flex items-center gap-100"
+		>
+			{`Monthly - ${formattedDate(cell.getValue() as string, "do")}`}
+			{isUpcoming && <PiCheckCircleFill className="size-200" />}
+			{isDueSoon && <PiWarningCircleFill className="size-200 text-red" />}
+		</Typography>
+	 )}
  },
  {
 	accessorKey: "amount",
 	header: () => 
 	 <Typography 
 		as="span" 
-		color="grey500" 
+		color={"grey500"} 
 		customClass="block text-right"
 	 >
 		amount
 	 </Typography>,
-	cell: info => {
-	 const infoValue = formattedAmount(info.getValue() as number);
+	cell: ({cell, row}) => {
+	 const infoValue = formattedAmount(cell.getValue() as number);
 	 return (
 		 <Typography
 			fontWeight="bold"
 			customClass="text-right"
+			color={
+				row.original.status === "dueSoon" 
+					? "red" 
+					: "grey900"
+			}
 		 >
-		 {infoValue}
+		 {infoValue.replace("-", "")}
 		</Typography>)}  
  }
 ];
 
-const columnsMobile: ColumnDef<RecurringBillsTransactions>[] =[
+const columnsMobile: ColumnDef<TransactionProps>[] =[
 	{
 	 id: "mobile-table",
 	 cell: ({ row }) => {
 			const date = row.original.date;
 			const amount = row.original.amount;
-			const profilePicture = row.original.profilePicture;
+			const profilePicture = row.original.avatar;
 			return (
 			 <div className="flex flex-col gap-100">
 				<div className="flex items-center gap-200">
@@ -133,7 +141,23 @@ const SearchAndFilters = () => {
 )};
 
 export const RecurringBills = ({}) => {
- const isDesktop = useMediaQuery("(min-width: 768px)");
+	const { 
+		recurringTransactions, 
+		totalPaidBills, 
+		totalDueSoon, 
+		totalUpcomingBills, 
+		paidBills,
+		dueSoon,
+		upcomingBills
+	} = getRecurringBills();
+ 	const isDesktop = useMediaQuery("(min-width: 768px)");
+	const overallBills = recurringTransactions.reduce((sum, item) => sum + item.amount, 0);
+
+	const recurringBillsSummary = [
+		{ id: 1, title: "paid bills", amount: totalPaidBills, noOfTransations: paidBills.length + 1 },
+		{ id: 2, title: "total upcoming", amount: totalUpcomingBills, noOfTransations: upcomingBills.length + 1},
+		{ id: 3, title: "due soon", amount: totalDueSoon, noOfTransations: dueSoon.length + 1},
+	];
 
  const columns = useMemo(() => 
 	 isDesktop 
@@ -156,7 +180,7 @@ export const RecurringBills = ({}) => {
 		 <SummaryCard
 			variant="primary" 
 			title="total bills"
-			content="$384.98"
+			content={formattedAmount(overallBills).replace("-", "")}
 			icon={<PiReceiptLight className="size-500" />}
 			customClass=" items-center md:items-start md:flex-col md:justify-center md:h-full xl:h-auto"
 		 />
@@ -168,14 +192,14 @@ export const RecurringBills = ({}) => {
 			/>
 
 			<ul className="flex flex-col justify-center gap-200">
-			 {billsSummaryList.map((item, index) => (
-				<React.Fragment key={item.title}>
+			 {recurringBillsSummary.map((item, index) => (
+				<React.Fragment key={item.id}>
 				 <BillsSummaryList
 					title={item.title} 
-					totalAmount={item.totalAmount}
-					noOfTransactions={item.noOfTransactions}
+					totalAmount={item.amount}
+					noOfTransactions={String(item.noOfTransations)}
 				 />
-				 {index !== billsSummaryList.length - 1 && 
+				 {index !== recurringBillsSummary.length - 1 && 
 					<hr className="text-grey500 opacity-15"/> 
 				 }
 				</React.Fragment>
@@ -187,8 +211,8 @@ export const RecurringBills = ({}) => {
 
 		{/* Recurring bills table */}
 		<div className="xl:col-span-4">
-		 <Table<RecurringBillsTransactions>
-			dataList={recurringBillsTransactions}
+		 <Table<TransactionProps>
+			dataList={recurringTransactions}
 			columns={columns}
 			additionalTableData={<SearchAndFilters />}
 			enablePagination={false}
