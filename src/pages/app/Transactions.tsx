@@ -1,21 +1,16 @@
 import { ContentHeader, TextField, Typography } from "@/components";
 import { Table } from "@/components/table";
-import { categoryOptions, filterOptions, transactionsList } from "@/constants/data";
+import { categoryOptions, filterOptions } from "@/constants/data";
+import { TransactionProps } from "@/constants/types";
+import { useData } from "@/hooks/useData";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { formattedAmount } from "@/utils/formatAmount";
+import { formattedDate } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { PiFunnelFill, PiMagnifyingGlass, PiSortDescendingFill } from "react-icons/pi";
 
-export type Transactions = {
- profilePicture: string;
- name: string;
- category: string;
- date: string;
- amount: number;
-};
-
-const columnsDesktop: ColumnDef<Transactions>[] = [
+const columnsDesktop: ColumnDef<TransactionProps>[] = [
   {
    accessorKey: "name",
    header: "recipient / sender",
@@ -25,7 +20,7 @@ const columnsDesktop: ColumnDef<Transactions>[] = [
         fontWeight="bold"
         customClass="flex items-center gap-200 capitalize"
        >
-         <img src={row.original.profilePicture} alt="" className="size-500 rounded-full" />
+         <img src={row.original.avatar} alt="" className="size-500 rounded-full" />
          {cell.getValue() as string}
        </Typography>
       )
@@ -52,7 +47,7 @@ const columnsDesktop: ColumnDef<Transactions>[] = [
      color="grey500"
      customClass="capitalize"
     >
-     {info.getValue() as string}
+      {formattedDate(info.getValue() as string, 'd MMM yyyy')}
     </Typography>,
   },
   {
@@ -79,13 +74,13 @@ const columnsDesktop: ColumnDef<Transactions>[] = [
   },
 ];
 
-const columnsMobile: ColumnDef<Transactions>[] =[
+const columnsMobile: ColumnDef<TransactionProps>[] =[
   {
    id: "mobile-table",
    cell: ({ row }) => {
       const date = row.original.date;
       const amount = row.original.amount;
-      const profilePicture = row.original.profilePicture;
+      const profilePicture = row.original.avatar;
       return (
        <div className="flex items-center justify-between">
         <div className="flex items-center gap-150">
@@ -118,7 +113,7 @@ const columnsMobile: ColumnDef<Transactions>[] =[
          as="span"
          color="grey500"
         >
-         {date}
+         {formattedDate(date, 'd MMM yyyy')}
         </Typography>
        </div>
        </div>
@@ -180,6 +175,7 @@ const SearchAndFilters = () => {
 
 export const Transactions = ({}) => {
  const [currentPage, setCurrentPage] = useState(0);
+ const {transactions} = useData();
  const itemsPerPage = 10; 
  const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -200,8 +196,8 @@ export const Transactions = ({}) => {
    </header>
 
    <section>
-    <Table<Transactions>
-     dataList={transactionsList}
+    <Table<TransactionProps>
+     dataList={transactions}
      columns={columns}
      currentPage={currentPage}
      setCurrentPage={setCurrentPage}
