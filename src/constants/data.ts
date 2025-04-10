@@ -2,6 +2,10 @@ import { IOptionType } from "@/components/selectDropdown/types";
 import { AlphaAnalytics, AquaFlowUtilities, BravoZenSpa, ByteWise, CharlieElectricCompany, DanielCarter, DeltaTaxi, EchoGameStore, Ecofuel, EllaPhillips, EmmaPic, EthanClark, JamesThompson, LiamHughes, LilyRamirez, NimbusDataStorage, PixelPlayground, RinaSato, SavoryBites, SunPark, UrbanServices, williamHarris } from "@/assets/avatars";
 import { RecurringBillsTransactions, Transactions } from "@/pages";
 
+
+
+// TODO: remove budgets, transactions
+
 export const fruitOptions: IOptionType[] = [
   { value: 'apple', label: 'Apple' },
   { value: 'banana', label: 'Banana' },
@@ -76,6 +80,7 @@ export const recurringBills = [
   {title: "due soon", amount: "$59.98"},
 ];
 
+// TODO: remove transactions
 export const transactions = [
   {profilePicture: EmmaPic, name: "emma richardson", amount: "+$75.50", date: "19 aug 2024"},
   {profilePicture: SavoryBites, name: "savory bites bistro", amount: "-$55.50", date: "19 aug 2024"},
@@ -86,6 +91,8 @@ export const transactions = [
 
 export const allColors = ["#277C78", "#F2CDAC", "#82C9D7", "#626070", "#C94736", "#826CB0", "#93674F", "#597C7C", "#AF81BA", "#934F6F", "#3F82B2", "#97A0AC", "#BE6C49", "#CAB361", "#7F9161"];
 
+
+// TODO: remove this budget
 export const budgets = [
   {title: "bills", amountSpent: 750},
   {title: "dining out", amountSpent: 75},

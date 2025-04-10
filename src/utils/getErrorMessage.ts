@@ -11,6 +11,8 @@ export const getErrorMessage = (error: unknown): string => {
       return "Invalid email address.";
     case "auth/invalid-credential":
       return "Login failed. Invalid email or password.";
+    case "permission-denied":
+      return "Permission denied.";
     default:
       return error.message; // Defaulting to Firebase's error message
   }

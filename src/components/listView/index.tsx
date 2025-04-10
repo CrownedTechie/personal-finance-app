@@ -29,7 +29,7 @@ export const ListView = ({profilePicture, name, amount, date, customClass="borde
 
    <div className="flex flex-col items-end gap-100 min-w-fit">
     <Typography
-     color={amount.includes("+") ? "green" : "grey900"}
+     color={amount.includes("-") ? "grey900" : "green"}
      fontWeight="bold"
     >
      {amount}

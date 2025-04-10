@@ -1,29 +1,28 @@
 import { Button, ContentHeader, DoughnutChart, ListView, OverviewCard, Quote, SummaryCard } from "@/components";
-import { allColors, budgets, recurringBills, savingsOptions, transactions } from "@/constants/data";
+import { allColors } from "@/constants/data";
 import { useAuth } from "@/hooks/useAuth";
+import { useData } from "@/hooks/useData";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { formattedAmount } from "@/utils/formatAmount";
 import { useMemo } from "react";
 import { PiPowerFill, PiTipJarLight } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
-
-export type BudgetProps = {
-  title: string;
-  amountSpent: number;
-  color: string;
-};
+import { formattedDate } from "@/utils/formatDate";
+import { getRecurringBills } from "@/utils/getRecurringBills";
 
 export const Overview = ({}) => {
   const { logout } = useAuth();
+  const {balance, pots, transactions, budgets} = useData();
   const navigate = useNavigate();
   const isTabScreen = useMediaQuery("(max-width: 1023px)");
+  const { totalDueSoon, totalPaidBills, totalUpcomingBills } = getRecurringBills();
+  const totalSaved = pots.reduce((sum, item) => sum + item.total, 0);
 
   const budgetsWithColors = useMemo(() => {
     const availableColors = [...allColors];
     return budgets.map(item => {
       const randomIndex = Math.floor(Math.random() * availableColors.length);
       const selectedColor = availableColors.splice(randomIndex, 1)[0];
-
       return { ...item, color: selectedColor };
     });
 }, []);
@@ -58,17 +57,17 @@ export const Overview = ({}) => {
         <SummaryCard
          variant="primary" 
          title="current balance"
-         content="$4,836.00"
+         content={formattedAmount(balance.current)}
         />
         <SummaryCard
          variant="tertiary"
          title="income"
-         content="$3,814.25"
+         content={formattedAmount(balance.income)}
         />
         <SummaryCard 
          variant="tertiary"
          title="expenses"
-         content="$1,700.50"
+         content={formattedAmount(balance.expenses)}
         />
      </div>
 
@@ -88,16 +87,16 @@ export const Overview = ({}) => {
           <SummaryCard
            variant="secondary" 
            title="total saved"
-           content="$850"
+           content={`$${totalSaved}`}
            icon={<PiTipJarLight className="size-500" />}
           />
           <div className="grid grid-cols-2 place-items-center gap-200">
-           {savingsOptions.map(item => (
+           {pots.slice(0, 4).map(item => (
             <Quote
-             key={item.title}
+             key={item.name}
              variant='primary'
-             title={item.title}
-             amount={item.amount}
+             title={item.name}
+             amount={`$${item.total}`}
             />
            ))}
           </div>
@@ -112,13 +111,13 @@ export const Overview = ({}) => {
          onClick={() => navigate("/transactions")}
         >
          <ul className="flex flex-col justify-center">
-          {transactions.map(item => (
+          {transactions.slice(0, 5).map(item => (
            <ListView
-            key={item.name}
-            profilePicture={item.profilePicture} 
+            key={item.date}
+            profilePicture={item.avatar} 
             name={item.name}
-            amount={item.amount}
-            date={item.date}
+            amount={formattedAmount(item.amount)}
+            date={formattedDate(item.date, 'd MMM yyyy')}
            />
           ))}
          </ul>
@@ -137,18 +136,18 @@ export const Overview = ({}) => {
           <div className="flex flex-col items-center md:grid md:grid-cols-4 gap-200 xl:h-[20rem]">
            <div className="md:col-span-3 flex justify-center">
             <DoughnutChart 
-              data={budgetsWithColors.map((item) => item.amountSpent)}
-              backgroundColors={budgetsWithColors.map(item => item.color)}
-              overallBudget={budgetsWithColors.reduce((sum, item) => sum + item.amountSpent, 0)}
+              data={budgetsWithColors.map((item) => item.maximum)}
+              backgroundColors={budgetsWithColors.map(item => item.color ?? item.theme)}
+              overallBudget={budgetsWithColors.reduce((sum, item) => sum + item.maximum, 0)}
             />
            </div>
 
            <div className="self-start md:self-center w-full grid grid-cols-2 md:grid-cols-1 gap-200">
             {budgetsWithColors.map(item => (
              <Quote
-              key={item.title}
-              title={item.title}
-              amount={formattedAmount(item.amountSpent).toLocaleString()}
+              key={new Date().getTime() + item.category}
+              title={item.category}
+              amount={formattedAmount(item.maximum)}
               primaryBorderColor={item.color}
              />
             ))}
@@ -164,14 +163,24 @@ export const Overview = ({}) => {
          onClick={() => navigate("/recurring-bills")}
          >
           <div className="flex flex-col items-center gap-150 ">
-           {recurringBills.map(item => (
             <Quote
-              key={item.title}
+              key={1}
               variant="secondary" 
-              title={item.title}
-              amount={item.amount}
+              title="paid bills"
+              amount={formattedAmount(totalPaidBills).replace("-", "")}
             />
-           ))}
+            <Quote
+              key={2}
+              variant="secondary" 
+              title="total upcoming"
+              amount={formattedAmount(totalUpcomingBills).replace("-", "")}
+            />
+            <Quote
+              key={3}
+              variant="secondary" 
+              title="due soon"
+              amount={formattedAmount(totalDueSoon).replace("-", "")}
+            />
           </div>
          </OverviewCard>
         </div>
