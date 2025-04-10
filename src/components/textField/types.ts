@@ -5,7 +5,7 @@ import { FieldValues, UseFormRegister, Path } from "react-hook-form";
 
 export interface IBaseTextfieldProps<TFieldValues extends FieldValues> {
   id: string;
-  fieldName: Path<TFieldValues>;
+  fieldname: Path<TFieldValues>;
   labelText?: string;
   helperText?: string;
   fieldType?: "input" | "select";

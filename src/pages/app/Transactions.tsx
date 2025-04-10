@@ -134,7 +134,7 @@ const SearchAndFilters = () => {
   <div className="flex items-center justify-between gap-300">
    <TextField
     id="seach transaction"
-    fieldName="search transaction"
+    fieldname="search transaction"
     inputPlaceholder="Search transaction"
     icon={<PiMagnifyingGlass  className="size-200 text-grey900" />}
     customClass="w-[13rem] xl:w-[20rem]"
@@ -145,7 +145,7 @@ const SearchAndFilters = () => {
       <>
        <TextField
        id="filter options"
-       fieldName="filter options"
+       fieldname="filter options"
        fieldType="select"
        labelText="Sort by"
        selectOptions={filterOptions}
@@ -156,7 +156,7 @@ const SearchAndFilters = () => {
       />
       <TextField
         id="category options"
-        fieldName="category options"
+        fieldname="category options"
         fieldType="select"
         labelText="Category"
         selectOptions={categoryOptions}

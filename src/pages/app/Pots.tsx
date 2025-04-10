@@ -77,7 +77,7 @@ export const Pots = () => {
     >
      <TextField 
       id="potName"
-      fieldName="potName"
+      fieldname="potName"
       inputType="text"
       labelText="pot name"
       inputPlaceholder="e.g. Rainy Days"
@@ -85,7 +85,7 @@ export const Pots = () => {
      />
      <TextField
       id="target"
-      fieldName="target"
+      fieldname="target"
       inputType="text"
       labelText="target"
       inputPlaceholder="e.g. 2000"
@@ -93,7 +93,7 @@ export const Pots = () => {
      />
      <TextField
       id="theme"
-      fieldName="theme"
+      fieldname="theme"
       fieldType="select"
       labelText="theme" 
       selectOptions={colorOptions}

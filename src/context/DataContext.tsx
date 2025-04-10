@@ -26,8 +26,7 @@ interface IDataProviderProps {
   children: ReactNode;
 };
 
-export const DataContext = createContext<IDataProps>(defaultData); 
-//TODO: create a static data.ts file so it can be used as a default value for the context and also for the usestate
+export const DataContext = createContext<IDataProps>(defaultData);
 
 // Helper to map Firestore data
 const mapDocToData = (doc: any): IDataProps => {

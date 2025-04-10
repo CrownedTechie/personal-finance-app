@@ -48,7 +48,7 @@ export const ForgotPassword = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
      <TextField 
        id="email"
-       fieldName="email"
+       fieldname="email"
        register={register}
        inputType="email"
        labelText="Email"

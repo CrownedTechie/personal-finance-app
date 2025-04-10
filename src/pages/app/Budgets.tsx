@@ -122,7 +122,7 @@ export const Budgets = () => {
       >
         <TextField
           id=""
-          fieldName=""
+          fieldname=""
           fieldType="select"
           labelText="budget category"
           selectOptions={categoryOptions}
@@ -130,7 +130,7 @@ export const Budgets = () => {
         />
         <TextField
           id=""
-          fieldName=""
+          fieldname=""
           inputType="text"
           labelText="maximum spend"
           inputPlaceholder="e.g. 2000"
@@ -138,7 +138,7 @@ export const Budgets = () => {
         />
         <TextField
           id=""
-          fieldName=""
+          fieldname=""
           fieldType="select"
           labelText="theme" 
           selectOptions={colorOptions}

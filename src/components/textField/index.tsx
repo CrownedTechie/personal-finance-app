@@ -10,7 +10,7 @@ type TextfieldProps<TFieldValues extends FieldValues> =
 
 export const TextField = <TFieldValues extends FieldValues>({
  id,
- fieldName,
+ fieldname,
  labelText, 
  helperText, 
  customClass,
@@ -40,7 +40,7 @@ export const TextField = <TFieldValues extends FieldValues>({
     <>
       <InputField<TFieldValues> 
         id={id} 
-        fieldName={fieldName} 
+        fieldname={fieldname} 
         {...restProps as IInputFieldProps<TFieldValues>} 
       />
       {helperText && <Typography color="red" customClass="place-self-end">{helperText}</Typography>}
@@ -60,12 +60,12 @@ const InputField = <TFieldValues extends FieldValues> ({
   icon, 
   prefix, 
   inputType = "text", 
-  fieldName, 
+  fieldname, 
   id, 
   inputPlaceholder,
   register,
   ...restProps
-} : IInputFieldProps<TFieldValues> & { fieldName: Path<TFieldValues>, id: string }) => (
+} : IInputFieldProps<TFieldValues> & { fieldname: Path<TFieldValues>, id: string }) => (
   <div className={clsx(
     "border border-beige500 px-200 rounded-100 hover:border-grey500 w-full",
     (icon || prefix) && "flex items-center gap-150"
@@ -74,7 +74,7 @@ const InputField = <TFieldValues extends FieldValues> ({
     <input 
       type={inputType} 
       id={id}
-      {...(register ? register(fieldName, {required: true}) : { fieldName })}
+      {...(register ? register(fieldname, {required: true}) : { fieldname })}
       placeholder={inputPlaceholder} 
       className=" py-150 font-normal text-sm text-grey900 w-full placeholder:text-sm placeholder-beige500 focus:outline-none truncate " 
       {...restProps}

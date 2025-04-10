@@ -54,7 +54,7 @@ export const Login = () => {
       <div className="flex flex-col gap-200 justify-center">
         <TextField 
           id="email"
-          fieldName="email"
+          fieldname="email"
           register={register}
           inputType="email"
           labelText="Email"
@@ -63,7 +63,7 @@ export const Login = () => {
         />
         <TextField 
           id="password"
-          fieldName="password"
+          fieldname="password"
           register={register}
           inputType={showPassword ? "text" : "password"}
           labelText="Password"
