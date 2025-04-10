@@ -8,9 +8,10 @@ import { ListView } from "../listView";
 import { formattedAmount } from "@/utils/formatAmount";
 import React, { useRef, useState } from "react";
 import { DeleteModal } from "../modal";
+import { formattedDate } from "@/utils/formatDate";
 
 interface ILatestSpendingsProps {
- profilePicture: string;
+ avatar: string;
  name: string;
  amount: number;
  date: string;
@@ -30,10 +31,13 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
   const deleteModalRef = useRef<HTMLDialogElement>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const maxBudget = formattedAmount(totalBudget);
-  const totalSpent = formattedAmount(amountSpent);
-  const progressPercentage = (amountSpent/totalBudget) * 100;
+  const formattedTotalBudget = formattedAmount(totalBudget);
+  const formattedTotalSpent = formattedAmount(amountSpent).replace("-", "");
 
+  const totalSpent = Math.abs(amountSpent);
+  const progressPercentage = (totalSpent/totalBudget) * 100;
+
+  
   const handleOpenDeleteModal = () => {
     setIsModalOpen(true);
     setOpenMoreOptions(false);
@@ -78,7 +82,7 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
     <Typography
      color="grey500"
     >
-     Maximum of {maxBudget}
+     Maximum of {formattedTotalBudget}
     </Typography>
 
     {/* Progress bar */}
@@ -96,12 +100,12 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
     <div className="flex items-center">
      <Quote
       title="spent" 
-      amount={totalSpent}
+      amount={formattedTotalSpent}
       primaryBorderColor={itemColor}
      />
      <Quote
       title="remaining" 
-      amount={maxBudget}
+      amount={formattedTotalBudget}
       primaryBorderColor="var(--color-grey100)"
      />
     </div>
@@ -122,15 +126,15 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
       }
       />
       <ul>
-       {latestSpendings.map((item, index)=> (
+       {latestSpendings.slice(0, 3).map((item, index)=> (
         <React.Fragment
-         key={item.name}
+         key={item.date}
         >
          <ListView 
-          profilePicture={item.profilePicture}
+          profilePicture={item.avatar}
           name={item.name}
           amount={formattedAmount(item.amount)}
-          date={item.date}
+          date={formattedDate(item.date, "d MMM yyyy")}
           customClass="border-b-0 py-150"
          />
          {index !== latestSpendings.length - 1 && <hr className="text-grey500 opacity-15"/> }

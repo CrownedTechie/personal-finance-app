@@ -1,13 +1,39 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BudgetsCard, Button, ContentHeader, DoughnutChart, EditOrAddModal, Quote, TextField, Typography } from "@/components";
-import { budgetsList, categoryOptions, colorOptions } from "@/constants/data";
+import { categoryOptions, colorOptions } from "@/constants/data";
 import { formattedAmount } from "@/utils/formatAmount";
+import { useData } from "@/hooks/useData";
+import { TransactionProps } from "@/constants/types";
+
+interface IModifiedBudgets {
+  category: string;
+  amountSpent: number;
+  maximum: number;
+  theme: string;
+  latestSpendings: TransactionProps[];
+}
 
 export const Budgets = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const [modalType, setModalType] = useState<string | null>(null);
+  const {budgets, transactions} = useData();
   const isAddModal = modalType === "add";
   const isEditModal = modalType === "edit";
+
+  const mapTransactionsToBudgets = (budgetData: any): IModifiedBudgets => {
+    const latestSpendings = transactions.filter(item => item.category === budgetData.category);
+    const amountSpent = latestSpendings.reduce((sum, item) => sum + item.amount, 0);
+
+    return {
+      category: budgetData.category,
+      amountSpent,
+      maximum: budgetData.maximum,
+      theme: budgetData.theme,
+      latestSpendings
+    }
+  };
+
+  const modifiedBudgets: IModifiedBudgets[] = budgets.map(item => mapTransactionsToBudgets(item));
 
   useEffect(() => {
     if (modalType) {
@@ -59,9 +85,9 @@ export const Budgets = () => {
       <article className="bg-white rounded-150 px-250 py-300 md:p-400 max-h-[37.5rem] xl:col-span-2 flex flex-col gap-300 md:flex-row md:gap-400 xl:gap-300 xl:flex-col">
       <div className="place-self-center">
         <DoughnutChart 
-        data={budgetsList.map((item) => item.amountSpent)}
-        backgroundColors={budgetsList.map(item => item.color)}
-        overallBudget={budgetsList.reduce((sum, item) => sum + item.amountSpent, 0)}
+          data={modifiedBudgets.map((item) => item.maximum)}
+          backgroundColors={modifiedBudgets.map(item => item.theme)}
+          overallBudget={modifiedBudgets.reduce((sum, item) => sum + item.maximum, 0)}
         />
       </div>
       <div className=" flex flex-col gap-300 w-full">
@@ -73,19 +99,19 @@ export const Budgets = () => {
         spending summary
         </Typography>
         <ul className="flex flex-col justify-center gap-200">
-        {budgetsList.map((item, index) => (
-          <React.Fragment key={item.title}>
+        {modifiedBudgets.map((item, index) => (
+          <React.Fragment key={new Date().getTime() + item.category}>
             <Quote
-            title={item.title}
-            titleElement="p"
-            totalBudget={formattedAmount(item.totalBudget)}
-            amount={formattedAmount(item.amountSpent)}
-            amountElement="h4"
-            primaryBorderColor={item.color}
-            customClass="flex-row items-center justify-between w-full"
+              title={item.category}
+              titleElement="p"
+              totalBudget={formattedAmount(item.maximum)}
+              amount={formattedAmount(item.amountSpent).replace("-", "")}
+              amountElement="h4"
+              primaryBorderColor={item.theme}
+              customClass="flex-row items-center justify-between w-full"
             />
       
-          {index !== budgetsList.length - 1 && 
+          {index !== modifiedBudgets.length - 1 && 
             <hr className="text-grey100" /> 
           }
           </React.Fragment>
@@ -96,13 +122,13 @@ export const Budgets = () => {
 
       {/* Budget cards */}
       <div className="flex flex-col justify-center gap-300 xl:col-span-3">
-      {budgetsList.map(item => (
+      {modifiedBudgets.map(item => (
         <BudgetsCard
-          key={item.title}
-          title={item.title} 
-          itemColor={item.color}
+          key={new Date().getTime() + item.category}
+          title={item.category} 
+          itemColor={item.theme}
           amountSpent={item.amountSpent}
-          totalBudget={item.totalBudget}
+          totalBudget={item.maximum}
           latestSpendings={item.latestSpendings}
           handleOpenModal={handleOpenModal}
         />
