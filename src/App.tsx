@@ -7,74 +7,74 @@ import { NotFound, PageLoader } from './components';
 
 //Redirecting logged-in users from auth pages
 const RedirectIfUser = () => {
-  const { user, loading } = useAuth();
-  if (loading) {
-    return <PageLoader />;
-  }
-  return user ? <Navigate to="overview" replace/> : <Outlet />;
+	const { user, loading } = useAuth();
+	if (loading) {
+		return <PageLoader />;
+	}
+	return user ? <Navigate to="overview" replace/> : <Outlet />;
 };
 
 const router = createBrowserRouter([
-  {
-    element: <ProtectedRoute />,
-    children: [
-      {
-        element: <AppLayout />,
-        children: [
-          {
-            path: "overview",
-            element: <Overview />
-          },
-          {
-            path: "transactions",
-            element: <Transactions />
-          },
-          {
-            path: "budgets",
-            element: <Budgets />
-          },
-          {
-            path: "pots",
-            element: <Pots />
-          },
-          {
-            path: "recurring-bills",
-            element: <RecurringBills />
-          },
-        ],
-      },
-    ],
-  },
-  {
-    element: <RedirectIfUser />,
-    children: [
-      {
-        path: "/",
-        element: <AuthLayout />,
-        children: [
-          { index: true, element: <Login />},
-          {path: "signup", element: <Signup />},
-          {path: "reset-password", element: <ForgotPassword />}
-        ],
-      },
-    ],
-  },
-  {
-    path: "/components",
-    element: <Component />
-  },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
+	{
+		element: <ProtectedRoute />,
+		children: [
+			{
+				element: <AppLayout />,
+				children: [
+					{
+						path: "overview",
+						element: <Overview />
+					},
+					{
+						path: "transactions",
+						element: <Transactions />
+					},
+					{
+						path: "budgets",
+						element: <Budgets />
+					},
+					{
+						path: "pots",
+						element: <Pots />
+					},
+					{
+						path: "recurring-bills",
+						element: <RecurringBills />
+					},
+				],
+			},
+		],
+	},
+	{
+		element: <RedirectIfUser />,
+		children: [
+			{
+				path: "/",
+				element: <AuthLayout />,
+				children: [
+					{ index: true, element: <Login />},
+					{path: "signup", element: <Signup />},
+					{path: "reset-password", element: <ForgotPassword />}
+				],
+			},
+		],
+	},
+	{
+		path: "/components",
+		element: <Component />
+	},
+	{
+		path: "*",
+		element: <NotFound />,
+	},
 ]);
 
 function App() {
-  return (
-    <>
-      <RouterProvider router={router} />
-      <ToastContainer />
-    </>
-  )
+	return (
+		<>
+			<RouterProvider router={router} />
+			<ToastContainer />
+		</>
+	)
 }
 export default App;

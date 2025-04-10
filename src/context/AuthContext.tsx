@@ -5,9 +5,9 @@ import { toast } from "react-toastify";
 import { getErrorMessage } from "@/utils/getErrorMessage";
 
 interface IAuthContextProps {
-  user: User | null;
-  loading: boolean;
-  logout: () => void;
+	user: User | null;
+	loading: boolean;
+	logout: () => void;
 };
 
 interface IAuthProviderProps {
@@ -17,33 +17,33 @@ interface IAuthProviderProps {
 export const AuthContext = createContext<IAuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+	const [user, setUser] = useState<User | null>(null);
+	const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    });
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+			setUser(currentUser);
+			setTimeout(() => {
+				setLoading(false);
+			}, 1000);
+		});
 
-    return () => unsubscribe(); // Cleanup on unmount
-  }, []);
+		return () => unsubscribe(); // Cleanup on unmount
+	}, []);
 
-  const logout = async () => {
-    try {
-      await auth.signOut();
-      toast.success("Logged out successfully!");
-    } catch(error) {
-      const errorMessage = getErrorMessage(error);
-      toast.error(errorMessage);
-    }
-  };
+	const logout = async () => {
+		try {
+			await auth.signOut();
+			toast.success("Logged out successfully!");
+		} catch(error) {
+			const errorMessage = getErrorMessage(error);
+			toast.error(errorMessage);
+		}
+	};
 
-  return (
-    <AuthContext.Provider value={{ user, loading, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+	return (
+		<AuthContext.Provider value={{ user, loading, logout }}>
+			{children}
+		</AuthContext.Provider>
+	);
 };

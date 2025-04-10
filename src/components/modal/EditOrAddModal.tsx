@@ -17,43 +17,43 @@ interface IEditOrAddModalProps {
 
 export const EditOrAddModal = forwardRef<HTMLDialogElement, IEditOrAddModalProps>
  (({title, subText, buttonText, children, onAction, onClose}, ref) => {
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+	const isDesktop = useMediaQuery("(min-width: 768px)");
  
-  return ( 
-   <ModalWrapper ref={ref}>
-    <ContentHeader 
-     as={isDesktop ? "h1" : "h2"}
-     title={title}
-     fontWeight="bold"
-     buttonGroup={
-      <Button 
-       className="outline-none text-grey300 cursor-pointer"
-       onClick={onClose}
-      >
-       <PiXCircleLight className="size-300 text-grey500" />
-      </Button>
-     }
-    />
+	return ( 
+	 <ModalWrapper ref={ref}>
+		<ContentHeader 
+		 as={isDesktop ? "h1" : "h2"}
+		 title={title}
+		 fontWeight="bold"
+		 buttonGroup={
+			<Button 
+			 className="outline-none text-grey300 cursor-pointer"
+			 onClick={onClose}
+			>
+			 <PiXCircleLight className="size-300 text-grey500" />
+			</Button>
+		 }
+		/>
 
-    <Typography
-     color="grey500"
-    >
-     {subText}
-    </Typography>
+		<Typography
+		 color="grey500"
+		>
+		 {subText}
+		</Typography>
 
-    <form className="flex flex-col gap-200" onSubmit={(e) => e.preventDefault()}>
-     {children}
-     <Button 
-      variant="primary" 
-      customClass="capitalize"
-      onClick={(e) => {
-       e.preventDefault();
-       onAction();
-      }}
-     >
-      {buttonText}
-     </Button>
-    </form>
-   </ModalWrapper>
-  );
+		<form className="flex flex-col gap-200" onSubmit={(e) => e.preventDefault()}>
+		 {children}
+		 <Button 
+			variant="primary" 
+			customClass="capitalize"
+			onClick={(e) => {
+			 e.preventDefault();
+			 onAction();
+			}}
+		 >
+			{buttonText}
+		 </Button>
+		</form>
+	 </ModalWrapper>
+	);
 });

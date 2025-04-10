@@ -1,31 +1,23 @@
+import React from "react";
 import { Button, ContentHeader, DoughnutChart, ListView, OverviewCard, Quote, SummaryCard } from "@/components";
-import { allColors } from "@/constants/data";
 import { useAuth } from "@/hooks/useAuth";
 import { useData } from "@/hooks/useData";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { formattedAmount } from "@/utils/formatAmount";
-import { useMemo } from "react";
 import { PiPowerFill, PiTipJarLight } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { formattedDate } from "@/utils/formatDate";
 import { getRecurringBills } from "@/utils/getRecurringBills";
+import { useModifiedBudgets } from "@/hooks/useModifiedBudgets";
 
 export const Overview = ({}) => {
   const { logout } = useAuth();
-  const {balance, pots, transactions, budgets} = useData();
+  const {balance, pots, transactions} = useData();
+  const {budgetsWithColors, overallBudget, overallSpent} = useModifiedBudgets();
   const navigate = useNavigate();
   const isTabScreen = useMediaQuery("(max-width: 1023px)");
   const { totalDueSoon, totalPaidBills, totalUpcomingBills } = getRecurringBills();
   const totalSaved = pots.reduce((sum, item) => sum + item.total, 0);
-
-  const budgetsWithColors = useMemo(() => {
-    const availableColors = [...allColors];
-    return budgets.map(item => {
-      const randomIndex = Math.floor(Math.random() * availableColors.length);
-      const selectedColor = availableColors.splice(randomIndex, 1)[0];
-      return { ...item, color: selectedColor };
-    });
-  }, []);
 
   const recurringBillsSummary = [
     { id: 1, title: "paid bills", amount: totalPaidBills },
@@ -117,14 +109,20 @@ export const Overview = ({}) => {
          onClick={() => navigate("/transactions")}
         >
          <ul className="flex flex-col justify-center">
-          {transactions.slice(0, 5).map(item => (
-           <ListView
-            key={item.date}
-            profilePicture={item.avatar} 
-            name={item.name}
-            amount={formattedAmount(item.amount)}
-            date={formattedDate(item.date, 'd MMM yyyy')}
-           />
+          {transactions.slice(0, 5).map((item, index) => (
+            <React.Fragment
+              key={item.date}
+            >
+              <ListView
+                profilePicture={item.avatar} 
+                name={item.name}
+                amount={formattedAmount(item.amount)}
+                date={formattedDate(item.date, 'd MMM yyyy')}
+                customClass="border-b-0 py-200"
+
+              />
+              {index !== transactions.slice(0, 5).length - 1 && <hr className="text-grey500 opacity-15"/> }
+            </React.Fragment>
           ))}
          </ul>
         </OverviewCard>
@@ -144,7 +142,8 @@ export const Overview = ({}) => {
             <DoughnutChart 
               data={budgetsWithColors.map((item) => item.maximum)}
               backgroundColors={budgetsWithColors.map(item => item.color ?? item.theme)}
-              overallBudget={budgetsWithColors.reduce((sum, item) => sum + item.maximum, 0)}
+              overallBudget={overallBudget}
+              overallSpent={Math.abs(overallSpent)}
             />
            </div>
 

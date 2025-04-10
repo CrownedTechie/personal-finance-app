@@ -12,7 +12,7 @@ const VariantClasses = {
 
 const variantClasses = cva("", {
  variants:{
-  variant: VariantClasses,
+	variant: VariantClasses,
  },
 });
 
@@ -30,69 +30,69 @@ export const Quote = ({variant, title, titleElement = "span", amount, amountElem
  const [borderColor, setBorderColor] = useState<string>("");
 
  useEffect(() => {
-  const randomBorderColor = borderColors[Math.floor(Math.random() * borderColors.length)];
-  setBorderColor(randomBorderColor);
+	const randomBorderColor = borderColors[Math.floor(Math.random() * borderColors.length)];
+	setBorderColor(randomBorderColor);
  }, []);
 
  const isSecondary = variant === "secondary";
 
  return ( 
-  <article
-   className={clsx(
-    variantClasses({ variant }),
-    "relative w-full",
-    isSecondary 
-     ? `bg-beige100 border-l-4 rounded-100 px-200 py-250` 
-     : "bg-transparent rounded-l-50 flex items-center",
-   )}
-   style={ isSecondary ? { borderColor } : {} }
-  >
-   {!isSecondary && 
-    <div 
-      className={`absolute left-0 top-0 h-full w-50 rounded-100`}
-      style={primaryBorderColor 
-        ? { background: primaryBorderColor } 
-        : { background: borderColor }
-      }
-    ></div>
-   }
-   <div className={clsx(
-    customClass && customClass,
-    isSecondary 
-     ? "flex flex-row items-center justify-between" 
-     : "flex flex-col ml-50 gap-50 rounded-r-100 px-200",
-    )}
-   >
-    <Typography
-     as={titleElement}
-     color="grey500"
-     customClass="capitalize truncate"
-    >
-     {title}
-    </Typography>
+	<article
+	 className={clsx(
+		variantClasses({ variant }),
+		"relative w-full",
+		isSecondary 
+		 ? `bg-beige100 border-l-4 rounded-100 px-200 py-250` 
+		 : "bg-transparent rounded-l-50 flex items-center",
+	 )}
+	 style={ isSecondary ? { borderColor } : {} }
+	>
+	 {!isSecondary && 
+		<div 
+			className={`absolute left-0 top-0 h-full w-50 rounded-100`}
+			style={primaryBorderColor 
+				? { background: primaryBorderColor } 
+				: { background: borderColor }
+			}
+		></div>
+	 }
+	 <div className={clsx(
+		customClass && customClass,
+		isSecondary 
+		 ? "flex flex-row items-center justify-between" 
+		 : "flex flex-col ml-50 gap-50 rounded-r-100 px-200",
+		)}
+	 >
+		<Typography
+		 as={titleElement}
+		 color="grey500"
+		 customClass="capitalize truncate"
+		>
+		 {title}
+		</Typography>
 
-    <div 
-      className={clsx(
-        totalBudget && "flex items-center gap-100"
-      )}
-    >
-      <Typography
-        as={amountElement}
-        fontWeight="bold"
-      >
-        {amount}
-      </Typography>
-      {totalBudget && 
-        <Typography
-          as="span"
-          color="grey500"
-        >
-          of {totalBudget}
-        </Typography>
-      }
-    </div>
-    
-   </div>
-  </article>
+		<div 
+			className={clsx(
+				totalBudget && "flex items-center gap-100"
+			)}
+		>
+			<Typography
+				as={amountElement}
+				fontWeight="bold"
+			>
+				{amount}
+			</Typography>
+			{totalBudget && 
+				<Typography
+					as="span"
+					color="grey500"
+				>
+					of {totalBudget}
+				</Typography>
+			}
+		</div>
+		
+	 </div>
+	</article>
  );
 }

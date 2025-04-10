@@ -14,27 +14,27 @@ interface IContentHeaderProps {
 
 export const ContentHeader = ({buttonGroup, coloredDot, as, fontWeight, title, customClass}: IContentHeaderProps) => {
  return ( 
-  <div className={clsx(
-    customClass && customClass,
-    buttonGroup && "flex items-center justify-between"
-   )}
-  >
-   <div className="flex items-center gap-200">
-    {/* May have a dot prefix */}
-    {coloredDot && <div className="size-200 rounded-full" style={{backgroundColor: coloredDot}}></div>}
-  
-    {/* Has title */}
-    <Typography
-     as={as}
-     fontWeight={fontWeight}
-     customClass="capitalize"
-    >
-     {title}
-    </Typography>
-   </div>
+	<div className={clsx(
+		customClass && customClass,
+		buttonGroup && "flex items-center justify-between"
+	 )}
+	>
+	 <div className="flex items-center gap-200">
+		{/* May have a dot prefix */}
+		{coloredDot && <div className="size-200 rounded-full" style={{backgroundColor: coloredDot}}></div>}
+	
+		{/* Has title */}
+		<Typography
+		 as={as}
+		 fontWeight={fontWeight}
+		 customClass="capitalize"
+		>
+		 {title}
+		</Typography>
+	 </div>
 
-   {/* May have a button group */}
-   { buttonGroup && <div>{buttonGroup}</div> }
-  </div>
+	 {/* May have a button group */}
+	 { buttonGroup && <div>{buttonGroup}</div> }
+	</div>
  );
 }
