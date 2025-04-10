@@ -25,7 +25,13 @@ export const Overview = ({}) => {
       const selectedColor = availableColors.splice(randomIndex, 1)[0];
       return { ...item, color: selectedColor };
     });
-}, []);
+  }, []);
+
+  const recurringBillsSummary = [
+    { id: 1, title: "paid bills", amount: totalPaidBills },
+    { id: 2, title: "total upcoming", amount: totalUpcomingBills },
+    { id: 3, title: "due soon", amount: totalDueSoon },
+  ];
 
   const handleLogout = () => {
     logout();
@@ -163,24 +169,14 @@ export const Overview = ({}) => {
          onClick={() => navigate("/recurring-bills")}
          >
           <div className="flex flex-col items-center gap-150 ">
-            <Quote
-              key={1}
+            {recurringBillsSummary.map(item => (
+              <Quote
+              key={item.id}
               variant="secondary" 
-              title="paid bills"
-              amount={formattedAmount(totalPaidBills).replace("-", "")}
+              title={item.title}
+              amount={formattedAmount(item.amount).replace("-", "")}
             />
-            <Quote
-              key={2}
-              variant="secondary" 
-              title="total upcoming"
-              amount={formattedAmount(totalUpcomingBills).replace("-", "")}
-            />
-            <Quote
-              key={3}
-              variant="secondary" 
-              title="due soon"
-              amount={formattedAmount(totalDueSoon).replace("-", "")}
-            />
+            ))}
           </div>
          </OverviewCard>
         </div>

@@ -2,9 +2,7 @@ import { IOptionType } from "@/components/selectDropdown/types";
 import { AlphaAnalytics, AquaFlowUtilities, BravoZenSpa, ByteWise, CharlieElectricCompany, DanielCarter, DeltaTaxi, EchoGameStore, Ecofuel, EllaPhillips, EmmaPic, EthanClark, JamesThompson, LiamHughes, LilyRamirez, NimbusDataStorage, PixelPlayground, RinaSato, SavoryBites, SunPark, UrbanServices, williamHarris } from "@/assets/avatars";
 import { RecurringBillsTransactions, Transactions } from "@/pages";
 
-
-
-// TODO: remove budgets, transactions
+//! Delete:: check this to know what to delete
 
 export const fruitOptions: IOptionType[] = [
   { value: 'apple', label: 'Apple' },
@@ -74,11 +72,12 @@ export const savingsOptions = [
   {title: "new laptop", amount: "$10"},
 ];
 
-export const recurringBills = [
-  {title: "paid bills", amount: "$190.00"},
-  {title: "total upcoming", amount: "$194.98"},
-  {title: "due soon", amount: "$59.98"},
-];
+// //TODO: delete recurring bills 
+// export const recurringBills = [
+//   {title: "paid bills", amount: "$190.00"},
+//   {title: "total upcoming", amount: "$194.98"},
+//   {title: "due soon", amount: "$59.98"},
+// ];
 
 // TODO: remove transactions
 export const transactions = [
@@ -93,18 +92,51 @@ export const allColors = ["#277C78", "#F2CDAC", "#82C9D7", "#626070", "#C94736",
 
 
 // TODO: remove this budget
-export const budgets = [
-  {title: "bills", amountSpent: 750},
-  {title: "dining out", amountSpent: 75},
-  {title: "personal care", amountSpent: 100},
-  {title: "entertainment", amountSpent: 50},
+// export const budgets = [
+//   {title: "bills", amountSpent: 750},
+//   {title: "dining out", amountSpent: 75},
+//   {title: "personal care", amountSpent: 100},
+//   {title: "entertainment", amountSpent: 50},
+// ];
+
+export const sampleBudgets = [
+  {category: "bills", maximum: 750, theme: "#82C9D7"},
+  {category: "dining out", maximum: 75,  theme: "#F2CDAC"},
+  {category: "personal care", maximum: 100, theme: "#626070"},
+  {category: "entertainment", maximum: 50, theme: "#277C78"},
 ];
 
-export const summaryOptions = [
-  {name: "current balance", amount: 4836.00},
-  {name: "income", amount: 3814.25},
-  {name: "expenses", amount: 1700.50},
+export const samplePots = [
+  {name: "Rent", target: 5000, theme: "#934F6F", total: 320},
+  {name: "Vacation", target: 300, theme: "#AF81BA", total: 150},
+  {name: "Emergency", target: 1000, theme: "#C94736", total: 720},
+  {name: "New Laptop", target: 800, theme: "#597C7C", total: 250,},
+  {name: "Groceries",  target: 1000, theme: "#CAB361", total: 85},
 ];
+
+export const sampleTransactions = [
+  {avatar: EmmaPic, name: "Emma Richardson", category: "General", date: "2024-08-19T14:23:11Z", amount: 75.50, recurring: false},
+  {avatar: SavoryBites, name: "Savory Bites Bistro", category: "Dining Out", date: "2024-08-19T20:23:11Z", amount: -55.50, recurring: false},
+  {avatar: DanielCarter, name: "Daniel Carter", category: "General", date: "2024-08-18T09:45:32Z", amount: -42.30, recurring: false},
+  {avatar: PixelPlayground, name: "Pixel Playground", category: "Entertainment", date: "2024-08-11T18:45:38Z", amount: -10.00, recurring: true},
+  {avatar: AlphaAnalytics, name: "Elevate Education", category: "Education", date: "2024-08-04T11:15:22Z", amount: -50.00, recurring: true},
+  {avatar: BravoZenSpa, name: "Serenity Spa & Wellness", category: "Personal Care", date: "2024-08-03T14:00:37Z", amount: -30.00, recurring: true},
+  {avatar: CharlieElectricCompany, name: "Spark Electric Solutions", category: "Bills", date: "2024-08-02T09:25:11Z", amount: -100.00, recurring: true},
+  {avatar: AquaFlowUtilities, name: "Aqua Flow Utilities", category: "Bills", date: "2024-07-30T13:20:14Z", amount: -100.00, recurring: true},
+  {avatar: Ecofuel, name: "EcoFuel Energy", category: "Bills", date: "2024-07-29T11:55:29Z", amount: -35.00, recurring: true},
+  {avatar: ByteWise, name: "ByteWise", category: "Lifestyle", date: "2024-07-23T09:35:14Z", amount: -49.99, recurring: true},
+  {avatar: NimbusDataStorage, name: "Nimbus Data Storage", category: "Bills", date: "2024-07-21T10:05:42Z", amount: -9.99, recurring: true},
+  {avatar: EchoGameStore, name: "Buzz Marketing Group", category: "General", date: "2024-07-26T14:40:23Z", amount: 3358.00, recurring: false},
+  {avatar: DeltaTaxi, name: "TechNova Innovations", category: "Shopping", date: "2024-07-25T16:25:37Z", amount: -29.99, recurring: false},
+  {avatar: EmmaPic, name: "Emma Richardson", category: "General", date: "2024-07-20T17:30:55Z", amount: -25.00, recurring: false},
+  {avatar: LilyRamirez, name: "Lily Ramirez", category: "General", date: "2024-07-15T16:35:04Z", amount: 75.00, recurring: false}
+];
+
+// export const summaryOptions = [
+//   {name: "current balance", amount: 4836.00},
+//   {name: "income", amount: 3814.25},
+//   {name: "expenses", amount: 1700.50},
+// ];
 
 export const transactionsList: Transactions[] = [
   {profilePicture: EmmaPic, name: "emma richardson", category: "general", date: "19 aug 2024", amount: 75.50},

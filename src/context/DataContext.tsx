@@ -1,4 +1,5 @@
 import { db } from "@/config/firebase";
+import { sampleBudgets, samplePots, sampleTransactions } from "@/constants/data";
 import { BalanceProps, BudgetProps, PotProps, TransactionProps } from "@/constants/types";
 import { getErrorMessage } from "@/utils/getErrorMessage";
 import { collection, getDocsFromServer } from "firebase/firestore";
@@ -15,10 +16,10 @@ interface IDataProps {
 
 export const defaultData: IDataProps = {
   id: "",
-  balance: {current: 0, expenses: 0, income: 0},
-  budgets: [],
-  pots: [],
-  transactions: []
+  balance: {current: 4836, expenses: 3814.25, income: 1700.50},
+  budgets: sampleBudgets,
+  pots: samplePots,
+  transactions: sampleTransactions
 };
 
 interface IDataProviderProps {

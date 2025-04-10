@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Container, ContentHeader, Quote, Sidebar, SummaryCard, Typography } from "@/components";
-import { recurringBills, savingsOptions } from "@/constants/data";
+import { savingsOptions } from "@/constants/data";
 import { PiCaretLeftFill, PiCaretRightFill, PiCaretDownFill, PiCaretUpFill, PiArrowsDownUpFill, PiHouseFill, PiChartDonutFill, PiReceiptFill, PiDotsThreeOutlineFill, PiListBulletsBold, PiMagnifyingGlass, PiPottedPlantFill, PiArrowFatLinesLeftFill, PiArrowFatLinesRightFill, PiCheckCircleFill, PiWarningCircleFill, PiWrenchFill, PiNetworkFill, PiVideoFill, PiBarbellFill, PiMusicNoteFill, PiBookOpenTextFill, PiShieldPlusFill, PiWarehouseFill, PiFunnelFill, PiSortAscendingFill, PiSortDescendingFill, PiEyeFill, PiEyeSlashFill, PiXCircleLight, PiTipJarLight, PiTipJarFill } from "react-icons/pi";
 
 export const Component = () => {
@@ -188,7 +188,7 @@ export const Component = () => {
       </div>
 
       {/* Quote cards secondary*/}
-      <div className="mt-500 bg-white p-100 flex gap-200 items-center flex-col md:flex-row ">
+      {/* <div className="mt-500 bg-white p-100 flex gap-200 items-center flex-col md:flex-row ">
         {recurringBills.map(item => (
           <Quote
             variant="secondary" 
@@ -196,7 +196,7 @@ export const Component = () => {
             amount={item.amount}
           />
         ))}
-      </div>
+      </div> */}
         {/* Quote cards primary */}
       <div className="mt-500 bg-white p-100 grid grid-cols-2 place-items-center gap-200">
         {savingsOptions.map(item => (
