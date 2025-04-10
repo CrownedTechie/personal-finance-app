@@ -1,10 +1,12 @@
 import { Button, ContentHeader, EditOrAddModal, PotsCard, TextField } from "@/components";
-import { colorOptions, potsList } from "@/constants/data";
+import { colorOptions } from "@/constants/data";
+import { useData } from "@/hooks/useData";
 import { useEffect, useRef, useState } from "react";
 
 export const Pots = () => {
  const modalRef = useRef<HTMLDialogElement>(null);
  const [modalType, setModalType] = useState<string | null>(null);
+ const { pots } = useData();
 
  const isAddModal = modalType === "add";
  const isEditModal = modalType === "edit";
@@ -53,19 +55,21 @@ export const Pots = () => {
 		/>
 	 </header>
 
+		{/* Pots  */}
 	 <section className="grid grid-cols-1 xl:grid-cols-2 gap-300">
-		{potsList.map(item => (
+		{pots.map(item => (
 		 <PotsCard 
-			key={item.title}
-			title={item.title}
-			itemColor={item.color}
-			totalSaved={item.totalSaved}
-			targetAmount={item.targetAmount}
+			key={new Date().getTime() + item.name}
+			title={item.name}
+			itemColor={item.theme}
+			totalSaved={item.total}
+			targetAmount={item.target}
 			handleOpenModal={handleOpenModal}
 		 />
 		))}
 	 </section>
 
+		{/* Modal */}
 	 {modalType && (
 		<EditOrAddModal 
 		 ref={modalRef}
