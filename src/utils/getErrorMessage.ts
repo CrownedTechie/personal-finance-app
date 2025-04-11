@@ -13,6 +13,8 @@ export const getErrorMessage = (error: unknown): string => {
 			return "Login failed. Invalid email or password.";
 		case "permission-denied":
 			return "Permission denied.";
+		case "unavailable":
+			return "Unable to fetch data from the server at the moment. Try again"
 		default:
 			return error.message; // Defaulting to Firebase's error message
 	}

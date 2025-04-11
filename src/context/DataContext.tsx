@@ -15,7 +15,7 @@ interface IDataProps {
 };
 
 export const defaultData: IDataProps = {
-	id: "",
+	id: "app-data-1",
 	balance: {current: 4836, expenses: 3814.25, income: 1700.50},
 	budgets: sampleBudgets,
 	pots: samplePots,
@@ -31,12 +31,13 @@ export const DataContext = createContext<IDataProps>(defaultData);
 // Helper to map Firestore data
 const mapDocToData = (doc: any): IDataProps => {
 	const data = doc.data();
-	return {
-		id: doc.id,
-		balance: data.balance,
-		budgets: data.budgets ?? [],
-		pots: data.pots ?? [],
-		transactions: data.transactions ?? []
+	const { id, balance, budgets, pots, transactions } = data;
+	return { 
+		id, 
+		balance, 
+		budgets, 
+		pots, 
+		transactions 
 	};
 };
 

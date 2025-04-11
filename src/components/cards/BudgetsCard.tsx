@@ -9,6 +9,7 @@ import { formattedAmount } from "@/utils/formatAmount";
 import React, { useRef, useState } from "react";
 import { DeleteModal } from "../modal";
 import { formattedDate } from "@/utils/formatDate";
+import { useNavigate } from "react-router-dom";
 
 interface ILatestSpendingsProps {
  avatar: string;
@@ -30,13 +31,13 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
 	const [openMoreOptions, setOpenMoreOptions] = useState<boolean>(false);
 	const deleteModalRef = useRef<HTMLDialogElement>(null);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
+	const navigate = useNavigate();
+	
 	const formattedTotalBudget = formattedAmount(totalBudget);
 	const formattedTotalSpent = formattedAmount(amountSpent).replace("-", "");
 
 	const totalSpent = Math.abs(amountSpent);
 	const progressPercentage = (totalSpent/totalBudget) * 100;
-
 	
 	const handleOpenDeleteModal = () => {
 		setIsModalOpen(true);
@@ -120,6 +121,7 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
 			<Button 
 			 variant="tertiary"
 			 customClass="capitalize cursor-pointer"
+			 onClick={() => navigate("/transactions")}
 			>
 			 see all
 			</Button>

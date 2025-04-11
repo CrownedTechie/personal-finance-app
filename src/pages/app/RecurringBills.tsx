@@ -76,32 +76,38 @@ const columnsMobile: ColumnDef<TransactionProps>[] =[
 	{
 	 id: "mobile-table",
 	 cell: ({ row }) => {
-			const date = row.original.date;
-			const amount = row.original.amount;
-			const profilePicture = row.original.avatar;
+			const {date, amount, avatar, status, name} = row.original;
+			const isDueSoon = status === "paid";
+			const isUpcoming = status === "dueSoon";
+
 			return (
 			 <div className="flex flex-col gap-100">
 				<div className="flex items-center gap-200">
-				 <img src={profilePicture} alt="" className="size-500 rounded-full" />
+				 <img src={avatar} alt="" className="size-500 rounded-full" />
 				 <Typography 
 					fontWeight="bold"
 					customClass="flex items-center gap-200 capitalize"
 				 >
-					 {row.original.name}
+					 {name}
 				 </Typography>
 				</div>
 
 				<div className="flex items-center justify-between">
 				 <Typography
 					as="span"
-					color="grey500"
+					color={isUpcoming ? "green" : "grey500"}
+					customClass="capitalize flex items-center gap-100"
 				 >
-					{date}
+					{`monthly - ${formattedDate(date, "do")}`}
+					{isUpcoming && <PiCheckCircleFill className="size-200" />}
+					{isDueSoon && <PiWarningCircleFill className="size-200 text-red" />}
 				 </Typography>
+
 				 <Typography
 					fontWeight="bold"
+					color={isDueSoon ? "red" : "grey900"}
 				 >
-					{formattedAmount(amount)}
+					{formattedAmount(amount).replace("-", "")}
 				 </Typography>
 				</div>
 			 </div>
