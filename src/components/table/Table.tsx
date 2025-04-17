@@ -5,7 +5,7 @@ import {
 	getCoreRowModel,
 	useReactTable,
 } from '@tanstack/react-table'
-import { ReactNode, useMemo, useState } from 'react'
+import { ReactNode, useEffect, useMemo } from 'react'
 import { TableWrapper } from './TableWrapper';
 import ReactPaginate from 'react-paginate';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -66,7 +66,13 @@ const Pagination = ({pageCount, currentPage, handlePageClick}: PaginationProps) 
 )};
 
 export const Table =  <T extends object>({dataList, columns, currentPage, setCurrentPage, itemsPerPage, additionalTableData, enablePagination = true}: ITableProps<T>) => {
- const [data, _setData] = useState(() => [...dataList]);
+	const data = dataList;
+
+	useEffect(() => {
+  if (enablePagination && setCurrentPage) {
+    setCurrentPage(0);
+  }
+}, [dataList]);
 
  // Calculating paginated data
 	const currentData = useMemo(() => {

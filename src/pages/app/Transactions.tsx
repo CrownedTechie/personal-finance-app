@@ -10,6 +10,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { PiFunnelFill, PiMagnifyingGlass, PiSortDescendingFill } from "react-icons/pi";
 
+interface ISearchAndFiltersProps {
+	searchQuery: string;	
+	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+};
+
 const columnsDesktop: ColumnDef<TransactionProps>[] = [
 	{
 	 accessorKey: "name",
@@ -122,7 +127,7 @@ const columnsMobile: ColumnDef<TransactionProps>[] =[
 	},
 ];
 
-const SearchAndFilters = () => {
+const SearchAndFilters = ({searchQuery, setSearchQuery}: ISearchAndFiltersProps) => {
  const isDesktop = useMediaQuery("(min-width: 768px)");
 
  return (
@@ -133,6 +138,8 @@ const SearchAndFilters = () => {
 		inputPlaceholder="Search transaction"
 		icon={<PiMagnifyingGlass  className="size-200 text-grey900" />}
 		customClass="w-[13rem] xl:w-[20rem]"
+		value={searchQuery}
+		onChange={e => setSearchQuery(e.target.value)}
 	 />
 	 <div className="flex items-center justify-around gap-300 md:w-full xl:w-auto">
 		{isDesktop 
@@ -175,9 +182,18 @@ const SearchAndFilters = () => {
 
 export const Transactions = ({}) => {
  const [currentPage, setCurrentPage] = useState(0);
+	const [searchQuery, setSearchQuery] = useState("");
  const {transactions} = useData();
  const itemsPerPage = 10; 
  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+	const filteredTransactions = useMemo(() => {
+		if (!searchQuery) return transactions;
+
+		return transactions.filter(transaction => 
+			transaction.name.toLowerCase().includes(searchQuery.toLowerCase())
+		);
+	}, [transactions, searchQuery]);
 
  const columns = useMemo(() => 
 	isDesktop 
@@ -197,12 +213,17 @@ export const Transactions = ({}) => {
 
 	 <section>
 		<Table<TransactionProps>
-		 dataList={transactions}
+		 dataList={filteredTransactions}
 		 columns={columns}
 		 currentPage={currentPage}
 		 setCurrentPage={setCurrentPage}
 		 itemsPerPage={itemsPerPage}
-		 additionalTableData={<SearchAndFilters />}
+		 additionalTableData={
+				<SearchAndFilters 
+						searchQuery={searchQuery}
+						setSearchQuery={setSearchQuery}
+				/>
+			}
 		/>
 	 </section>
 	</div>

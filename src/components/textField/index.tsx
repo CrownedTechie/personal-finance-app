@@ -56,6 +56,7 @@ export const TextField = <TFieldValues extends FieldValues>({
  );
 };
 
+// For inputs
 const InputField = <TFieldValues extends FieldValues> ({
 	icon, 
 	prefix, 
@@ -83,6 +84,7 @@ const InputField = <TFieldValues extends FieldValues> ({
 	</div>
 );
 
+//For selects
 const SelectField = ({
 	selectPlaceholder, 
 	selectDefaultValue, 
