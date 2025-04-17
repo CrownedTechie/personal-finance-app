@@ -142,8 +142,25 @@ const SearchAndFilters = ({
 	categoryOption,
 	setCategoryOption
 }: ISearchAndFiltersProps) => {
+	const [searchParams, setSearchParams] = useSearchParams();
 	const updateQueryParam = useUpdateQueryParam();
  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+	useEffect(() => {
+		const currentParams = new URLSearchParams(searchParams);
+
+		if (!searchParams.has('sort')) {
+			currentParams.set('sort', 'latest');
+		}
+		if (!currentParams.has('category')) {
+			currentParams.set('category', 'all transactions');
+		}
+		if (!currentParams.has('q')) {
+			currentParams.set('q', '');
+		}
+
+		setSearchParams(currentParams, { replace: true });
+}, [searchParams, setSearchParams]);
 
  return (
 	<div className="flex items-center justify-between gap-300">
@@ -208,33 +225,25 @@ const SearchAndFilters = ({
  </div>
 )};
 
-
 export const Transactions = ({}) => {
  const [currentPage, setCurrentPage] = useState(0);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [sortOption, setSortOption] = useState<IOptionType>(filterOptions[0]);
 	const [categoryOption, setCategoryOption] = useState<IOptionType>(categoryOptions[0]);
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
  const {transactions} = useData();
  const itemsPerPage = 10; 
  const isDesktop = useMediaQuery("(min-width: 768px)");
+	const categoryParam = searchParams.get("category") || "all transactions";
 
 	useEffect(() => {
-	const currentParams = new URLSearchParams(searchParams);
-
-	if (!currentParams.get('sort')) {
-		currentParams.set('sort', 'latest');
-	}
-	if (!currentParams.get('category')) {
-		currentParams.set('category', 'all transactions');
-	}
-	if (!currentParams.get('q')) {
-		currentParams.set('q', '');
-	}
-
-	setSearchParams(currentParams, { replace: true });
-}, [searchParams, setSearchParams]);
-
+		// I'm syncing categoryOption with the categoryParam from the URL
+		const category = categoryOptions.find(option => option.value === categoryParam);
+		if (category) {
+				setCategoryOption(category);
+		}
+	}, [categoryParam]);
+	
 
 	const filteredTransactions = useMemo(() => {
 		let updatedTransactions = [...transactions];
@@ -248,8 +257,8 @@ export const Transactions = ({}) => {
 
 		//filtering the category 
 		updatedTransactions = updatedTransactions.filter(transaction =>
-			categoryOption.value.toLowerCase() === "all transactions" ||
-			transaction.category.toLowerCase() === categoryOption.value.toLowerCase()
+			categoryParam === "all transactions" ||
+			transaction.category.toLowerCase() === categoryParam.toLowerCase()
 		);
 
 		//I'm sorting the transactions regardless of whether I have a search query or not
@@ -273,7 +282,7 @@ export const Transactions = ({}) => {
 			});
 
 			return updatedTransactions;
-	}, [transactions, searchQuery, sortOption, categoryOption]);
+	}, [transactions, searchQuery, sortOption, categoryParam]);
 
  const columns = useMemo(() => 
 	isDesktop 

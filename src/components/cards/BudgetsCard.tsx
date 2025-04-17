@@ -16,6 +16,8 @@ interface ILatestSpendingsProps {
  name: string;
  amount: number;
  date: string;
+	category: string;
+	recurring: boolean;
 };
 
 interface IBudgetscardProps {
@@ -121,7 +123,7 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
 			<Button 
 			 variant="tertiary"
 			 customClass="capitalize cursor-pointer"
-			 onClick={() => navigate("/transactions")}
+			 onClick={() => navigate(`/transactions?category=${latestSpendings[0]?.category}`)}
 			>
 			 see all
 			</Button>
@@ -133,11 +135,11 @@ export const BudgetsCard = ({title, itemColor, amountSpent, totalBudget, latestS
 					key={item.date}
 				>
 				 <ListView 
-					profilePicture={item.avatar}
-					name={item.name}
-					amount={formattedAmount(item.amount)}
-					date={formattedDate(item.date, "d MMM yyyy")}
-					customClass="border-b-0 py-150"
+						profilePicture={item.avatar}
+						name={item.name}
+						amount={formattedAmount(item.amount)}
+						date={formattedDate(item.date, "d MMM yyyy")}
+						customClass="border-b-0 py-150"
 				 />
 				 {index !== latestSpendings.slice(0, 3).length - 1 && <hr className="text-grey500 opacity-15"/> }
 				</React.Fragment>

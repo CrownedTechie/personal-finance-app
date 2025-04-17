@@ -9,7 +9,13 @@ export interface IListViewProps {
  customClass?: string;
 };
 
-export const ListView = ({profilePicture, name, amount, date, customClass="border-b-grey100 py-200"}: IListViewProps) => {
+export const ListView = ({
+	profilePicture, 
+	name, 
+	amount, 
+	date,
+	customClass="border-b-grey100 py-200"
+}: IListViewProps) => {
 
  return ( 
 	<li className={clsx(
