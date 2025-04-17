@@ -1,6 +1,6 @@
 export interface IOptionType {
- value: string;
- label: string;
- color?: string;
- isDisabled?: boolean;
+	value: string;
+	label: string;
+	color?: string;
+	isDisabled?: boolean;
 }

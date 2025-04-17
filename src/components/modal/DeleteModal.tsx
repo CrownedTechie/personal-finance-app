@@ -16,55 +16,55 @@ interface IDeleteModalProps {
 
 export const DeleteModal = forwardRef<HTMLDialogElement, IDeleteModalProps>
  (({title, subText, onClose, onConfirm, isOpen}, ref) => {
-   const isDesktop = useMediaQuery("(min-width: 768px)");
-  
+	 const isDesktop = useMediaQuery("(min-width: 768px)");
+	
 
-  useEffect(() => {
-   const dialogElement = ref as React.RefObject<HTMLDialogElement>;
-   if (isOpen) {
-    dialogElement.current.showModal();
-   } else {
-    dialogElement.current.close();
-   }
-  }, [isOpen, ref]);
-  
-  return ( 
-   <ModalWrapper ref={ref}>
-    <ContentHeader 
-     as={isDesktop ? "h1" : "h2"}
-     title={title}
-     fontWeight="bold"
-     buttonGroup={
-      <Button 
-       className="outline-none text-grey300 cursor-pointer"
-       onClick={onClose}
-      >
-       <PiXCircleLight className="size-300 text-grey500" />
-      </Button>
-     }
-    />
+	useEffect(() => {
+	 const dialogElement = ref as React.RefObject<HTMLDialogElement>;
+	 if (isOpen) {
+		dialogElement.current.showModal();
+	 } else {
+		dialogElement.current.close();
+	 }
+	}, [isOpen, ref]);
+	
+	return ( 
+	 <ModalWrapper ref={ref}>
+		<ContentHeader 
+		 as={isDesktop ? "h1" : "h2"}
+		 title={title}
+		 fontWeight="bold"
+		 buttonGroup={
+			<Button 
+			 className="outline-none text-grey300 cursor-pointer"
+			 onClick={onClose}
+			>
+			 <PiXCircleLight className="size-300 text-grey500" />
+			</Button>
+		 }
+		/>
 
-    <Typography
-     color="grey500"
-    >
-     {subText}  
-    </Typography>
+		<Typography
+		 color="grey500"
+		>
+		 {subText}  
+		</Typography>
 
-    <div className="flex flex-col gap-200">
-      <Button 
-       variant="destroy" 
-       onClick={onConfirm}
-      >
-       Yes, Confirm Deletion
-      </Button>
-      <Button 
-       variant="tertiary" 
-       rightArrowIcon={false}
-       onClick={onClose}
-      >
-       No, Go Back
-      </Button>
-    </div>
-   </ModalWrapper>
-  );
+		<div className="flex flex-col gap-200">
+			<Button 
+			 variant="destroy" 
+			 onClick={onConfirm}
+			>
+			 Yes, Confirm Deletion
+			</Button>
+			<Button 
+			 variant="tertiary" 
+			 rightArrowIcon={false}
+			 onClick={onClose}
+			>
+			 No, Go Back
+			</Button>
+		</div>
+	 </ModalWrapper>
+	);
 });

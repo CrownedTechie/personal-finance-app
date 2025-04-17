@@ -11,7 +11,7 @@ const VariantClasses = {
 
 const overviewCardVariants = cva("", {
  variants: {
-  variant: VariantClasses,
+	variant: VariantClasses,
  },
 });
 
@@ -24,30 +24,30 @@ interface ISummaryCardProps extends VariantProps<typeof overviewCardVariants> {
 
 export const SummaryCard = ({variant, customClass, icon, content, title}: ISummaryCardProps) => {
  return ( 
-  <article 
-   className={clsx(
-    overviewCardVariants({variant}),
-    "p-300 rounded-150 h-fit w-full flex",
-    icon && "gap-200 items-center",
-    (icon && customClass) && customClass
-   )}
-  > 
-   {icon && icon}
-   <div className="flex flex-col gap-150">
-    <Typography
-     color={variant === "primary" ? "white" : "grey500"}
-     customClass="capitalize"
-    >
-     {title}
-    </Typography>
-    <Typography
-     fontSize="xl"
-     fontWeight="bold"
-     color={variant === "primary" ? "white" : "grey900"}
-    >
-     {content}
-    </Typography>
-   </div>
-  </article>
+	<article 
+	 className={clsx(
+		overviewCardVariants({variant}),
+		"p-300 rounded-150 h-fit w-full flex",
+		icon && "gap-200 items-center",
+		(icon && customClass) && customClass
+	 )}
+	> 
+	 {icon && icon}
+	 <div className="flex flex-col gap-150">
+		<Typography
+		 color={variant === "primary" ? "white" : "grey500"}
+		 customClass="capitalize"
+		>
+		 {title}
+		</Typography>
+		<Typography
+		 fontSize="xl"
+		 fontWeight="bold"
+		 color={variant === "primary" ? "white" : "grey900"}
+		>
+		 {content}
+		</Typography>
+	 </div>
+	</article>
  );
 }
