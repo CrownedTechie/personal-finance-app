@@ -136,7 +136,9 @@ const SearchAndFilters = ({
 	searchQuery, 
 	setSearchQuery, 
 	sortOption, 
-	setSortOption
+	setSortOption,
+	categoryOption,
+	setCategoryOption
 }: ISearchAndFiltersProps) => {
  const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -174,7 +176,9 @@ const SearchAndFilters = ({
 				fieldType="select"
 				labelText="Category"
 				selectOptions={categoryOptions}
-				selectDefaultValue={categoryOptions[0]}
+				selectDefaultValue={categoryOption}
+				selectValue={categoryOption}
+				selectOnChange={(selected) => selected && setCategoryOption(selected)}
 				customClass="flex-row items-center gap-100"
 				labelTextFontWeight="regular"
 				selectCustomClass="w-[11.1rem]"
@@ -211,6 +215,12 @@ export const Transactions = ({}) => {
 			);
 		}
 
+		//filtering the category 
+		updatedTransactions = updatedTransactions.filter(transaction =>
+			categoryOption.value.toLowerCase() === "all transactions" ||
+			transaction.category.toLowerCase() === categoryOption.value.toLowerCase()
+		);
+
 		//I'm sorting the transactions regardless of whether I have a search query or not
 		updatedTransactions.sort((a, b) => {
 				switch(sortOption.value) {
@@ -232,7 +242,7 @@ export const Transactions = ({}) => {
 			});
 
 			return updatedTransactions;
-	}, [transactions, searchQuery, sortOption]);
+	}, [transactions, searchQuery, sortOption, categoryOption]);
 
  const columns = useMemo(() => 
 	isDesktop 
