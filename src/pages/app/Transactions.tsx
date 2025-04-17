@@ -1,4 +1,5 @@
 import { ContentHeader, TextField, Typography } from "@/components";
+import { IOptionType } from "@/components/selectDropdown/types";
 import { Table } from "@/components/table";
 import { categoryOptions, filterOptions } from "@/constants/data";
 import { TransactionProps } from "@/constants/types";
@@ -13,6 +14,10 @@ import { PiFunnelFill, PiMagnifyingGlass, PiSortDescendingFill } from "react-ico
 interface ISearchAndFiltersProps {
 	searchQuery: string;	
 	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+	sortOption: {value: string; label: string};
+	setSortOption: React.Dispatch<React.SetStateAction<IOptionType>>;
+	categoryOption: IOptionType;
+	setCategoryOption: React.Dispatch<React.SetStateAction<IOptionType>>;
 };
 
 const columnsDesktop: ColumnDef<TransactionProps>[] = [
@@ -127,7 +132,12 @@ const columnsMobile: ColumnDef<TransactionProps>[] =[
 	},
 ];
 
-const SearchAndFilters = ({searchQuery, setSearchQuery}: ISearchAndFiltersProps) => {
+const SearchAndFilters = ({
+	searchQuery, 
+	setSearchQuery, 
+	sortOption, 
+	setSortOption
+}: ISearchAndFiltersProps) => {
  const isDesktop = useMediaQuery("(min-width: 768px)");
 
  return (
@@ -145,16 +155,18 @@ const SearchAndFilters = ({searchQuery, setSearchQuery}: ISearchAndFiltersProps)
 		{isDesktop 
 		 ? (
 			<>
-			 <TextField
-			 id="filter options"
-			 fieldname="filter options"
-			 fieldType="select"
-			 labelText="Sort by"
-			 selectOptions={filterOptions}
-			 selectDefaultValue={filterOptions[0]}
-			 customClass="flex-row items-center gap-100"
-			 labelTextFontWeight="regular"
-			 selectCustomClass="w-[7rem]"
+				<TextField
+				id="filter options"
+				fieldname="filter options"
+				fieldType="select"
+				labelText="Sort by"
+				selectOptions={filterOptions}
+				selectDefaultValue={sortOption}
+				selectValue={sortOption}
+				selectOnChange={(selected) => selected && setSortOption(selected)}
+				customClass="flex-row items-center gap-100"
+				labelTextFontWeight="regular"
+				selectCustomClass="w-[7rem]"
 			/>
 			<TextField
 				id="category options"
@@ -183,17 +195,44 @@ const SearchAndFilters = ({searchQuery, setSearchQuery}: ISearchAndFiltersProps)
 export const Transactions = ({}) => {
  const [currentPage, setCurrentPage] = useState(0);
 	const [searchQuery, setSearchQuery] = useState("");
+	const [sortOption, setSortOption] = useState<IOptionType>(filterOptions[0]);
+	const [categoryOption, setCategoryOption] = useState<IOptionType>(categoryOptions[0]);
  const {transactions} = useData();
  const itemsPerPage = 10; 
  const isDesktop = useMediaQuery("(min-width: 768px)");
 
 	const filteredTransactions = useMemo(() => {
-		if (!searchQuery) return transactions;
+		let updatedTransactions = [...transactions];
 
-		return transactions.filter(transaction => 
-			transaction.name.toLowerCase().includes(searchQuery.toLowerCase())
-		);
-	}, [transactions, searchQuery]);
+		//if there is a search query, filter the transactions
+		if (searchQuery.trim()) {
+			updatedTransactions = updatedTransactions.filter(transaction =>
+				transaction.name.toLowerCase().includes(searchQuery.toLowerCase())
+			);
+		}
+
+		//I'm sorting the transactions regardless of whether I have a search query or not
+		updatedTransactions.sort((a, b) => {
+				switch(sortOption.value) {
+					case "latest": 
+						return new	Date(b.date).getTime() - new Date(a.date).getTime();
+					case "oldest":
+						return new Date(a.date).getTime() - new Date(b.date).getTime();
+					case "a to z": 
+						return a.name.localeCompare(b.name);
+					case "z to a":
+						return b.name.localeCompare(a.name);
+					case "highest":
+						return b.amount - a.amount;
+					case	"lowest":
+						return a.amount - b.amount;
+					default:
+						return 0;
+				}
+			});
+
+			return updatedTransactions;
+	}, [transactions, searchQuery, sortOption]);
 
  const columns = useMemo(() => 
 	isDesktop 
@@ -222,6 +261,10 @@ export const Transactions = ({}) => {
 				<SearchAndFilters 
 						searchQuery={searchQuery}
 						setSearchQuery={setSearchQuery}
+						sortOption={sortOption}
+						setSortOption={setSortOption}
+						categoryOption={categoryOption}
+						setCategoryOption={setCategoryOption}
 				/>
 			}
 		/>

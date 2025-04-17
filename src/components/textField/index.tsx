@@ -89,6 +89,8 @@ const SelectField = ({
 	selectPlaceholder, 
 	selectDefaultValue, 
 	selectCustomClass,
+	selectOnChange,
+	selectValue,
 	selectOptions = [
 	 { label: "Un-appraised", value: "Un-appraised" },
 	 { label: "In-progress", value: "In-progress" },
@@ -100,5 +102,7 @@ const SelectField = ({
 		placeholder={selectPlaceholder}
 		defaultValue={selectDefaultValue}
 		customClass={selectCustomClass}
+		selectOnChange={selectOnChange}
+		selectValue={selectValue}
 	/>
 );
