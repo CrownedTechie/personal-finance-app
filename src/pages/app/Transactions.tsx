@@ -5,11 +5,13 @@ import { categoryOptions, filterOptions } from "@/constants/data";
 import { TransactionProps } from "@/constants/types";
 import { useData } from "@/hooks/useData";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useUpdateQueryParam } from "@/hooks/useUpdateQueryParam";
 import { formattedAmount } from "@/utils/formatAmount";
 import { formattedDate } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { PiFunnelFill, PiMagnifyingGlass, PiSortDescendingFill } from "react-icons/pi";
+import { useSearchParams } from "react-router-dom";
 
 interface ISearchAndFiltersProps {
 	searchQuery: string;	
@@ -140,6 +142,7 @@ const SearchAndFilters = ({
 	categoryOption,
 	setCategoryOption
 }: ISearchAndFiltersProps) => {
+	const updateQueryParam = useUpdateQueryParam();
  const isDesktop = useMediaQuery("(min-width: 768px)");
 
  return (
@@ -151,7 +154,10 @@ const SearchAndFilters = ({
 		icon={<PiMagnifyingGlass  className="size-200 text-grey900" />}
 		customClass="w-[13rem] xl:w-[20rem]"
 		value={searchQuery}
-		onChange={e => setSearchQuery(e.target.value)}
+		onChange={e => {
+			setSearchQuery(e.target.value)
+			updateQueryParam('q', e.target.value);
+		}}
 	 />
 	 <div className="flex items-center justify-around gap-300 md:w-full xl:w-auto">
 		{isDesktop 
@@ -165,7 +171,10 @@ const SearchAndFilters = ({
 				selectOptions={filterOptions}
 				selectDefaultValue={sortOption}
 				selectValue={sortOption}
-				selectOnChange={(selected) => selected && setSortOption(selected)}
+				selectOnChange={(selected) => { 
+					setSortOption(selected)
+					updateQueryParam('sort', selected.value);
+				}}
 				customClass="flex-row items-center gap-100"
 				labelTextFontWeight="regular"
 				selectCustomClass="w-[7rem]"
@@ -178,7 +187,10 @@ const SearchAndFilters = ({
 				selectOptions={categoryOptions}
 				selectDefaultValue={categoryOption}
 				selectValue={categoryOption}
-				selectOnChange={(selected) => selected && setCategoryOption(selected)}
+				selectOnChange={(selected) => {
+					setCategoryOption(selected)
+					updateQueryParam('category', selected.value);
+				}}
 				customClass="flex-row items-center gap-100"
 				labelTextFontWeight="regular"
 				selectCustomClass="w-[11.1rem]"
@@ -196,14 +208,33 @@ const SearchAndFilters = ({
  </div>
 )};
 
+
 export const Transactions = ({}) => {
  const [currentPage, setCurrentPage] = useState(0);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [sortOption, setSortOption] = useState<IOptionType>(filterOptions[0]);
 	const [categoryOption, setCategoryOption] = useState<IOptionType>(categoryOptions[0]);
+	const [searchParams, setSearchParams] = useSearchParams();
  const {transactions} = useData();
  const itemsPerPage = 10; 
  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+	useEffect(() => {
+	const currentParams = new URLSearchParams(searchParams);
+
+	if (!currentParams.get('sort')) {
+		currentParams.set('sort', 'latest');
+	}
+	if (!currentParams.get('category')) {
+		currentParams.set('category', 'all transactions');
+	}
+	if (!currentParams.get('q')) {
+		currentParams.set('q', '');
+	}
+
+	setSearchParams(currentParams, { replace: true });
+}, [searchParams, setSearchParams]);
+
 
 	const filteredTransactions = useMemo(() => {
 		let updatedTransactions = [...transactions];
