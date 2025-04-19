@@ -1,4 +1,5 @@
 import { BillsSummaryList, ContentHeader, SummaryCard, TextField, Typography } from "@/components";
+import { IOptionType } from "@/components/selectDropdown/types";
 import { Table } from "@/components/table";
 import { filterOptions } from "@/constants/data";
 import { TransactionProps } from "@/constants/types";
@@ -7,8 +8,15 @@ import { formattedAmount } from "@/utils/formatAmount";
 import { formattedDate } from "@/utils/formatDate";
 import { getRecurringBills } from "@/utils/getRecurringBills";
 import { ColumnDef } from "@tanstack/react-table";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { PiCheckCircleFill, PiMagnifyingGlass, PiReceiptLight, PiSortDescendingFill, PiWarningCircleFill } from "react-icons/pi";
+
+interface ISearchAndFiltersProps {
+	searchQuery: string;
+	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+	sortOption: IOptionType;
+	setSortOption: React.Dispatch<React.SetStateAction<IOptionType>>;
+}
 
 const columnsDesktop : ColumnDef<TransactionProps>[] = [
  {
@@ -116,7 +124,12 @@ const columnsMobile: ColumnDef<TransactionProps>[] =[
 	},
 ];
 
-const SearchAndFilters = () => {
+const SearchAndFilters = ({
+	searchQuery, 
+	setSearchQuery,
+	sortOption,
+	setSortOption
+}: ISearchAndFiltersProps) => {
  const isDesktop = useMediaQuery("(min-width: 768px)");
 
  return (
@@ -125,6 +138,8 @@ const SearchAndFilters = () => {
 		id="transaction search"
 		fieldname="transaction search"
 		inputPlaceholder="Search transaction"
+		value={searchQuery}
+		onChange={e => setSearchQuery(e.target.value)}
 		icon={<PiMagnifyingGlass  className="size-200 text-grey900" />}
 		customClass="w-[17rem] md:w-[20rem]"
 	/>
@@ -136,7 +151,9 @@ const SearchAndFilters = () => {
 		 fieldType="select"
 		 labelText="Sort by"
 		 selectOptions={filterOptions}
-		 selectDefaultValue={filterOptions[0]}
+		 selectDefaultValue={sortOption}
+			selectValue={sortOption}
+			selectOnChange={(selected) => setSortOption(selected)}
 		 customClass="flex-row items-center gap-100"
 		 labelTextFontWeight="regular"
 		 selectCustomClass="w-[7rem]"
@@ -156,8 +173,41 @@ export const RecurringBills = ({}) => {
 		dueSoon,
 		upcomingBills
 	} = getRecurringBills();
- 	const isDesktop = useMediaQuery("(min-width: 768px)");
+	const [searchQuery, setSearchQuery] = useState<string>("");
+	const [sortOption, setSortOption] = useState<IOptionType>(filterOptions[0])
+ const isDesktop = useMediaQuery("(min-width: 768px)");
 	const overallBills = recurringTransactions.reduce((sum, item) => sum + item.amount, 0);
+
+	const filteredRecurringTransactions = useMemo(() => {
+		let updatedTransactions = [...recurringTransactions];
+
+		if(searchQuery.trim()) {
+			updatedTransactions = updatedTransactions.filter(transaction => 
+				transaction.name.toLowerCase().includes(searchQuery.toLowerCase())
+			)
+		}
+
+		updatedTransactions.sort((a, b) => {
+			switch (sortOption.value) {
+				case "latest":
+					return new	Date(b.date).getTime() - new Date(a.date).getTime();
+				case "oldest":
+						return new	Date(a.date).getTime() - new Date(b.date).getTime();
+				case "a to z":
+					return a.name.localeCompare(b.name);
+				case "z to a":
+					return b.name.localeCompare(a.name);
+				case "highest":
+					return b.amount - a.amount;
+				case "lowest":
+					return a.amount - b.amount;
+				default:
+					return 0;
+			}
+		})
+
+		return updatedTransactions;
+	}, [recurringTransactions]);
 
 	const recurringBillsSummary = [
 		{ id: 1, title: "paid bills", amount: totalPaidBills, noOfTransations: paidBills.length + 1 },
@@ -218,9 +268,16 @@ export const RecurringBills = ({}) => {
 		{/* Recurring bills table */}
 		<div className="xl:col-span-4">
 		 <Table<TransactionProps>
-			dataList={recurringTransactions}
+			dataList={filteredRecurringTransactions}
 			columns={columns}
-			additionalTableData={<SearchAndFilters />}
+			additionalTableData={
+				<SearchAndFilters 
+					searchQuery={searchQuery}
+					setSearchQuery={setSearchQuery}
+					sortOption={sortOption}
+					setSortOption={setSortOption}
+				/>
+			}
 			enablePagination={false}
 		 />
 		</div>

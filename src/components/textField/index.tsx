@@ -56,6 +56,7 @@ export const TextField = <TFieldValues extends FieldValues>({
  );
 };
 
+// For inputs
 const InputField = <TFieldValues extends FieldValues> ({
 	icon, 
 	prefix, 
@@ -83,10 +84,13 @@ const InputField = <TFieldValues extends FieldValues> ({
 	</div>
 );
 
+//For selects
 const SelectField = ({
 	selectPlaceholder, 
 	selectDefaultValue, 
 	selectCustomClass,
+	selectOnChange,
+	selectValue,
 	selectOptions = [
 	 { label: "Un-appraised", value: "Un-appraised" },
 	 { label: "In-progress", value: "In-progress" },
@@ -98,5 +102,7 @@ const SelectField = ({
 		placeholder={selectPlaceholder}
 		defaultValue={selectDefaultValue}
 		customClass={selectCustomClass}
+		selectOnChange={selectOnChange}
+		selectValue={selectValue}
 	/>
 );

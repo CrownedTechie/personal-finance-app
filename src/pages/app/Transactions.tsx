@@ -1,14 +1,26 @@
 import { ContentHeader, TextField, Typography } from "@/components";
+import { IOptionType } from "@/components/selectDropdown/types";
 import { Table } from "@/components/table";
 import { categoryOptions, filterOptions } from "@/constants/data";
 import { TransactionProps } from "@/constants/types";
 import { useData } from "@/hooks/useData";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useUpdateQueryParam } from "@/hooks/useUpdateQueryParam";
 import { formattedAmount } from "@/utils/formatAmount";
 import { formattedDate } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { PiFunnelFill, PiMagnifyingGlass, PiSortDescendingFill } from "react-icons/pi";
+import { useSearchParams } from "react-router-dom";
+
+interface ISearchAndFiltersProps {
+	searchQuery: string;	
+	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+	sortOption: {value: string; label: string};
+	setSortOption: React.Dispatch<React.SetStateAction<IOptionType>>;
+	categoryOption: IOptionType;
+	setCategoryOption: React.Dispatch<React.SetStateAction<IOptionType>>;
+};
 
 const columnsDesktop: ColumnDef<TransactionProps>[] = [
 	{
@@ -122,8 +134,33 @@ const columnsMobile: ColumnDef<TransactionProps>[] =[
 	},
 ];
 
-const SearchAndFilters = () => {
+const SearchAndFilters = ({
+	searchQuery, 
+	setSearchQuery, 
+	sortOption, 
+	setSortOption,
+	categoryOption,
+	setCategoryOption
+}: ISearchAndFiltersProps) => {
+	const [searchParams, setSearchParams] = useSearchParams();
+	const updateQueryParam = useUpdateQueryParam();
  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+	useEffect(() => {
+		const currentParams = new URLSearchParams(searchParams);
+
+		if (!searchParams.has('sort')) {
+			currentParams.set('sort', 'latest');
+		}
+		if (!currentParams.has('category')) {
+			currentParams.set('category', 'all transactions');
+		}
+		if (!currentParams.has('q')) {
+			currentParams.set('q', '');
+		}
+
+		setSearchParams(currentParams, { replace: true });
+}, [searchParams, setSearchParams]);
 
  return (
 	<div className="flex items-center justify-between gap-300">
@@ -133,21 +170,31 @@ const SearchAndFilters = () => {
 		inputPlaceholder="Search transaction"
 		icon={<PiMagnifyingGlass  className="size-200 text-grey900" />}
 		customClass="w-[13rem] xl:w-[20rem]"
+		value={searchQuery}
+		onChange={e => {
+			setSearchQuery(e.target.value)
+			updateQueryParam('q', e.target.value);
+		}}
 	 />
 	 <div className="flex items-center justify-around gap-300 md:w-full xl:w-auto">
 		{isDesktop 
 		 ? (
 			<>
-			 <TextField
-			 id="filter options"
-			 fieldname="filter options"
-			 fieldType="select"
-			 labelText="Sort by"
-			 selectOptions={filterOptions}
-			 selectDefaultValue={filterOptions[0]}
-			 customClass="flex-row items-center gap-100"
-			 labelTextFontWeight="regular"
-			 selectCustomClass="w-[7rem]"
+				<TextField
+				id="filter options"
+				fieldname="filter options"
+				fieldType="select"
+				labelText="Sort by"
+				selectOptions={filterOptions}
+				selectDefaultValue={sortOption}
+				selectValue={sortOption}
+				selectOnChange={(selected) => { 
+					setSortOption(selected)
+					updateQueryParam('sort', selected.value);
+				}}
+				customClass="flex-row items-center gap-100"
+				labelTextFontWeight="regular"
+				selectCustomClass="w-[7rem]"
 			/>
 			<TextField
 				id="category options"
@@ -155,7 +202,12 @@ const SearchAndFilters = () => {
 				fieldType="select"
 				labelText="Category"
 				selectOptions={categoryOptions}
-				selectDefaultValue={categoryOptions[0]}
+				selectDefaultValue={categoryOption}
+				selectValue={categoryOption}
+				selectOnChange={(selected) => {
+					setCategoryOption(selected)
+					updateQueryParam('category', selected.value);
+				}}
 				customClass="flex-row items-center gap-100"
 				labelTextFontWeight="regular"
 				selectCustomClass="w-[11.1rem]"
@@ -175,9 +227,62 @@ const SearchAndFilters = () => {
 
 export const Transactions = ({}) => {
  const [currentPage, setCurrentPage] = useState(0);
+	const [searchQuery, setSearchQuery] = useState("");
+	const [sortOption, setSortOption] = useState<IOptionType>(filterOptions[0]);
+	const [categoryOption, setCategoryOption] = useState<IOptionType>(categoryOptions[0]);
+	const [searchParams] = useSearchParams();
  const {transactions} = useData();
  const itemsPerPage = 10; 
  const isDesktop = useMediaQuery("(min-width: 768px)");
+	const categoryParam = searchParams.get("category") || "all transactions";
+
+	useEffect(() => {
+		// I'm syncing categoryOption with the categoryParam from the URL
+		const category = categoryOptions.find(option => option.value === categoryParam);
+		if (category) {
+				setCategoryOption(category);
+		}
+	}, [categoryParam]);
+	
+
+	const filteredTransactions = useMemo(() => {
+		let updatedTransactions = [...transactions];
+
+		//if there is a search query, filter the transactions
+		if (searchQuery.trim()) {
+			updatedTransactions = updatedTransactions.filter(transaction =>
+				transaction.name.toLowerCase().includes(searchQuery.toLowerCase())
+			);
+		}
+
+		//filtering the category 
+		updatedTransactions = updatedTransactions.filter(transaction =>
+			categoryParam === "all transactions" ||
+			transaction.category.toLowerCase() === categoryParam.toLowerCase()
+		);
+
+		//I'm sorting the transactions regardless of whether I have a search query or not
+		updatedTransactions.sort((a, b) => {
+				switch(sortOption.value) {
+					case "latest": 
+						return new	Date(b.date).getTime() - new Date(a.date).getTime();
+					case "oldest":
+						return new Date(a.date).getTime() - new Date(b.date).getTime();
+					case "a to z": 
+						return a.name.localeCompare(b.name);
+					case "z to a":
+						return b.name.localeCompare(a.name);
+					case "highest":
+						return b.amount - a.amount;
+					case	"lowest":
+						return a.amount - b.amount;
+					default:
+						return 0;
+				}
+			});
+
+			return updatedTransactions;
+	}, [transactions, searchQuery, sortOption, categoryParam]);
 
  const columns = useMemo(() => 
 	isDesktop 
@@ -197,12 +302,21 @@ export const Transactions = ({}) => {
 
 	 <section>
 		<Table<TransactionProps>
-		 dataList={transactions}
+		 dataList={filteredTransactions}
 		 columns={columns}
 		 currentPage={currentPage}
 		 setCurrentPage={setCurrentPage}
 		 itemsPerPage={itemsPerPage}
-		 additionalTableData={<SearchAndFilters />}
+		 additionalTableData={
+				<SearchAndFilters 
+						searchQuery={searchQuery}
+						setSearchQuery={setSearchQuery}
+						sortOption={sortOption}
+						setSortOption={setSortOption}
+						categoryOption={categoryOption}
+						setCategoryOption={setCategoryOption}
+				/>
+			}
 		/>
 	 </section>
 	</div>

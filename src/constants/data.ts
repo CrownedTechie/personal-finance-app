@@ -12,8 +12,8 @@ export const fruitOptions: IOptionType[] = [
 export const filterOptions: IOptionType[] = [
 	{ value: "latest", label: "Latest" },
 	{ value: "oldest", label: "Oldest" },
-	{ value: "A to Z", label: "A to Z" },
-	{ value: "Z to A", label: "Z to A" },
+	{ value: "a to z", label: "A to Z" },
+	{ value: "z to a", label: "Z to A" },
 	{ value: "highest", label: "Highest" },
 	{ value: "lowest", label: "Lowest" },
 ];

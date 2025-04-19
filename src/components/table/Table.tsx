@@ -5,7 +5,7 @@ import {
 	getCoreRowModel,
 	useReactTable,
 } from '@tanstack/react-table'
-import { ReactNode, useMemo, useState } from 'react'
+import { ReactNode, useEffect, useMemo } from 'react'
 import { TableWrapper } from './TableWrapper';
 import ReactPaginate from 'react-paginate';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -65,8 +65,33 @@ const Pagination = ({pageCount, currentPage, handlePageClick}: PaginationProps) 
  </div>
 )};
 
-export const Table =  <T extends object>({dataList, columns, currentPage, setCurrentPage, itemsPerPage, additionalTableData, enablePagination = true}: ITableProps<T>) => {
- const [data, _setData] = useState(() => [...dataList]);
+export const Table =  <T extends object>({
+	dataList, 
+	columns, 
+	currentPage, 
+	setCurrentPage, 
+	itemsPerPage, 
+	additionalTableData, 
+	enablePagination = true
+}: ITableProps<T>) => {
+	const data: T[] = dataList;
+
+	const emptyTableState = (
+		<div className="h-[25rem] flex items-center justify-center">
+			<Typography	
+				color="grey500" 
+				customClass="text-center text-[1.5rem]"
+			>
+				No data available
+			</Typography>
+		</div>
+	);
+
+	useEffect(() => {
+  if (enablePagination && setCurrentPage) {
+    setCurrentPage(0);
+  }
+}, [dataList]);
 
  // Calculating paginated data
 	const currentData = useMemo(() => {
@@ -95,55 +120,61 @@ export const Table =  <T extends object>({dataList, columns, currentPage, setCur
 		{/* Search and filters */}
 		{additionalTableData}
 
-		{/* Table */}
-		<table>
-		 <thead>
-			{table.getHeaderGroups().map(headerGroup => (
-			 <tr key={headerGroup.id}>
-				 {headerGroup.headers.map(header => (
-					 <th key={header.id} className="px-200 py-250 md:border-b border-b-grey100 ">
-							<Typography 
-							 as="span"
-							 color="grey500"
-							 customClass="text-left block capitalize"
-							>
-							 {header.isPlaceholder
-							 ? null
-							 : flexRender(
-									 header.column.columnDef.header,
-									 header.getContext()
-								 )}
-							</Typography>
-					 </th>
-				 ))}
-			 </tr>
-			))}
-		 </thead>
-		 <tbody>
-			 {table.getRowModel().rows.map(row => (
-				 <tr key={row.id}>
-					 {row.getVisibleCells().map(cell => (
-						 <td 
-							key={cell.id} 
-							className="md:px-200 py-250 border-b border-b-grey100"
-						 >
-							 {flexRender(cell.column.columnDef.cell, cell.getContext())}
-						 </td>
-					 ))}
-				 </tr>
-			 ))}
-		 </tbody>
-		</table>
+		{!data || data.length === 0 
+			? emptyTableState 
+			: (
+			<>
+				{/* Table */}
+		 	<table>
+		 		<thead>
+						{table.getHeaderGroups().map(headerGroup => (
+							<tr key={headerGroup.id}>
+								{headerGroup.headers.map(header => (
+									<th key={header.id} className="px-200 py-250 md:border-b border-b-grey100 ">
+										<Typography 
+											as="span"
+											color="grey500"
+											customClass="text-left block capitalize"
+										>
+											{header.isPlaceholder
+											? null
+											: flexRender(
+													header.column.columnDef.header,
+													header.getContext()
+												)}
+										</Typography>
+									</th>
+								))}
+							</tr>
+						))}
+		 		</thead>
+					<tbody>
+						{table.getRowModel().rows.map(row => (
+							<tr key={row.id}>
+								{row.getVisibleCells().map(cell => (
+									<td 
+									key={cell.id} 
+									className="md:px-200 py-250 border-b border-b-grey100"
+									>
+										{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									</td>
+								))}
+							</tr>
+						))}
+					</tbody>
+				</table> 
 		
-		{/* Pagination */}
-		{enablePagination && (
-			<Pagination
-				pageCount={pageCount}
-				currentPage={currentPage || 0}
-				handlePageClick={handlePageClick}
-			/>
+				{/* Pagination */}
+				{enablePagination && (
+					<Pagination
+						pageCount={pageCount}
+						currentPage={currentPage || 0}
+						handlePageClick={handlePageClick}
+					/>
+				)}
+			</>
 		)}
-	 </div>
+		</div>
 	</TableWrapper>
  );
 }

@@ -27,4 +27,6 @@ export interface ISelectFieldProps {
 	selectPlaceholder?: string;
 	selectDefaultValue?: IOptionType;
 	selectCustomClass?: string;
+	selectValue?: IOptionType;
+	selectOnChange?: (selected: IOptionType) => void;
 };

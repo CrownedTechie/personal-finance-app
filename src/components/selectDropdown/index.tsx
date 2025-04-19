@@ -9,6 +9,8 @@ export interface ISelectDropdownProps {
  placeholder?: string;
  defaultValue?: IOptionType;
  customClass?: string;
+	selectValue?: IOptionType;
+	selectOnChange?: (selected: IOptionType) => void;
 }
 
 const dot = (color?: string) => ({
@@ -111,7 +113,9 @@ export const SelectDropdown = ({
  options,
  placeholder = "Select a value", 
  defaultValue,
- customClass
+ customClass,
+	selectValue,
+	selectOnChange,
 }: ISelectDropdownProps) => {
  return ( 
 	<Select 
@@ -119,6 +123,12 @@ export const SelectDropdown = ({
 	 options={options}
 	 styles={selectStyles}
 	 placeholder={placeholder}
+		value={selectValue}
+		onChange={(selected) => {
+			if (selectOnChange && selected) {
+				selectOnChange(selected as IOptionType);
+			}
+		}}
 	 components={{ 
 		DropdownIndicator: CustomDropdownIndicator,
 		IndicatorSeparator: () => null,
