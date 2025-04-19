@@ -6,7 +6,7 @@ export const AppLayout = () => {
  const [isOpen, setIsOpen] = useState<boolean>(true);
 
  return (  
-  <div className="border-blue flex flex-col-reverse lg:flex-row w-screen max-h-screen bg-beige100">
+  <div className="flex flex-col-reverse lg:flex-row w-screen max-h-screen bg-beige100">
    <Sidebar 
     isOpen={isOpen}
     setIsOpen={setIsOpen}

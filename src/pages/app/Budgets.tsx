@@ -39,11 +39,12 @@ export const Budgets = () => {
 
 	return ( 
 		<div className="flex flex-col gap-400">
-		<header>
+		<header className="xl:sticky xl:top-0 xl:z-10 xl:bg-transparent/70 xl:backdrop-blur">
 			<ContentHeader
 			title="budgets" 
 			as="h1"
 			fontWeight="bold"
+			customClass="w-full"
 			buttonGroup={
 			<Button
 				variant="primary"
@@ -57,7 +58,7 @@ export const Budgets = () => {
 
 		<section className="grid grid-cols-1 xl:grid-cols-5 gap-300">
 			{/* Spending summary card */}
-			<article className="bg-white rounded-150 px-250 py-300 md:p-400 max-h-[37.5rem] xl:col-span-2 flex flex-col gap-300 md:flex-row md:gap-400 xl:gap-300 xl:flex-col">
+			<article className="bg-white rounded-150 px-250 py-300 md:p-400 max-h-[37.5rem] xl:col-span-2 flex flex-col gap-300 md:flex-row md:gap-400 xl:gap-300 xl:flex-col xl:sticky xl:top-[5rem]">
 			<div className="place-self-center">
 				<DoughnutChart 
 					data={modifiedBudgets.map((item) => item.maximum)}
@@ -97,7 +98,7 @@ export const Budgets = () => {
 			</article>
 
 			{/* Budget cards */}
-			<div className="flex flex-col justify-center gap-300 xl:col-span-3">
+			<div className="flex flex-col justify-center gap-300 xl:col-span-3 xl:overflow-y-auto xl:sticky xl:top-[5rem]">
 				{modifiedBudgets.map(item => (
 					<BudgetsCard
 						key={new Date().getTime() + item.category}
