@@ -1,14 +1,19 @@
 import { BillsSummaryList, ContentHeader, SummaryCard, TextField, Typography } from "@/components";
 import { Table } from "@/components/table";
-import { filterOptions } from "@/constants/data";
+import { filterOptions, transactions } from "@/constants/data";
 import { TransactionProps } from "@/constants/types";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { formattedAmount } from "@/utils/formatAmount";
 import { formattedDate } from "@/utils/formatDate";
 import { getRecurringBills } from "@/utils/getRecurringBills";
 import { ColumnDef } from "@tanstack/react-table";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { PiCheckCircleFill, PiMagnifyingGlass, PiReceiptLight, PiSortDescendingFill, PiWarningCircleFill } from "react-icons/pi";
+
+interface ISearchAndFiltersProps {
+	searchQuery: string;
+	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+}
 
 const columnsDesktop : ColumnDef<TransactionProps>[] = [
  {
@@ -116,7 +121,10 @@ const columnsMobile: ColumnDef<TransactionProps>[] =[
 	},
 ];
 
-const SearchAndFilters = () => {
+const SearchAndFilters = ({
+	searchQuery, 
+	setSearchQuery
+}: ISearchAndFiltersProps) => {
  const isDesktop = useMediaQuery("(min-width: 768px)");
 
  return (
@@ -125,6 +133,8 @@ const SearchAndFilters = () => {
 		id="transaction search"
 		fieldname="transaction search"
 		inputPlaceholder="Search transaction"
+		value={searchQuery}
+		onChange={e => setSearchQuery(e.target.value)}
 		icon={<PiMagnifyingGlass  className="size-200 text-grey900" />}
 		customClass="w-[17rem] md:w-[20rem]"
 	/>
@@ -156,8 +166,21 @@ export const RecurringBills = ({}) => {
 		dueSoon,
 		upcomingBills
 	} = getRecurringBills();
- 	const isDesktop = useMediaQuery("(min-width: 768px)");
+	const [searchQuery, setSearchQuery] = useState("");
+ const isDesktop = useMediaQuery("(min-width: 768px)");
 	const overallBills = recurringTransactions.reduce((sum, item) => sum + item.amount, 0);
+
+	const filteredRecurringTransactions = useMemo(() => {
+		let updatedTransactions = [...recurringTransactions];
+
+		if(searchQuery.trim()) {
+			updatedTransactions = updatedTransactions.filter(transaction => 
+				transaction.name.toLowerCase().includes(searchQuery.toLowerCase())
+			)
+		}
+
+		return updatedTransactions;
+	}, [recurringTransactions]);
 
 	const recurringBillsSummary = [
 		{ id: 1, title: "paid bills", amount: totalPaidBills, noOfTransations: paidBills.length + 1 },
@@ -218,9 +241,14 @@ export const RecurringBills = ({}) => {
 		{/* Recurring bills table */}
 		<div className="xl:col-span-4">
 		 <Table<TransactionProps>
-			dataList={recurringTransactions}
+			dataList={filteredRecurringTransactions}
 			columns={columns}
-			additionalTableData={<SearchAndFilters />}
+			additionalTableData={
+				<SearchAndFilters 
+					searchQuery={searchQuery}
+					setSearchQuery={setSearchQuery}
+				/>
+			}
 			enablePagination={false}
 		 />
 		</div>
