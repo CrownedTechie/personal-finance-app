@@ -1,6 +1,7 @@
 import { BillsSummaryList, ContentHeader, SummaryCard, TextField, Typography } from "@/components";
+import { IOptionType } from "@/components/selectDropdown/types";
 import { Table } from "@/components/table";
-import { filterOptions, transactions } from "@/constants/data";
+import { filterOptions } from "@/constants/data";
 import { TransactionProps } from "@/constants/types";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { formattedAmount } from "@/utils/formatAmount";
@@ -13,6 +14,8 @@ import { PiCheckCircleFill, PiMagnifyingGlass, PiReceiptLight, PiSortDescendingF
 interface ISearchAndFiltersProps {
 	searchQuery: string;
 	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+	sortOption: IOptionType;
+	setSortOption: React.Dispatch<React.SetStateAction<IOptionType>>;
 }
 
 const columnsDesktop : ColumnDef<TransactionProps>[] = [
@@ -123,7 +126,9 @@ const columnsMobile: ColumnDef<TransactionProps>[] =[
 
 const SearchAndFilters = ({
 	searchQuery, 
-	setSearchQuery
+	setSearchQuery,
+	sortOption,
+	setSortOption
 }: ISearchAndFiltersProps) => {
  const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -146,7 +151,9 @@ const SearchAndFilters = ({
 		 fieldType="select"
 		 labelText="Sort by"
 		 selectOptions={filterOptions}
-		 selectDefaultValue={filterOptions[0]}
+		 selectDefaultValue={sortOption}
+			selectValue={sortOption}
+			selectOnChange={(selected) => setSortOption(selected)}
 		 customClass="flex-row items-center gap-100"
 		 labelTextFontWeight="regular"
 		 selectCustomClass="w-[7rem]"
@@ -166,7 +173,8 @@ export const RecurringBills = ({}) => {
 		dueSoon,
 		upcomingBills
 	} = getRecurringBills();
-	const [searchQuery, setSearchQuery] = useState("");
+	const [searchQuery, setSearchQuery] = useState<string>("");
+	const [sortOption, setSortOption] = useState<IOptionType>(filterOptions[0])
  const isDesktop = useMediaQuery("(min-width: 768px)");
 	const overallBills = recurringTransactions.reduce((sum, item) => sum + item.amount, 0);
 
@@ -178,6 +186,25 @@ export const RecurringBills = ({}) => {
 				transaction.name.toLowerCase().includes(searchQuery.toLowerCase())
 			)
 		}
+
+		updatedTransactions.sort((a, b) => {
+			switch (sortOption.value) {
+				case "latest":
+					return new	Date(b.date).getTime() - new Date(a.date).getTime();
+				case "oldest":
+						return new	Date(a.date).getTime() - new Date(b.date).getTime();
+				case "a to z":
+					return a.name.localeCompare(b.name);
+				case "z to a":
+					return b.name.localeCompare(a.name);
+				case "highest":
+					return b.amount - a.amount;
+				case "lowest":
+					return a.amount - b.amount;
+				default:
+					return 0;
+			}
+		})
 
 		return updatedTransactions;
 	}, [recurringTransactions]);
@@ -247,6 +274,8 @@ export const RecurringBills = ({}) => {
 				<SearchAndFilters 
 					searchQuery={searchQuery}
 					setSearchQuery={setSearchQuery}
+					sortOption={sortOption}
+					setSortOption={setSortOption}
 				/>
 			}
 			enablePagination={false}
